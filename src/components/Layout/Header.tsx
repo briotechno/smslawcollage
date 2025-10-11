@@ -20,7 +20,17 @@ const menuItems = [
       { name: "Internal Complaint Committee", href: "/student/internal-complaint-committee" }
     ]
   },
-  { name: "Achievements", href: "/achievements" },
+  { 
+    name: "Achievements", 
+    href: "/achievements",
+    hasDropdown: true,
+    dropdownItems: [
+      { name: "Academic Achievements", href: "/achievements/academic-achievements" },
+      { name: "Sports Achievements", href: "/achievements/sports-achievements" },
+      { name: "Cultural Achievements", href: "/achievements/cultural-achievements" },
+      { name: "Participation", href: "/achievements/participation" }
+    ]
+  },
   { name: "Admission", href: "/admission" },
 ];
 
