@@ -3,14 +3,23 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 
 const menuItems = [
   { name: "About Us", href: "/" },
   { name: "Academics", href: "/academics" },
   { name: "Skill Development", href: "/skill-development" },
   { name: "Research - Clinic", href: "/research-clinic" },
-  { name: "Student", href: "/student" },
-  { name: "Media Gallery", href: "/media-gallery" },
+  { 
+    name: "Student", 
+    href: "/student",
+    hasDropdown: true,
+    dropdownItems: [
+      { name: "Grievance Redress Committee", href: "/student/grievance-redress-committee" },
+      { name: "Anti-Ragging Committee", href: "/student/anti-ragging-committee" },
+      { name: "Internal Complaint Committee", href: "/student/internal-complaint-committee" }
+    ]
+  },
   { name: "Achievements", href: "/achievements" },
   { name: "Admission", href: "/admission" },
 ];
@@ -18,6 +27,7 @@ const menuItems = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,14 +75,38 @@ export default function Header() {
           {/* Desktop Menu */}
           <nav className="hidden xl:flex items-center space-x-1">
             {menuItems.map((item) => (
-              <Link
+              <div
                 key={item.name}
-                href={item.href}
-                className="relative px-4 py-2 text-sm font-medium text-white hover:text-purple-200 transition-all duration-200 group"
+                className="relative"
+                onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                <span className="relative z-10">{item.name}</span>
-                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-purple-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></div>
-              </Link>
+                <Link
+                  href={item.href}
+                  className="relative px-4 py-2 text-sm font-medium text-white hover:text-purple-200 transition-all duration-200 group flex items-center gap-1"
+                >
+                  <span className="relative z-10">{item.name}</span>
+                  {item.hasDropdown && (
+                    <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+                  )}
+                  <div className="absolute inset-x-0 bottom-0 h-0.5 bg-purple-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></div>
+                </Link>
+                
+                {/* Dropdown Menu */}
+                {item.hasDropdown && activeDropdown === item.name && (
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                    {item.dropdownItems?.map((dropdownItem) => (
+                      <Link
+                        key={dropdownItem.name}
+                        href={dropdownItem.href}
+                        className="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200"
+                      >
+                        {dropdownItem.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 
