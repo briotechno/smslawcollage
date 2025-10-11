@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SMS Law College - Premier Legal Education in Ahmedabad",
-  description: "SMS Law College offers comprehensive legal education with B.A.LL.B, B.B.A.LL.B, and LL.M programs. Join our legacy of legal excellence in Ahmedabad.",
-  keywords: "law college, legal education, B.A.LL.B, B.B.A.LL.B, LL.M, Ahmedabad, legal studies, law school",
+  title: "SMS Law College - Premier Legal Education in Mehasana",
+  description: "SMS Law College offers comprehensive legal education with B.A.LL.B, B.B.A.LL.B, and LL.M programs. Join our legacy of legal excellence in Mehasana.",
+  keywords: "law college, legal education, B.A.LL.B, B.B.A.LL.B, LL.M, Mehasana, legal studies, law school",
   authors: [{ name: "SMS Law College" }],
   creator: "SMS Law College",
   publisher: "SMS Law College",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "SMS Law College - Premier Legal Education in Ahmedabad",
-    description: "SMS Law College offers comprehensive legal education with B.A.LL.B, B.B.A.LL.B, and LL.M programs. Join our legacy of legal excellence in Ahmedabad.",
+    title: "SMS Law College - Premier Legal Education in Mehasana",
+    description: "SMS Law College offers comprehensive legal education with B.A.LL.B, B.B.A.LL.B, and LL.M programs. Join our legacy of legal excellence in Mehasana.",
     url: "https://smslawcollege.edu",
     siteName: "SMS Law College",
     images: [
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SMS Law College - Premier Legal Education in Ahmedabad",
-    description: "SMS Law College offers comprehensive legal education with B.A.LL.B, B.B.A.LL.B, and LL.M programs. Join our legacy of legal excellence in Ahmedabad.",
+    title: "SMS Law College - Premier Legal Education in Mehsana",
+    description: "SMS Law College offers comprehensive legal education with B.A.LL.B, B.B.A.LL.B, and LL.M programs. Join our legacy of legal excellence in Mehasana.",
     images: ["/assets/Slider1.jpg"],
   },
   robots: {

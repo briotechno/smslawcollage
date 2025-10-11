@@ -98,7 +98,7 @@ const AcademicAchievementsPage = () => {
     },
     {
       title: "National Moot Court Competition",
-      description: "Ms. Riyah Sindhi (VI), Mr. Arshad Shaikh (VI) and Ms. Tanmayi Poojari (IV) secured 1st Runner-up position with cash prize of rupees 50,000, at 3rd Late Girishbhai Patel National Moot Court competition at L.J. College, Ahmedabad, 2019.",
+      description: "Ms. Riyah Sindhi (VI), Mr. Arshad Shaikh (VI) and Ms. Tanmayi Poojari (IV) secured 1st Runner-up position with cash prize of rupees 50,000, at 3rd Late Girishbhai Patel National Moot Court competition at L.J. College, Mehasana, 2019.",
       year: "2019",
       category: "Moot Court",
       award: "1st Runner-up",

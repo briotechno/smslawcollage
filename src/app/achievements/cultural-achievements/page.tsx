@@ -27,7 +27,7 @@ const CulturalAchievementsPage = () => {
   const achievements = [
     {
       title: "Athena Moot Court Competition Winners",
-      description: "Mr. Niel Bhatt (II), Mr. Jaydev Chudasma (IV) and Ms. Radhika Buddha (VI) secured first position with cash prize of rupees 3000/- at Athena Moot Court Competition hosted by National Literary and Cultural Competition - L.J. College, Ahmedabad, 2019.",
+      description: "Mr. Niel Bhatt (II), Mr. Jaydev Chudasma (IV) and Ms. Radhika Buddha (VI) secured first position with cash prize of rupees 3000/- at Athena Moot Court Competition hosted by National Literary and Cultural Competition - L.J. College, Mehasana, 2019.",
       year: "2019",
       category: "Moot Court",
       award: "1st Position",
@@ -37,7 +37,7 @@ const CulturalAchievementsPage = () => {
     },
     {
       title: "Debate and Elocution Champions",
-      description: "Mr. Vrund Joshi (II), Ms. Nandini Hirani (II) and Mr. Shyam Naik (VIII) secured first position in debate and in Elocution competition at Athena Moot Court Competition hosted by National Literary and Cultural Competition - L.J. College, Ahmedabad, 2019.",
+      description: "Mr. Vrund Joshi (II), Ms. Nandini Hirani (II) and Mr. Shyam Naik (VIII) secured first position in debate and in Elocution competition at Athena Moot Court Competition hosted by National Literary and Cultural Competition - L.J. College, Mehasana, 2019.",
       year: "2019",
       category: "Debate & Elocution",
       award: "1st Position",

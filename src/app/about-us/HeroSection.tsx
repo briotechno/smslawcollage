@@ -84,32 +84,32 @@ const HeroSection = () => {
               {/* Content Overlay */}
               <div className="absolute inset-0 flex items-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                  <div className="max-w-2xl">
-                    <div className="mb-6">
-                      <span className="inline-block px-4 py-2 bg-purple-600/90 text-white text-sm font-semibold rounded-full mb-4">
+                  <div className="max-w-2xl xl:max-w-3xl">
+                    <div className="mb-4 sm:mb-6">
+                      <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
                         About SMS Law College
                       </span>
                     </div>
 
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                       Excellence in
                       <span className="block text-purple-300">
                         Legal Education
                       </span>
                     </h1>
 
-                    <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed">
+                    <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-xl">
                       Empowering future legal professionals with comprehensive
                       education, practical training, and ethical values that
                       shape tomorrow's justice system.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2">
-                        <Play className="w-5 h-5" />
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                      <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base">
+                        <Play className="w-4 h-4 sm:w-5 sm:h-5" />
                         Watch Our Story
                       </button>
-                      <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105">
+                      <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 text-sm sm:text-base">
                         Explore Programs
                       </button>
                     </div>

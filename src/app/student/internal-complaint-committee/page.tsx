@@ -153,7 +153,7 @@ const InternalComplaintCommittee = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[60vh] overflow-hidden">
+      <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/Slider3.jpg"
@@ -167,14 +167,14 @@ const InternalComplaintCommittee = () => {
 
         <div className="relative z-10 flex items-center h-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-3xl">
+            <div className="max-w-2xl xl:max-w-3xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="mb-6"
+                className="mb-4 sm:mb-6"
               >
-                <span className="inline-block px-4 py-2 bg-purple-600/90 text-white text-sm font-semibold rounded-full mb-4">
+                <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
                   Academic Year 2024-25
                 </span>
               </motion.div>
@@ -183,7 +183,7 @@ const InternalComplaintCommittee = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
               >
                 Internal Complaint
                 <span className="block text-purple-300">Committee</span>
@@ -193,7 +193,7 @@ const InternalComplaintCommittee = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed"
+                className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-xl"
               >
                 The Internal Complaints Committee (ICC) is constituted as per UGC Regulations, 2015,
                 and the Sexual Harassment of Women at Workplace Act, 2013, to deal with complaints
