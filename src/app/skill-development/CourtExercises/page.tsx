@@ -2,7 +2,7 @@ import React from 'react'
 
 const CourtExercises = () => {
     return (
-        <div id="Intra-Moot-Court-Exercises" className="py-20">
+        <div id="Intra-Moot-Court-Exercises" className="bg-gray-50 py-40">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
                     Intra Moot <span className="text-purple-600"> Court Exercises:

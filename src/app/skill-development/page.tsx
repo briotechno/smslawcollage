@@ -1,6 +1,6 @@
-import CourtExercises from "./CourtExercises";
-import Debate from "./Debate";
-import ElocutionPublicSpeaking from "./ElocutionPublicSpeaking";
+import CourtExercises from "./CourtExercises/page";
+import Debate from "./Debate/page";
+import ElocutionPublicSpeaking from "./ElocutionPublicSpeaking/page";
 
 export default function SkillDevelopmentPage() {
   return (

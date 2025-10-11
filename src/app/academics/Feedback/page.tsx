@@ -45,7 +45,7 @@ const Feedback = () => {
   };
 
   return (
-    <section id="Feedback" className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+    <section id="Feedback" className="bg-gray-50 py-40 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Title */}
         <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">

@@ -1,12 +1,11 @@
 import React from 'react'
 
-const ElocutionPublicSpeaking = () => {
+const Debate = () => {
     return (
-        <div id="Elocution-Public-Speaking" className="pt-20">
+        <div id="Debate" className="bg-gray-50 py-40">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
-                    Elocution <span className="text-purple-600"> & Public Speaking
-                    </span>
+                    About <span className="text-purple-600">Debate</span>
                 </h1>
                 <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
                 <div className="space-y-2">
@@ -20,4 +19,4 @@ const ElocutionPublicSpeaking = () => {
     )
 }
 
-export default ElocutionPublicSpeaking
+export default Debate

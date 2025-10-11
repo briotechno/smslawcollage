@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Internship = () => {
   return (
-    <section id="Internship" className="bg-gray-50 min-h-screen pt-24 pb-16">
+    <section id="Internship" className="bg-gray-50 min-h-screen py-40 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl text-center font-bold text-gray-900 mb-3">

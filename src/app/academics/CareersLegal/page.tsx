@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
-const LegalEducation = () => {
+const CareersLegal = () => {
   return (
-    <div id="legal-education" className="pt-20">
+    <div id="Careers-Legal" className="bg-gray-50 py-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
-          About <span className="text-purple-600">Legal education in India</span>
+          Careers <span className="text-purple-600">in Legal Field</span>
         </h1>
         <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
         <div className="space-y-2">
@@ -17,7 +17,7 @@ const LegalEducation = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LegalEducation;
+export default CareersLegal

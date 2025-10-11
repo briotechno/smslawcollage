@@ -1,11 +1,11 @@
-import CareersLegal from "./CareersLegal";
-import Faculty from "./Faculty";
-import Feedback from "./Feedback";
-import Internship from "./Internship";
-import LegalEducation from "./LegalEducation";
-import Mentors from "./Mentors";
-import SpecialLectures from "./SpecialLectures";
-import Syllabus from "./Syllabus";
+import CareersLegal from "./CareersLegal/page";
+import Faculty from "./Faculty/page";
+import Feedback from "./Feedback/page";
+import Internship from "./Internship/page";
+import LegalEducation from "./LegalEducation/page";
+import Mentors from "./Mentors/page";
+import SpecialLectures from "./SpecialLectures/page";
+import Syllabus from "./Syllabus/page";
 
 export default function AcademicsPage() {
   return (

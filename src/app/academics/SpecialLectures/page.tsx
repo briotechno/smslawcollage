@@ -1,7 +1,7 @@
 import React from "react";
 
 const SpecialLectures = () => {
-  return <div id="Special-Lectures" className="pt-20">
+  return <div id="Special-Lectures" className="bg-gray-50 py-40">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
         Special Lectures

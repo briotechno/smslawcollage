@@ -7,11 +7,32 @@ import { ChevronDown } from "lucide-react";
 
 const menuItems = [
   { name: "About Us", href: "/" },
-  { name: "Academics", href: "/academics" },
-  { name: "Skill Development", href: "/skill-development" },
+  {
+    name: "Academics", href: "/academics",
+    hasDropdown: true,
+    dropdownItems: [
+      { name: "Legal Education In India", href: "/academics/LegalEducation" },
+      { name: "Careers in Legal Field", href: "/academics/CareersLegal" },
+      { name: "Syllabus", href: "/academics/Syllabus" },
+      { name: "Internship", href: "/academics/Internship" },
+      { name: "Mentors On Campus", href: "/academics/Mentors" },
+      { name: "Special Lectures by Experts on Campus", href: "/academics/SpecialLectures" },
+      { name: "Faculty Profile", href: "/academics/Faculty" },
+      { name: "Feedback", href: "/academics/Feedback" },
+    ]
+  },
+  {
+    name: "Skill Development", href: "/skill-development",
+    hasDropdown: true,
+    dropdownItems: [
+      { name: "Debate", href: "/skill-development/Debate" },
+      { name: "Elocution & Public Speaking:", href: "/skill-development/ElocutionPublicSpeaking" },
+      { name: "Intra Moot Court Exercises:", href: "/skill-development/CourtExercises" },
+    ]
+  },
   { name: "Research - Clinic", href: "/research-clinic" },
-  { 
-    name: "Student", 
+  {
+    name: "Student",
     href: "/student",
     hasDropdown: true,
     dropdownItems: [
@@ -20,8 +41,8 @@ const menuItems = [
       { name: "Internal Complaint Committee", href: "/student/internal-complaint-committee" }
     ]
   },
-  { 
-    name: "Achievements", 
+  {
+    name: "Achievements",
     href: "/achievements",
     hasDropdown: true,
     dropdownItems: [
@@ -51,11 +72,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-purple-900/95 backdrop-blur-md shadow-lg border-b border-purple-700"
-          : "bg-gradient-to-r from-purple-900 to-purple-800 shadow-sm"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? "bg-purple-900/95 backdrop-blur-md shadow-lg border-b border-purple-700"
+        : "bg-gradient-to-r from-purple-900 to-purple-800 shadow-sm"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
@@ -101,7 +121,7 @@ export default function Header() {
                   )}
                   <div className="absolute inset-x-0 bottom-0 h-0.5 bg-purple-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></div>
                 </Link>
-                
+
                 {/* Dropdown Menu */}
                 {item.hasDropdown && activeDropdown === item.name && (
                   <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
@@ -137,19 +157,16 @@ export default function Header() {
             aria-label="Toggle menu"
           >
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileMenuOpen ? "rotate-45 translate-y-1" : "-translate-y-1"
-              }`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-1" : "-translate-y-1"
+                }`}
             />
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
             />
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileMenuOpen ? "-rotate-45 -translate-y-1" : "translate-y-1"
-              }`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-1" : "translate-y-1"
+                }`}
             />
           </button>
         </div>
@@ -157,11 +174,10 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`xl:hidden transition-all duration-300 ease-in-out ${
-          mobileMenuOpen
-            ? "max-h-screen opacity-100"
-            : "max-h-0 opacity-0 overflow-hidden"
-        }`}
+        className={`xl:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen
+          ? "max-h-screen opacity-100"
+          : "max-h-0 opacity-0 overflow-hidden"
+          }`}
       >
         <div className="bg-purple-800 border-t border-purple-700 shadow-lg">
           <nav className="px-4 py-2">

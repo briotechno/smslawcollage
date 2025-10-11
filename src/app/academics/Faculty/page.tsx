@@ -41,7 +41,7 @@ const mentors = [
 
 const Faculty = () => {
   return (
-    <div id="Faculty" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div id="Faculty" className="bg-gray-50 py-40 px-4 sm:px-6 lg:px-8">
       {/* Title */}
       <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
         Faculty <span className="text-purple-600">Profile</span>
@@ -49,7 +49,7 @@ const Faculty = () => {
       <div className="w-24 h-1 bg-purple-600 mx-auto mb-12"></div>
 
       {/* Faculty List */}
-      <div className="space-y-12">
+      <div className="space-y-12 max-w-7xl mx-auto">
         {mentors.map((mentor, index) => (
           <div
             key={index}
