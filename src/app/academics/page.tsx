@@ -1,19 +1,23 @@
-import Faculty from "./Faculty";
-import Internship from "./Internship";
-import LegalEducation from "./LegalEducation";
-import Mentors from "./Mentors";
-import SpecialLectures from "./SpecialLectures";
-import Syllabus from "./Syllabus";
+import CareersLegal from "./CareersLegal/page";
+import Faculty from "./Faculty/page";
+import Feedback from "./Feedback/page";
+import Internship from "./Internship/page";
+import LegalEducation from "./LegalEducation/page";
+import Mentors from "./Mentors/page";
+import SpecialLectures from "./SpecialLectures/page";
+import Syllabus from "./Syllabus/page";
 
 export default function AcademicsPage() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <LegalEducation />
+      <CareersLegal />
       <Syllabus />
       <Internship />
       <Mentors />
       <SpecialLectures />
       <Faculty />
+      <Feedback />
     </div>
   );
 }
