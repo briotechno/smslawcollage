@@ -25,11 +25,10 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
         {/* Quick Contact Form */}
         <div>
-          <h3 className="text-lg font-semibold mb-2 border-b-2 border-blue-500 inline-block">
+          <h3 className="text-lg font-semibold mb-2 border-b-2 border-[#0073aa] inline-block">
             Quick Contact
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-
             <form className="flex flex-col gap-3 mt-4">
               <input
                 type="text"
@@ -53,7 +52,7 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="bg-[#1d4e89] text-white py-2 px-4 text-sm rounded hover:bg-blue-700 transition"
+                className="bg-[#0073aa] text-white py-2 px-4 text-sm rounded hover:bg-blue-700 transition"
               >
                 SUBMIT
               </button>
@@ -61,7 +60,13 @@ export default function Footer() {
             {/* Contact Info & Social Icons */}
             <div>
               <div className="mt-8 md:mt-0 m-5">
-                <p>SMS,<br />Law COLLAGE, Law COLLAGE,<br />Ahmedabad – 380 006.</p>
+                <p>
+                  SMS,
+                  <br />
+                  Law COLLAGE, Law COLLAGE,
+                  <br />
+                  Ahmedabad – 380 006.
+                </p>
                 <p className="mt-2">Phone: </p>
                 <p>Email: </p>
 
@@ -87,7 +92,7 @@ export default function Footer() {
 
         {/* Photo Gallery */}
         <div>
-          <h3 className="text-lg font-semibold mb-2 border-b-2 border-blue-500 inline-block">
+          <h3 className="text-lg font-semibold mb-2 border-b-2 border-[#0073aa] inline-block">
             Photo Gallery
           </h3>
           <div className="grid grid-cols-3 gap-2 mt-4">
@@ -110,13 +115,20 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-600 mt-10 border-t pt-4 gap-2 text-center">
         <p>
-          © Copyright {new Date().getFullYear()} SMSLAWCOLLAGE. All Rights Reserved.
+          © Copyright {new Date().getFullYear()} SMSLAWCOLLAGE. All Rights
+          Reserved.
         </p>
         <p className="mt-1 cursor-pointer">
-          Maintained By <span className="text-blue-700 font-medium">BRIOTECHNO</span>
+          Maintained By{" "}
+          <a
+            href="https://www.briotechno.com/"
+            target="_blank"
+            className="text-[#0073aa] font-bold hover:underline"
+          >
+            BRIOTECHNO
+          </a>
         </p>
       </div>
-
     </footer>
   );
 }

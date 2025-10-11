@@ -1,7 +1,7 @@
 import React from "react";
 
-const internship = () => {
+const Internship = () => {
   return <div></div>;
 };
 
-export default internship;
+export default Internship;

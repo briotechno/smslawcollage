@@ -2,10 +2,10 @@ import React from "react";
 
 const AboutClg = () => {
   return (
-    <div className="bg-white py-10" id="about-sms-law-collage">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-1">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
-          SMS LAW COLLEGE
+    <div className="bg-white py-10">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-3">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#0073aa] mb-8">
+          SMS Law Collage
         </h1>
 
         <div className="space-y-6 text-gray-700 text-justify text-base sm:text-lg leading-relaxed">

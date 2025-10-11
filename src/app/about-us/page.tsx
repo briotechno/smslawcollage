@@ -1,10 +1,17 @@
+import AboutClg from "./AboutClg";
 import HeroSection from "./HeroSection";
+import KnowledgeResource from "./Knowledge";
+import Resource from "./Resource";
+import VisionMission from "./VisionMission";
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div className="">
       <HeroSection />
-      <AboutUsPage />
+      <AboutClg />
+      <VisionMission />
+      <KnowledgeResource />
+      <Resource />
     </div>
   );
 }

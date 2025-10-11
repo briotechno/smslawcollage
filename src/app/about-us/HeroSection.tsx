@@ -53,7 +53,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="w-full" id="image-slider">
+    <div className="w-full">
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index}>
