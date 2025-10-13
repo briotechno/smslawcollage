@@ -97,7 +97,7 @@ const LegalEducation = () => {
                 transition={{ duration: 0.8 }}
                 className="mb-4 sm:mb-6"
               >
-                <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
+                <span className="inline-block px-3 sm:px-4 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
                   Legal Education
                 </span>
               </motion.div>
@@ -106,7 +106,7 @@ const LegalEducation = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight"
               >
                 Legal Education
                 <span className="block text-purple-300">in India</span>
