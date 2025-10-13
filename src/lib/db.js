@@ -1,12 +1,12 @@
-// lib/db.js
 import mysql from "mysql2/promise";
 
 export async function connectDB() {
   const connection = await mysql.createConnection({
-    host: "localhost",        // or your DB host
+    host: "127.0.0.1",        // localhost works too
     user: "root",             // your MySQL username
-    password: "Admin@1234", // your MySQL password
-    database: "smslawcollage", // your DB name
+    password: "",        // your MySQL password
+    database: "smslawcollage", // the DB you want to use
+    port: 3306
   });
   return connection;
 }
