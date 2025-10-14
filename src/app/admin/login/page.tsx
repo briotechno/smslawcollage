@@ -35,27 +35,27 @@ const Loginpage = () => {
 
     setError(newError);
     if (hasError) return;
+    router.push("/admin/dashboard");
+    // try {
+    //   const res = await fetch("https://dummyjson.com/auth/login", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({ username: email, password, expiresInMins: 30 }),
+    //   });
 
-    try {
-      const res = await fetch("https://dummyjson.com/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: email, password, expiresInMins: 30 }),
-      });
+    //   const data = await res.json();
 
-      const data = await res.json();
-
-      if (res.ok) {
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("user", JSON.stringify(data));
-        // router.push("/dashboard");
-      } else {
-        alert(data.message || "Login failed");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong!");
-    }
+    //   if (res.ok) {
+    //     localStorage.setItem("isLoggedIn", "true");
+    //     localStorage.setItem("user", JSON.stringify(data));
+    //     router.push("/admin/dashboard");
+    //   } else {
+    //     alert(data.message || "Login failed");
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    //   alert("Something went wrong!");
+    // }
   };
 
   return (
