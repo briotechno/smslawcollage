@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FaUser, FaCog, FaSignOutAlt, FaKey, FaTachometerAlt } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -127,6 +127,22 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // mobile drawer
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // desktop collapse
+
+  // hydrate collapse state from localStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("admin.sidebarCollapsed");
+      if (stored === "true") setSidebarCollapsed(true);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("admin.sidebarCollapsed", sidebarCollapsed ? "true" : "false");
+    } catch {}
+  }, [sidebarCollapsed]);
 
   const menuItems = [
     { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
@@ -146,81 +162,187 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
 
   return (
     <div className="min-h-screen flex bg-gray-100">
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 bg-purple-600 text-white flex flex-col sticky top-0 h-screen overflow-y-auto">
-        <div className="p-6 text-2xl font-bold border-b">
-          Admin Panel
+      <aside
+        className={
+          `fixed md:sticky top-0 left-0 z-50 h-screen overflow-y-auto bg-purple-600 text-white flex flex-col 
+           transition-all duration-300 ease-in-out 
+           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 
+           ${sidebarCollapsed ? 'md:w-16' : 'md:w-64'} w-64`
+        }
+        aria-label="Sidebar"
+      >
+        <div className={`flex items-center justify-between border-b ${sidebarCollapsed ? 'p-4' : 'p-6'}`}>
+          <div className={`text-2xl font-bold ${sidebarCollapsed ? 'opacity-0 md:opacity-0' : 'opacity-100'} transition-opacity`}>
+            Admin Panel
+          </div>
+          {/* Close on mobile */}
+          <button
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md hover:bg-white/10 transition-colors"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close sidebar"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
-        <nav className="flex-1 p-4 space-y-2">
-          {menuItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className={`flex items-center gap-3 p-2 rounded-md transition-colors ${
-                pathname === item.href || 
-                (item.href !== "#" && pathname.startsWith(item.href))
-                  ? 'bg-white text-purple-600' 
-                  : 'hover:bg-white hover:text-black'
-              }`}
-            >
-              {item.icon} {item.name}
-            </a>
-          ))}
+        <nav className={`flex-1 ${sidebarCollapsed ? 'p-2' : 'p-4'} space-y-1`}>
+          {menuItems.map((item) => {
+            const active = pathname === item.href || (item.href !== "#" && pathname.startsWith(item.href));
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                title={item.name}
+                className={`group flex items-center ${sidebarCollapsed ? 'justify-center px-2' : 'gap-3 px-3'} py-2 rounded-md transition-all duration-200 
+                  ${active ? 'bg-white text-purple-700 shadow-sm' : 'hover:bg-white/10'} 
+                `}
+              >
+                <span className="text-lg shrink-0">{item.icon}</span>
+                <span className={`whitespace-nowrap transition-all duration-200 ${sidebarCollapsed ? 'opacity-0 md:opacity-0 pointer-events-none w-0 overflow-hidden' : 'opacity-100 w-auto'}`}>
+                  {item.name}
+                </span>
+              </a>
+            );
+          })}
         </nav>
+        
+        {/* Mobile Footer */}
+        <div className="md:hidden p-4 border-t border-purple-500">
+          <div className="flex items-center gap-3">
+            <img
+              src="https://i.pravatar.cc/40"
+              alt="profile"
+              className="w-10 h-10 rounded-full border-2 border-white/20"
+            />
+            <div>
+              <p className="text-sm font-medium">Admin User</p>
+              <p className="text-xs text-purple-200">Administrator</p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Collapse toggle (desktop only) */}
+        <div className={`border-t ${sidebarCollapsed ? 'p-2' : 'p-4'} hidden md:block`}>
+          <button
+            onClick={() => setSidebarCollapsed((v) => !v)}
+            className={`w-full bg-white/10 hover:bg-white/20 rounded-md transition-colors ${sidebarCollapsed ? 'px-2 py-2' : 'px-3 py-2'}`}
+            aria-pressed={sidebarCollapsed}
+            aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            <div className="flex items-center justify-center">
+              <svg 
+                className={`w-5 h-5 transition-transform duration-200 ${sidebarCollapsed ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              {!sidebarCollapsed && (
+                <span className="ml-2 text-sm transition-opacity duration-200">
+                  Collapse
+                </span>
+              )}
+            </div>
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-h-0">
+      <div className={`flex-1 flex flex-col min-h-0 transition-[margin] duration-300`}>        
         {/* Top Navbar */}
-        <header className="flex items-center justify-between bg-white shadow px-6 py-4 sticky top-0 z-30">
-          <div>
-            {title && <h1 className="text-2xl font-bold text-gray-900">{title}</h1>}
-            {subtitle && <p className="text-gray-600">{subtitle}</p>}
+        <header className="flex items-center justify-between bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 sticky top-0 z-30">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+            {/* Hamburger for mobile */}
+            <button
+              className="md:hidden inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-md hover:bg-gray-100 transition-colors"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Open sidebar"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            
+            <div className="min-w-0 flex-1">
+              {title && (
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 tracking-tight truncate">
+                  {title}
+                </h1>
+              )}
+              {subtitle && (
+                <p className="text-gray-600 text-xs sm:text-sm lg:text-base truncate">
+                  {subtitle}
+                </p>
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            {actions && <div>{actions}</div>}
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+            {actions && <div className="hidden sm:block">{actions}</div>}
             
             {/* Admin Profile Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-2 focus:outline-none"
+                className="flex items-center gap-1 sm:gap-2 focus:outline-none rounded-md px-1 sm:px-2 py-1 hover:bg-gray-100 transition-colors"
+                aria-haspopup="menu"
+                aria-expanded={dropdownOpen}
               >
-                <span className="text-gray-700 font-medium">Admin</span>
+                <span className="text-gray-700 font-medium hidden lg:inline text-sm">Admin</span>
                 <img
                   src="https://i.pravatar.cc/40"
                   alt="profile"
-                  className="w-10 h-10 rounded-full border-2 border-gray-300"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-gray-300"
                 />
               </button>
 
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                  <button
-                    onClick={() => {
-                      setModalOpen(true);
-                      setDropdownOpen(false);
-                    }}
-                    className="flex items-center gap-2 w-full px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                  >
-                    <FaKey /> Change Password
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-2 w-full px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                  >
-                    <FaSignOutAlt /> Logout
-                  </button>
-                </div>
+                <>
+                  <div 
+                    className="fixed inset-0 z-40" 
+                    onClick={() => setDropdownOpen(false)}
+                    aria-hidden="true"
+                  />
+                  <div className="absolute right-0 mt-2 w-48 sm:w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-scale-in">
+                    <button
+                      onClick={() => {
+                        setModalOpen(true);
+                        setDropdownOpen(false);
+                      }}
+                      className="flex items-center gap-2 w-full px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors text-sm"
+                    >
+                      <FaKey className="w-4 h-4" /> Change Password
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 w-full px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors text-sm"
+                    >
+                      <FaSignOutAlt className="w-4 h-4" /> Logout
+                    </button>
+                  </div>
+                </>
               )}
             </div>
           </div>
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
-          {children}
+        <main className="flex-1 p-3 sm:p-4 lg:p-6 bg-gray-50 overflow-y-auto animate-fade-in">
+          <div className="max-w-full mx-auto">
+            {children}
+          </div>
         </main>
       </div>
 
