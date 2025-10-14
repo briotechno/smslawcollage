@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminLayout from "@/components/Admin/AdminLayout";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 interface Achievement {
   id: string;
@@ -48,6 +49,7 @@ interface Achievement {
 
 const AdminAchievementsPage = () => {
   const router = useRouter();
+  const { showToast } = useToast();
   const [selectedType, setSelectedType] = useState<'academic' | 'cultural' | 'sports' | 'participation'>('academic');
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -139,6 +141,12 @@ const AdminAchievementsPage = () => {
     setAchievements(prev => prev.filter(achievement => achievement.id !== deletingAchievement.id));
     setShowDeleteModal(false);
     setDeletingAchievement(null);
+    
+    showToast({
+      type: "success",
+      title: "Achievement Deleted",
+      message: `"${deletingAchievement.title}" has been successfully deleted.`
+    });
   };
 
   const openDeleteModal = (achievement: Achievement) => {
