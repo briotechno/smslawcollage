@@ -150,12 +150,12 @@ const AdminDashboard = () => {
     };
 
     const menuItems = [
-        { name: "Dashboard", icon: <FaTachometerAlt />, href: "#" },
-        { name: "Achievements", icon: <FaUser />, href: "#" },
+        { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
+        { name: "Achievements", icon: <FaUser />, href: "/admin/achievements" },
         { name: "Admission", icon: <FaCog />, href: "#" },
         { name: "Calendar", icon: <FaTachometerAlt />, href: "#" },
-        { name: "News & Announcements", icon: <FaUser />, href: "#" },
-        { name: "Faculty", icon: <FaCog />, href: "#" },
+        { name: "News & Announcements", icon: <FaUser />, href: "/admin/news" },
+        { name: "Faculty", icon: <FaCog />, href: "/admin/faculty" },
         { name: "Moot Court", icon: <FaCog />, href: "#" },
         { name: "Legal Aid Clinic", icon: <FaCog />, href: "#" },
     ];
@@ -242,7 +242,14 @@ const AdminDashboard = () => {
                             >
                                 <h1 className="text-gray-500 text-medium">{card.title}</h1>
                                 <p className="text-2xl font-bold mt-2">{card.value}</p>
-                                <button className="mt-4 border text-purple-600 hover:underline cursor-pointer">
+                                <button 
+                                    onClick={() => {
+                                        if (card.title === "Achievements") {
+                                            router.push("/admin/achievements");
+                                        }
+                                    }}
+                                    className="mt-4 border text-purple-600 hover:underline cursor-pointer"
+                                >
                                     View
                                 </button>
                             </div>
