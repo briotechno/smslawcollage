@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 
- const eventsData = [
+export const events = [
     {
         date: "2025-10-15",
         title: "Guest Lecture on Corporate Law",
@@ -68,7 +68,7 @@ const Eventpage = () => {
 
                 {/* Event List */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {eventsData.map((event, index) => (
+                    {events.map((event, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 30 }}
