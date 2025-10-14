@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, X, Check, ArrowLeft } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 interface Achievement {
   id: string;
@@ -22,6 +23,7 @@ interface Achievement {
 
 const AddAchievementPage = () => {
   const router = useRouter();
+  const { showToast } = useToast();
   const [formData, setFormData] = useState<Partial<Achievement>>({
     title: "",
     description: "",
@@ -43,7 +45,11 @@ const AddAchievementPage = () => {
       !formData.year ||
       !formData.category
     ) {
-      alert("Please fill in all required fields");
+      showToast({
+        type: "error",
+        title: "Validation Error",
+        message: "Please fill in all required fields"
+      });
       return;
     }
 
@@ -51,7 +57,11 @@ const AddAchievementPage = () => {
     console.log("Adding achievement:", formData);
 
     // Show success message
-    alert("Achievement added successfully!");
+    showToast({
+      type: "success",
+      title: "Achievement Added",
+      message: `"${formData.title}" has been successfully added!`
+    });
 
     // Navigate back to achievements page
     router.push("/admin/achievements");
@@ -59,11 +69,16 @@ const AddAchievementPage = () => {
 
   const addParticipant = () => {
     const participant = prompt("Enter participant name:");
-    if (participant) {
+    if (participant && participant.trim()) {
       setFormData((prev) => ({
         ...prev,
-        participants: [...(prev.participants || []), participant],
+        participants: [...(prev.participants || []), participant.trim()],
       }));
+      showToast({
+        type: "success",
+        title: "Participant Added",
+        message: `${participant.trim()} has been added to the achievement.`
+      });
     }
   };
 

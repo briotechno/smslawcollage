@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Check, Upload } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 interface FacultyForm {
   name: string;
@@ -16,6 +17,7 @@ interface FacultyForm {
 
 const FacultyAddPage = () => {
   const router = useRouter();
+  const { showToast } = useToast();
   const [form, setForm] = useState<FacultyForm>({
     name: "",
     title: "",
@@ -38,11 +40,19 @@ const FacultyAddPage = () => {
 
   const submit = () => {
     if (!form.name || !form.title || !form.post) {
-      alert("Please fill required fields (name, title, post)");
+      showToast({
+        type: "error",
+        title: "Validation Error",
+        message: "Please fill required fields (name, title, post)"
+      });
       return;
     }
     console.log("Create faculty:", form);
-    alert("Faculty added successfully!");
+    showToast({
+      type: "success",
+      title: "Faculty Added",
+      message: `"${form.name}" has been successfully added to the faculty!`
+    });
     router.push("/admin/faculty");
   };
 

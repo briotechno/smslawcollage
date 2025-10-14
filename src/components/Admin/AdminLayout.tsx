@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FaUser, FaCog, FaSignOutAlt, FaKey, FaTachometerAlt } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useToast } from "../Toast/ToastProvider";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -25,17 +26,30 @@ const ChangePasswordModal = ({
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const { showToast } = useToast();
 
   const handleSubmit = () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      alert("Please enter all passwords");
+      showToast({
+        type: "error",
+        title: "Validation Error",
+        message: "Please enter all passwords"
+      });
       return;
     }
     if (newPassword !== confirmPassword) {
-      alert("New password and confirm password do not match!");
+      showToast({
+        type: "error",
+        title: "Password Mismatch",
+        message: "New password and confirm password do not match!"
+      });
       return;
     }
-    alert("Password changed successfully!");
+    showToast({
+      type: "success",
+      title: "Password Updated",
+      message: "Your password has been changed successfully!"
+    });
     onClose();
     setCurrentPassword("");
     setNewPassword("");
