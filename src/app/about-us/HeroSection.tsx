@@ -10,7 +10,9 @@ import {
   Award,
   Users,
   BookOpen,
+  X,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -24,9 +26,16 @@ const images = [
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    // Open popup automatically when page loads
+    const timer = setTimeout(() => setShowPopup(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     arrows: false,
     infinite: true,
     speed: 800,
@@ -34,29 +43,13 @@ const HeroSection = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
-    beforeChange: (oldIndex: number, newIndex: number) =>
-      setCurrentSlide(newIndex),
+    beforeChange: (_: number, newIndex: number) => setCurrentSlide(newIndex),
     customPaging: (i: number) => (
       <div
-        className={`w-3 h-3 rounded-full transition-all duration-300 ${
-          i === currentSlide ? "bg-white scale-125" : "bg-white/50"
-        }`}
+        className={`w-3 h-3 rounded-full transition-all duration-300 ${i === currentSlide ? "bg-white scale-125" : "bg-white/50"
+          }`}
       />
     ),
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
   };
 
   const stats = [
@@ -65,51 +58,53 @@ const HeroSection = () => {
     { icon: BookOpen, number: "15+", label: "Years Experience" },
   ];
 
+  const items = [
+    { text: "Annual Newsletter Vidhaan", color: "text-red-600" },
+    { text: "BCI Affiliation: 2025-26", color: "text-yellow-700" },
+    { text: "SMS Law College Brochure", color: "text-purple-700" },
+  ];
+
   return (
-    <div className="relative w-full h-[100vh]  overflow-hidden">
+    <div className="relative w-full h-[130vh] lg:h-[130vh]  overflow-hidden">
+      {/* Slider */}
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index}>
-            <div className="relative w-full h-[70vh] lg:h-[80vh]">
+            <div className="relative w-full h-[100vh]">
               <Image
                 src={src}
                 alt={`SMS Law College ${index + 1}`}
                 fill
-                style={{ objectFit: "cover" }}
+                // style={{ objectFit: "cov er" }}
                 priority={index === 0}
               />
-              {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-
-              {/* Content Overlay */}
               <div className="absolute inset-0 flex items-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                   <div className="max-w-2xl xl:max-w-3xl">
-                    <div className="mb-4 sm:mb-6">
-                      <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
-                        About SMS Law College
-                      </span>
-                    </div>
+                    <span className="inline-block px-4 py-2 bg-purple-600/90 text-white text-sm font-semibold rounded-full mb-4">
+                      About SMS Law College
+                    </span>
 
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
                       Excellence in
                       <span className="block text-purple-300">
                         Legal Education
                       </span>
                     </h1>
 
-                    <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-xl">
+                    <p className="text-lg text-gray-200 mb-8 leading-relaxed max-w-xl">
                       Empowering future legal professionals with comprehensive
                       education, practical training, and ethical values that
                       shape tomorrow's justice system.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                      <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base">
-                        <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2">
+                        <Play className="w-5 h-5" />
                         Watch Our Story
                       </button>
-                      <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 text-sm sm:text-base">
+                      <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105">
                         Explore Programs
                       </button>
                     </div>
@@ -127,7 +122,7 @@ const HeroSection = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-600/10 rounded-full mb-4 group-hover:bg-purple-600/20 transition-colors duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-600/10 rounded-full mb-4 group-hover:bg-purple-600/20 transition">
                   <stat.icon className="w-8 h-8 text-purple-600" />
                 </div>
                 <div className="text-3xl font-bold text-gray-900 mb-2">
@@ -139,6 +134,47 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* ====== Announcement Popup ====== */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-white rounded-lg shadow-2xl w-[100%] h-75 max-w-md relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowPopup(false)}
+              className="absolute top-2 right-3 text-white hover:text-purple-600 text-2xl font-bold"
+            >
+              ×
+            </button>
+
+            <div className="bg-purple-700 text-white text-center py-3 rounded-t-lg font-bold text-lg">
+              Announcements
+            </div>
+
+            {/* Vertical Slider */}
+            <div className="overflow-hidden relative">
+              <motion.ul
+                className="space-y-2"
+                animate={{ y: ["100%", "-100%"] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              >
+                {[...items].map((item, index) => (
+                  <li
+                    key={index}
+                    className={`text-lg font-medium ${item.color} px-2`}>
+                    {item.text}
+                  </li>
+                ))}
+              </motion.ul>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   BookOpen,
@@ -10,15 +10,32 @@ import {
   Users,
   Award,
   FileText,
-  Search,
-  Download,
-  ExternalLink,
-  Clock,
   Star,
+  ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
 
 const Resource = () => {
+  const today = new Date();
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
+  const [currentYear, setCurrentYear] = useState(today.getFullYear());
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalEvents, setModalEvents] = useState<{ title: string; description: string }[]>([]);
+
+  const handleDayClick = (day: number) => {
+    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    const dayEvents = events.filter(e => e.date === dateStr);
+
+    if (dayEvents.length > 0) {
+      setModalEvents(dayEvents);
+      setModalOpen(true);
+    } else {
+      setModalEvents([]);
+      setModalOpen(false);
+    }
+  };
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -82,11 +99,80 @@ const Resource = () => {
     { number: "95%", label: "Student Satisfaction" },
   ];
 
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+
+  // First & last day of current month
+  const firstDay = new Date(currentYear, currentMonth, 1);
+  const lastDay = new Date(currentYear, currentMonth + 1, 0);
+
+  const daysInMonth = lastDay.getDate();
+  const startDay = firstDay.getDay(); // Sunday = 0
+
+  // Handlers for month change
+  const prevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+    setSelectedDay(null);
+  };
+
+  const nextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+    setSelectedDay(null);
+  };
+
+  // Events
+  const events = [
+    {
+      date: "2025-10-15",
+      title: "Guest Lecture on Corporate Law",
+      description: "Join our legal expert for a corporate law session.",
+      color: "bg-purple-600"
+    },
+    {
+      date: "2025-11-15",
+      title: "Guest Lecture on Corporate Law",
+      description: "Join our legal expert for a corporate law session.",
+      color: "bg-purple-600"
+    },
+    {
+      date: "2025-10-15",
+      title: "Seminar on Intellectual Property",
+      description: "Learn about IP laws in practice.",
+      color: "bg-blue-500"
+    },
+    {
+      date: "2025-10-20",
+      title: "Workshop on Legal Drafting",
+      description: "Hands-on workshop on drafting contracts.",
+      color: "bg-green-500"
+    },
+    {
+      date: "2025-10-25",
+      title: "Mock Trial Competition",
+      description: "Participate in a simulated court trial.",
+      color: "bg-red-500"
+    },
+  ];
+
+  const handleEventClick = (event: { title: string; description: string; color: string }) => {
+    setModalEvents([event]);
+    setModalOpen(true);
+  };
+
   return (
-    <section
-      className="py-20 bg-gradient-to-br from-gray-50 to-blue-50"
-      id="Knowledge-Resource-page"
-    >
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50" id="Knowledge-Resource-page">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <motion.div
@@ -104,9 +190,7 @@ const Resource = () => {
           </h1>
           <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Access comprehensive learning resources, digital libraries, and
-            academic support systems designed to enhance your legal education
-            journey.
+            Access comprehensive learning resources, digital libraries, and academic support systems designed to enhance your legal education journey.
           </p>
         </motion.div>
 
@@ -121,9 +205,7 @@ const Resource = () => {
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className="text-3xl font-bold text-purple-600 mb-2">
-                  {stat.number}
-                </div>
+                <div className="text-3xl font-bold text-purple-600 mb-2">{stat.number}</div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
               </div>
             </div>
@@ -145,24 +227,15 @@ const Resource = () => {
               <div className={`h-2 bg-gradient-to-r ${resource.color}`}></div>
               <div className="p-8">
                 <div className="flex items-center gap-4 mb-4">
-                  <div
-                    className={`w-12 h-12 bg-gradient-to-r ${resource.color} rounded-xl flex items-center justify-center`}
-                  >
+                  <div className={`w-12 h-12 bg-gradient-to-r ${resource.color} rounded-xl flex items-center justify-center`}>
                     <resource.icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
-                    {resource.title}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300">{resource.title}</h3>
                 </div>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  {resource.description}
-                </p>
+                <p className="text-gray-600 leading-relaxed mb-6">{resource.description}</p>
                 <div className="space-y-2">
-                  {resource.features.map((feature, featureIndex) => (
-                    <div
-                      key={featureIndex}
-                      className="flex items-center gap-2 text-sm text-gray-500"
-                    >
+                  {resource.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-sm text-gray-500">
                       <Star className="w-4 h-4 text-purple-600" />
                       {feature}
                     </div>
@@ -177,53 +250,168 @@ const Resource = () => {
           ))}
         </div>
 
-        {/* Additional Resources Section */}
+        {/* Calendar + News Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="bg-white rounded-2xl shadow-xl p-8 md:p-12"
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 my-16 max-w-7xl mx-auto"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Additional Learning Support
-              </h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                Beyond traditional resources, we provide comprehensive support
-                including research assistance, writing workshops, and access to
-                legal technology tools that prepare you for modern legal
-                practice.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Search className="w-5 h-5 text-purple-600" />
-                  <span className="text-gray-700">
-                    Advanced Search Capabilities
-                  </span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start flex-col">
+            {/* Calendar */}
+            <div className="text-center">
+              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900">
+                <span className="text-purple-600 mb-12">Calendar</span>
+              </h1>
+              <div className="w-32 h-1 bg-purple-600 mx-auto mt-4 rounded-full mb-12"></div>
+
+              <div className="bg-white rounded-2xl shadow-md p-6 md:p-8">
+                {/* Calendar Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <button
+                    onClick={prevMonth}
+                    className="px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold"
+                  >
+                    &lt; Prev
+                  </button>
+                  <h2 className="text-xl font-bold text-gray-800">{months[currentMonth]} {currentYear}</h2>
+                  <button
+                    onClick={nextMonth}
+                    className="px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold"
+                  >
+                    Next &gt;
+                  </button>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Download className="w-5 h-5 text-purple-600" />
-                  <span className="text-gray-700">
-                    Offline Access to Resources
-                  </span>
+
+                {/* Weekdays */}
+                <div className="grid grid-cols-7 text-center text-lg font-semibold text-gray-700 border-b pb-2 mb-3">
+                  <div>Sun</div>
+                  <div>Mon</div>
+                  <div>Tue</div>
+                  <div>Wed</div>
+                  <div>Thu</div>
+                  <div>Fri</div>
+                  <div>Sat</div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-purple-600" />
-                  <span className="text-gray-700">24/7 Technical Support</span>
+
+                {/* Dates */}
+                <div className="grid grid-cols-7 text-center text-gray-800 gap-y-3">
+                  {Array.from({ length: startDay }).map((_, i) => (
+                    <div key={`empty-${i}`}></div>
+                  ))}
+
+                  {Array.from({ length: daysInMonth }).map((_, i) => {
+                    const day = i + 1;
+                    const isToday =
+                      day === today.getDate() &&
+                      currentMonth === today.getMonth() &&
+                      currentYear === today.getFullYear();
+
+                    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+                    const dayEvents = events.filter((e) => e.date === dateStr);
+
+                    return (
+                      <div
+                        key={day}
+                        onClick={() => handleDayClick(day)}
+                        className={`relative py-2 rounded-lg cursor-pointer text-lg font-small transition-all duration-200 ${isToday ? "bg-purple-600 text-white font-bold shadow-md" : "hover:bg-purple-50"}`}
+                      >
+                        {day}
+
+                        {/* Multiple colored dots */}
+                        <div className="flex justify-center gap-1 mt-1">
+                          {dayEvents.map((event, idx) => (
+                            <span
+                              key={idx}
+                              className={`w-2 h-2 rounded-full cursor-pointer ${event.color}`}
+                              title={event.title}
+                              onClick={(e) => {
+                                e.stopPropagation(); // prevent parent day click
+                                handleEventClick(event);
+                              }}
+                            ></span>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
+
+
+                {/* Selected Day Events */}
+                {selectedDay && (
+                  <div className="mt-4 p-4 bg-purple-50 rounded-xl shadow-md text-left">
+                    <h3 className="text-xl font-bold text-purple-600 mb-2">
+                      Events on {selectedDay} {months[currentMonth]} {currentYear}
+                    </h3>
+                    {events.filter(e => e.date === `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(selectedDay).padStart(2, "0")}`)
+                      .map((event, idx) => (
+                        <div key={idx} className="mb-3 p-3 bg-white rounded-lg shadow hover:shadow-md transition">
+                          <h4 className="font-semibold text-gray-900">{event.title}</h4>
+                          <p className="text-gray-600">{event.description}</p>
+                        </div>
+                      ))}
+                    {events.filter(e => e.date === `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(selectedDay).padStart(2, "0")}`).length === 0 && (
+                      <p className="text-gray-600">No events scheduled for this day.</p>
+                    )}
+                  </div>
+                )}
+                {modalOpen && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                    <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl relative">
+                      <button
+                        onClick={() => setModalOpen(false)}
+                        className="absolute top-4 right-4 text-gray-500 hover:text-purple-600 font-bold text-xl"
+                      >
+                        ×
+                      </button>
+                      <h3 className="text-xl font-bold text-purple-600 mb-4">Event</h3>
+                      {modalEvents.map((event, idx) => (
+                        <div key={idx} className="mb-3 p-3 bg-gray-50 rounded-lg shadow">
+                          <h4 className="font-semibold text-gray-900">{event.title}</h4>
+                          <p className="text-gray-600">{event.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
               </div>
             </div>
-            <div className="relative">
-              <Image
-                src="/assets/Slider2.jpg"
-                alt="Learning Resources"
-                width={500}
-                height={400}
-                className="w-full h-[400px] object-cover rounded-xl shadow-lg"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
+
+            {/* News & Events Section */}
+            <div className="flex flex-col">
+              <div className="text-center mb-12">
+                <h1 className="text-4xl sm:text-5xl font-bold text-gray-900">
+                  News <span className="text-purple-600">& Events</span>
+                </h1>
+                <div className="w-32 h-1 bg-purple-600 mx-auto mt-4 rounded-full"></div>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden shadow-lg mb-6">
+                <Image
+                  src="/assets/Slider2.jpg"
+                  alt="Events"
+                  width={600}
+                  height={400}
+                  className="w-full h-[350px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6">
+                  <h2 className="text-2xl font-bold text-white mb-2">
+                    Upcoming Legal Workshops
+                  </h2>
+                  <p className="text-gray-200 text-sm">
+                    Join our interactive events and expand your legal expertise with professionals and mentors.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Additional Learning Support</h3>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Beyond traditional resources, we provide research assistance, writing workshops, and access to legal technology tools that prepare you for modern legal practice.
+                </p>
+              </div>
             </div>
           </div>
         </motion.div>
