@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Calendarpage = () => {
     const today = new Date();
@@ -105,21 +106,26 @@ const Calendarpage = () => {
 
                             <div className="bg-white rounded-2xl shadow-md p-6 md:p-8">
                                 {/* Header */}
+
                                 <div className="flex items-center justify-between mb-6">
                                     <button
                                         onClick={prevMonth}
-                                        className="px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold"
+                                        className="px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold flex items-center gap-2"
                                     >
-                                        &lt; Prev
+                                        <ChevronLeft className="w-5 h-5" />
+                                        Prev
                                     </button>
+
                                     <h2 className="text-xl font-bold text-gray-800">
                                         {months[currentMonth]} {currentYear}
                                     </h2>
+
                                     <button
                                         onClick={nextMonth}
-                                        className="px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold"
+                                        className="px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold flex items-center gap-2"
                                     >
-                                        Next &gt;
+                                        Next
+                                        <ChevronRight className="w-5 h-5" />
                                     </button>
                                 </div>
 
@@ -151,12 +157,12 @@ const Calendarpage = () => {
                                             <div
                                                 key={day}
                                                 onClick={() => handleDayClick(day)}
-                                                className={`relative py-2 rounded-lg cursor-pointer text-lg transition-all duration-200
-  ${isToday
+                                                className={`relative flex flex-col items-center justify-center py-2 mx-1 rounded-lg cursor-pointer text-lg transition-all duration-200 
+                                                    ${isToday
                                                         ? "bg-purple-600 text-white font-bold shadow-md"
                                                         : selectedDay === day
-                                                            ? "bg-purple-100 text-purple-800 font-semibold ring-2 ring-purple-400"
-                                                            : "hover:bg-purple-50"
+                                                            ? "bg-purple-100 text-purple-800 font-semibold r ring-purple-400 mx-1"
+                                                            : "hover:bg-purple-100 mx-1"
                                                     }`}
                                             >
                                                 {day}
