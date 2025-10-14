@@ -12,7 +12,7 @@ import {
   BookOpen,
   X,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -136,45 +136,63 @@ const HeroSection = () => {
       </div>
 
       {/* ====== Announcement Popup ====== */}
+
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white rounded-lg shadow-2xl w-[100%] h-75 max-w-md relative">
-            {/* Close Button */}
-            <button
-              onClick={() => setShowPopup(false)}
-              className="absolute top-2 right-3 text-white hover:text-purple-600 text-2xl font-bold"
+        <AnimatePresence>
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowPopup(false)}
+          >
+            <motion.div
+              className="bg-white rounded-lg shadow-2xl w-[100%] h-75 max-w-md relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              ×
-            </button>
-
-            <div className="bg-purple-700 text-white text-center py-3 rounded-t-lg font-bold text-lg">
-              Announcements
-            </div>
-
-            {/* Vertical Slider */}
-            <div className="overflow-hidden relative">
-              <motion.ul
-                className="space-y-2"
-                animate={{ y: ["100%", "-100%"] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
+              {/* Close Button */}
+              <button
+                onClick={() => setShowPopup(false)}
+                className="absolute top-2 right-3 text-white text-2xl font-bold"
               >
-                {[...items].map((item, index) => (
-                  <li
-                    key={index}
-                    className={`text-lg font-medium ${item.color} px-2`}>
-                    {item.text}
-                  </li>
-                ))}
-              </motion.ul>
-            </div>
+                ×
+              </button>
 
-          </div>
-        </div>
+              {/* Header */}
+              <div className="bg-purple-700 text-white text-center py-3 rounded-t-lg font-bold text-lg">
+                Announcements
+              </div>
+
+              {/* Vertical Scrolling Text */}
+              <div className="overflow-hidden relative h-70 flex">
+                <motion.ul
+                  className="space-y-2"
+                  animate={{ y: ["100%", "-100%"] }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  {items.map((item, index) => (
+                    <li
+                      key={index}
+                      className={`text-lg font-medium ${item.color} px-2`}
+                    >
+                      {item.text}
+                    </li>
+                  ))}
+                </motion.ul>
+              </div>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
       )}
+
     </div>
   );
 };
