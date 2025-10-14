@@ -103,9 +103,9 @@ const AddAchievementPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="min-h-screen h-screen flex bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-purple-600 text-white flex flex-col">
+      <aside className="w-64 bg-purple-600 text-white flex flex-col sticky top-0 h-screen overflow-y-auto">
         <div className="p-6 text-2xl font-bold border-b">Admin Panel</div>
         <nav className="flex-1 p-4 space-y-2">
           {menuItems.map((item) => (
@@ -125,9 +125,9 @@ const AddAchievementPage = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-h-0">
         {/* Top Navbar */}
-        <header className="flex items-center justify-between bg-white shadow px-6 py-4">
+        <header className="flex items-center justify-between bg-white shadow px-6 py-4 sticky top-0 z-30">
           <div className="flex items-center gap-4">
             <button
               onClick={() => router.push("/admin/achievements")}
@@ -136,12 +136,7 @@ const AddAchievementPage = () => {
               <ArrowLeft className="w-5 h-5" />
               Back to Achievements
             </button>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Add New Achievement
-              </h1>
-              <p className="text-gray-600">Create a new achievement record</p>
-            </div>
+           
           </div>
 
           {/* Admin Profile Dropdown */}
@@ -172,7 +167,7 @@ const AddAchievementPage = () => {
         </header>
 
         {/* Form Content */}
-        <main className="flex-1 p-6 bg-gray-50">
+        <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-sm p-8">
               <div className="flex justify-between items-center mb-8">
