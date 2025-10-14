@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 
-const events = [
+export const events = [
     {
         date: "2025-10-15",
         title: "Guest Lecture on Corporate Law",
