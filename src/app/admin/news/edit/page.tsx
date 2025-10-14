@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Check, Plus, X } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
@@ -45,7 +45,7 @@ const mockFetchById = async (id: string): Promise<NewsItemForm | null> => {
   return map[id] ?? null;
 };
 
-const EditNewsPage = () => {
+const EditNewsContent = () => {
   const router = useRouter();
   const params = useSearchParams();
   const id = params.get("id");
@@ -244,6 +244,20 @@ const EditNewsPage = () => {
         </div>
       </div>
     </AdminLayout>
+  );
+};
+
+const EditNewsPage = () => {
+  return (
+    <Suspense fallback={
+      <AdminLayout title="Edit News" subtitle="Update news item">
+        <div className="text-center py-12">
+          <div className="text-gray-500">Loading...</div>
+        </div>
+      </AdminLayout>
+    }>
+      <EditNewsContent />
+    </Suspense>
   );
 };
 

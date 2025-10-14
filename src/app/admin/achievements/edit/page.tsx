@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Plus,
@@ -25,7 +25,7 @@ interface Achievement {
   type: 'academic' | 'cultural' | 'sports' | 'participation';
 }
 
-const EditAchievementPage = () => {
+const EditAchievementContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const achievementId = searchParams.get('id');
@@ -423,6 +423,20 @@ const EditAchievementPage = () => {
         </div>
       </div>
     </AdminLayout>
+  );
+};
+
+const EditAchievementPage = () => {
+  return (
+    <Suspense fallback={
+      <AdminLayout title="Edit Achievement" subtitle="Update achievement details">
+        <div className="text-center py-12">
+          <div className="text-gray-500">Loading...</div>
+        </div>
+      </AdminLayout>
+    }>
+      <EditAchievementContent />
+    </Suspense>
   );
 };
 

@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Check } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
@@ -29,7 +29,7 @@ const mockFetchFaculty = async (id: string): Promise<FacultyForm | null> => {
   return null;
 };
 
-const FacultyEditPage = () => {
+const FacultyEditContent = () => {
   const router = useRouter();
   const params = useSearchParams();
   const id = params.get("id");
@@ -126,6 +126,20 @@ const FacultyEditPage = () => {
           </div>
         )}
     </AdminLayout>
+  );
+};
+
+const FacultyEditPage = () => {
+  return (
+    <Suspense fallback={
+      <AdminLayout title="Edit Faculty" subtitle="Update faculty member details">
+        <div className="text-center py-12">
+          <div className="text-gray-500">Loading...</div>
+        </div>
+      </AdminLayout>
+    }>
+      <FacultyEditContent />
+    </Suspense>
   );
 };
 
