@@ -155,7 +155,7 @@ const AdminDashboard = () => {
         { name: "Admission", icon: <FaCog />, href: "#" },
         { name: "Calendar", icon: <FaTachometerAlt />, href: "#" },
         { name: "News & Announcements", icon: <FaUser />, href: "/admin/news" },
-        { name: "Faculty", icon: <FaCog />, href: "#" },
+        { name: "Faculty", icon: <FaCog />, href: "/admin/faculty" },
         { name: "Moot Court", icon: <FaCog />, href: "#" },
         { name: "Legal Aid Clinic", icon: <FaCog />, href: "#" },
     ];
