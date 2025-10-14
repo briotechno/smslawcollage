@@ -1,94 +1,358 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { FaUser, FaCog, FaSignOutAlt, FaTachometerAlt } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { FaUser, FaCog, FaSignOutAlt, FaKey, FaTachometerAlt } from "react-icons/fa";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-type AdminActiveKey = "dashboard" | "achievements" | "news" | "admission" | "calendar" | "faculty" | "moot" | "legal";
-
-export default function AdminLayout({
-  active,
-  title,
-  subtitle,
-  actions,
-  children,
-}: {
-  active: AdminActiveKey;
-  title: string;
+interface AdminLayoutProps {
+  children: React.ReactNode;
+  title?: string;
   subtitle?: string;
   actions?: React.ReactNode;
-  children: React.ReactNode;
-}) {
-  const router = useRouter();
+}
+
+const ChangePasswordModal = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const handleSubmit = () => {
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      alert("Please enter all passwords");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      alert("New password and confirm password do not match!");
+      return;
+    }
+    alert("Password changed successfully!");
+    onClose();
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="bg-white rounded-lg shadow-lg w-96 p-6">
+        <h2 className="text-xl text-black font-semibold mb-4">Change Password</h2>
+        <div className="flex flex-col gap-3">
+          {/* Current Password */}
+          <div className="relative mb-3">
+            <input
+              type={showCurrent ? "text" : "password"}
+              placeholder="Current Password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="text-black border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <button
+              type="button"
+              onClick={() => setShowCurrent(!showCurrent)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            >
+              {showCurrent ? <AiFillEye /> : <AiFillEyeInvisible />}
+            </button>
+          </div>
+
+          {/* New Password */}
+          <div className="relative mb-3">
+            <input
+              type={showNew ? "text" : "password"}
+              placeholder="New Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="text-black border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <button
+              type="button"
+              onClick={() => setShowNew(!showNew)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            >
+              {showNew ? <AiFillEye /> : <AiFillEyeInvisible />}
+            </button>
+          </div>
+
+          {/* Confirm Password */}
+          <div className="relative mb-3">
+            <input
+              type={showConfirm ? "text" : "password"}
+              placeholder="Confirm New Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="text-black border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirm(!showConfirm)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            >
+              {showConfirm ? <AiFillEye /> : <AiFillEyeInvisible />}
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-end gap-3">
+          <button
+            className="px-4 py-2 rounded-md bg-gray-300 hover:bg-gray-400"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+          <button
+            className="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700"
+            onClick={handleSubmit}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, actions }) => {
+  const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // mobile drawer
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // desktop collapse
+
+  // hydrate collapse state from localStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("admin.sidebarCollapsed");
+      if (stored === "true") setSidebarCollapsed(true);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("admin.sidebarCollapsed", sidebarCollapsed ? "true" : "false");
+    } catch {}
+  }, [sidebarCollapsed]);
 
   const menuItems = [
-    { key: "dashboard", name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
-    { key: "achievements", name: "Achievements", icon: <FaUser />, href: "/admin/achievements" },
-    { key: "admission", name: "Admission", icon: <FaCog />, href: "#" },
-    { key: "calendar", name: "Calendar", icon: <FaTachometerAlt />, href: "#" },
-    { key: "news", name: "News & Announcements", icon: <FaUser />, href: "/admin/news" },
-    { key: "faculty", name: "Faculty", icon: <FaCog />, href: "/admin/faculty" },
-    { key: "moot", name: "Moot Court", icon: <FaCog />, href: "#" },
-    { key: "legal", name: "Legal Aid Clinic", icon: <FaCog />, href: "#" },
-  ] as const;
+    { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
+    { name: "Achievements", icon: <FaUser />, href: "/admin/achievements" },
+    { name: "Admission", icon: <FaCog />, href: "#" },
+    { name: "Calendar", icon: <FaTachometerAlt />, href: "#" },
+    { name: "News & Announcements", icon: <FaUser />, href: "/admin/news" },
+    { name: "Faculty", icon: <FaCog />, href: "/admin/faculty" },
+    { name: "Moot Court", icon: <FaCog />, href: "#" },
+    { name: "Legal Aid Clinic", icon: <FaCog />, href: "/admin/legal-aid" },
+  ];
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
-    router.push("/admin/login");
+    window.location.href = "/admin/login";
   };
 
   return (
-    <div className="min-h-screen h-screen flex bg-gray-100">
+    <div className="min-h-screen flex bg-gray-100">
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 bg-purple-600 text-white flex flex-col sticky top-0 h-screen overflow-y-auto">
-        <div className="p-6 text-2xl font-bold border-b">Admin Panel</div>
-        <nav className="flex-1 p-4 space-y-2">
-          {menuItems.map((item) => (
-            <a
-              key={item.key}
-              href={item.href}
-              className={`flex items-center gap-3 p-2 rounded-md transition-colors ${
-                active === item.key ? "bg-white text-purple-600" : "hover:bg-white hover:text-black"
-              }`}
-            >
-              {item.icon} {item.name}
-            </a>
-          ))}
+      <aside
+        className={
+          `fixed md:sticky top-0 left-0 z-50 h-screen overflow-y-auto bg-purple-600 text-white flex flex-col 
+           transition-all duration-300 ease-in-out 
+           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 
+           ${sidebarCollapsed ? 'md:w-16' : 'md:w-64'} w-64`
+        }
+        aria-label="Sidebar"
+      >
+        <div className={`flex items-center justify-between border-b ${sidebarCollapsed ? 'p-4' : 'p-6'}`}>
+          <div className={`text-2xl font-bold ${sidebarCollapsed ? 'opacity-0 md:opacity-0' : 'opacity-100'} transition-opacity`}>
+            Admin Panel
+          </div>
+          {/* Close on mobile */}
+          <button
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md hover:bg-white/10 transition-colors"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close sidebar"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav className={`flex-1 ${sidebarCollapsed ? 'p-2' : 'p-4'} space-y-1`}>
+          {menuItems.map((item) => {
+            const active = pathname === item.href || (item.href !== "#" && pathname.startsWith(item.href));
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                title={item.name}
+                className={`group flex items-center ${sidebarCollapsed ? 'justify-center px-2' : 'gap-3 px-3'} py-2 rounded-md transition-all duration-200 
+                  ${active ? 'bg-white text-purple-700 shadow-sm' : 'hover:bg-white/10'} 
+                `}
+              >
+                <span className="text-lg shrink-0">{item.icon}</span>
+                <span className={`whitespace-nowrap transition-all duration-200 ${sidebarCollapsed ? 'opacity-0 md:opacity-0 pointer-events-none w-0 overflow-hidden' : 'opacity-100 w-auto'}`}>
+                  {item.name}
+                </span>
+              </a>
+            );
+          })}
         </nav>
+        
+        {/* Mobile Footer */}
+        <div className="md:hidden p-4 border-t border-purple-500">
+          <div className="flex items-center gap-3">
+            <img
+              src="https://i.pravatar.cc/40"
+              alt="profile"
+              className="w-10 h-10 rounded-full border-2 border-white/20"
+            />
+            <div>
+              <p className="text-sm font-medium">Admin User</p>
+              <p className="text-xs text-purple-200">Administrator</p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Collapse toggle (desktop only) */}
+        <div className={`border-t ${sidebarCollapsed ? 'p-2' : 'p-4'} hidden md:block`}>
+          <button
+            onClick={() => setSidebarCollapsed((v) => !v)}
+            className={`w-full bg-white/10 hover:bg-white/20 rounded-md transition-colors ${sidebarCollapsed ? 'px-2 py-2' : 'px-3 py-2'}`}
+            aria-pressed={sidebarCollapsed}
+            aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            <div className="flex items-center justify-center">
+              <svg 
+                className={`w-5 h-5 transition-transform duration-200 ${sidebarCollapsed ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              {!sidebarCollapsed && (
+                <span className="ml-2 text-sm transition-opacity duration-200">
+                  Collapse
+                </span>
+              )}
+            </div>
+          </button>
+        </div>
       </aside>
 
-      {/* Main */}
-      <div className="flex-1 flex flex-col min-h-0">
-        <header className="flex items-center justify-between bg-white shadow px-6 py-4 sticky top-0 z-30">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-            {subtitle && <p className="text-gray-600">{subtitle}</p>}
+      {/* Main Content */}
+      <div className={`flex-1 flex flex-col min-h-0 transition-[margin] duration-300`}>        
+        {/* Top Navbar */}
+        <header className="flex items-center justify-between bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 sticky top-0 z-30">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+            {/* Hamburger for mobile */}
+            <button
+              className="md:hidden inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-md hover:bg-gray-100 transition-colors"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Open sidebar"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            
+            <div className="min-w-0 flex-1">
+              {title && (
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 tracking-tight truncate">
+                  {title}
+                </h1>
+              )}
+              {subtitle && (
+                <p className="text-gray-600 text-xs sm:text-sm lg:text-base truncate">
+                  {subtitle}
+                </p>
+              )}
+            </div>
           </div>
-          <div className="flex items-center gap-4">
-            {actions}
+
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+            {actions && <div className="hidden sm:block">{actions}</div>}
+            
+            {/* Admin Profile Dropdown */}
             <div className="relative">
-              <button onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-2 focus:outline-none">
-                <span className="text-gray-700 font-medium">Admin</span>
-                <img src="https://i.pravatar.cc/40" alt="profile" className="w-10 h-10 rounded-full border-2 border-gray-300" />
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center gap-1 sm:gap-2 focus:outline-none rounded-md px-1 sm:px-2 py-1 hover:bg-gray-100 transition-colors"
+                aria-haspopup="menu"
+                aria-expanded={dropdownOpen}
+              >
+                <span className="text-gray-700 font-medium hidden lg:inline text-sm">Admin</span>
+                <img
+                  src="https://i.pravatar.cc/40"
+                  alt="profile"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-gray-300"
+                />
               </button>
+
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                  <button onClick={handleLogout} className="flex items-center gap-2 w-full px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
-                    <FaSignOutAlt /> Logout
-                  </button>
-                </div>
+                <>
+                  <div 
+                    className="fixed inset-0 z-40" 
+                    onClick={() => setDropdownOpen(false)}
+                    aria-hidden="true"
+                  />
+                  <div className="absolute right-0 mt-2 w-48 sm:w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-scale-in">
+                    <button
+                      onClick={() => {
+                        setModalOpen(true);
+                        setDropdownOpen(false);
+                      }}
+                      className="flex items-center gap-2 w-full px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors text-sm"
+                    >
+                      <FaKey className="w-4 h-4" /> Change Password
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 w-full px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors text-sm"
+                    >
+                      <FaSignOutAlt className="w-4 h-4" /> Logout
+                    </button>
+                  </div>
+                </>
               )}
             </div>
           </div>
         </header>
 
-        <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
-          {children}
+        {/* Page Content */}
+        <main className="flex-1 p-3 sm:p-4 lg:p-6 bg-gray-50 overflow-y-auto animate-fade-in">
+          <div className="max-w-full mx-auto">
+            {children}
+          </div>
         </main>
       </div>
+
+      {/* Change Password Modal */}
+      <ChangePasswordModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
   );
-}
+};
 
-
+export default AdminLayout;

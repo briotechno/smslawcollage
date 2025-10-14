@@ -28,8 +28,8 @@ import {
   X,
   Check,
 } from "lucide-react";
-import { FaUser, FaCog, FaSignOutAlt, FaKey, FaTachometerAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import AdminLayout from "@/components/Admin/AdminLayout";
 
 interface Achievement {
   id: string;
@@ -53,23 +53,6 @@ const AdminAchievementsPage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletingAchievement, setDeletingAchievement] = useState<Achievement | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    router.push("/admin/login");
-  };
-
-  const menuItems = [
-    { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
-    { name: "Achievements", icon: <FaUser />, href: "/admin/achievements", active: true },
-    { name: "Admission", icon: <FaCog />, href: "#" },
-    { name: "Calendar", icon: <FaTachometerAlt />, href: "#" },
-    { name: "News & Announcements", icon: <FaUser />, href: "#" },
-    { name: "Faculty", icon: <FaCog />, href: "/faculty" },
-    { name: "Moot Court", icon: <FaCog />, href: "#" },
-    { name: "Legal Aid Clinic", icon: <FaCog />, href: "#" },
-  ];
 
   const achievementTypes = [
     { value: 'academic', label: 'Academic Achievements', icon: BookOpen, color: 'from-blue-500 to-blue-600' },
@@ -164,250 +147,191 @@ const AdminAchievementsPage = () => {
   };
 
   return (
-    <div className="min-h-screen h-screen flex bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-purple-600 text-white flex flex-col sticky top-0 h-screen overflow-y-auto">
-        <div className="p-6 text-2xl font-bold border-b">
-          Admin Panel
-        </div>
-        <nav className="flex-1 p-4 space-y-2">
-          {menuItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className={`flex items-center gap-3 p-2 rounded-md transition-colors ${
-                item.active 
-                  ? 'bg-white text-purple-600' 
-                  : 'hover:bg-white hover:text-black'
+    <AdminLayout 
+      title="Achievements Management" 
+      subtitle="Manage and organize all achievements"
+    >
+      {/* Achievement Type Selector */}
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Select Achievement Type</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {achievementTypes.map((type) => (
+            <button
+              key={type.value}
+              onClick={() => setSelectedType(type.value as any)}
+              className={`p-4 rounded-lg border-2 transition-all duration-200 ${
+                selectedType === type.value
+                  ? 'border-purple-500 bg-purple-50'
+                  : 'border-gray-200 bg-white hover:border-purple-300'
               }`}
             >
-              {item.icon} {item.name}
-            </a>
-          ))}
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-h-0">
-        {/* Top Navbar */}
-        <header className="flex items-center justify-between bg-white shadow px-6 py-4 sticky top-0 z-30">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Achievements Management</h1>
-            <p className="text-gray-600">Manage and organize all achievements</p>
-          </div>
-
-          {/* Admin Profile Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2 focus:outline-none"
-            >
-              <span className="text-gray-700 font-medium">Admin</span>
-              <img
-                src="https://i.pravatar.cc/40"
-                alt="profile"
-                className="w-10 h-10 rounded-full border-2 border-gray-300"
-              />
-            </button>
-
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 w-full px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                >
-                  <FaSignOutAlt /> Logout
-                </button>
-              </div>
-            )}
-          </div>
-        </header>
-
-        {/* Page Content */}
-        <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
-          {/* Achievement Type Selector */}
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Select Achievement Type</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {achievementTypes.map((type) => (
-                <button
-                  key={type.value}
-                  onClick={() => setSelectedType(type.value as any)}
-                  className={`p-4 rounded-lg border-2 transition-all duration-200 ${
-                    selectedType === type.value
-                      ? 'border-purple-500 bg-purple-50'
-                      : 'border-gray-200 bg-white hover:border-purple-300'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 bg-gradient-to-r ${type.color} rounded-lg flex items-center justify-center`}>
-                      <type.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="text-left">
-                      <div className={`font-medium ${selectedType === type.value ? 'text-purple-700' : 'text-gray-900'}`}>
-                        {type.label}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {achievements.length} achievements
-                      </div>
-                    </div>
+              <div className="flex items-center gap-3">
+                <div className={`w-10 h-10 bg-gradient-to-r ${type.color} rounded-lg flex items-center justify-center`}>
+                  <type.icon className="w-5 h-5 text-white" />
+                </div>
+                <div className="text-left">
+                  <div className={`font-medium ${selectedType === type.value ? 'text-purple-700' : 'text-gray-900'}`}>
+                    {type.label}
                   </div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Add Achievement Button */}
-          <div className="mb-6 flex justify-end">
-            <button
-              onClick={handleAddAchievement}
-              className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2"
-            >
-              <Plus className="w-5 h-5" />
-              Add Achievement
-            </button>
-          </div>
-
-          {/* Search and Filter */}
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    placeholder="Search achievements..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  />
+                  <div className="text-sm text-gray-500">
+                    {achievements.length} achievements
+                  </div>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center gap-2">
-                  <Filter className="w-4 h-4" />
-                  Filter
-                </button>
-              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Add Achievement Button */}
+      <div className="mb-6 flex justify-end">
+        <button
+          onClick={handleAddAchievement}
+          className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2"
+        >
+          <Plus className="w-5 h-5" />
+          Add Achievement
+        </button>
+      </div>
+
+      {/* Search and Filter */}
+      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search achievements..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
             </div>
           </div>
+          <div className="flex gap-2">
+            <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center gap-2">
+              <Filter className="w-4 h-4" />
+              Filter
+            </button>
+          </div>
+        </div>
+      </div>
 
-          {/* Achievements Table */}
-          <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">
-                {achievementTypes.find(t => t.value === selectedType)?.label} ({filteredAchievements.length})
-              </h3>
-            </div>
+      {/* Achievements Table */}
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
+            {achievementTypes.find(t => t.value === selectedType)?.label} ({filteredAchievements.length})
+          </h3>
+        </div>
 
-            {filteredAchievements.length === 0 ? (
-              <div className="text-center py-12">
-                <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No achievements found</h3>
-                <p className="text-gray-500 mb-4">
-                  {searchTerm ? 'Try adjusting your search criteria' : 'Start by adding a new achievement'}
-                </p>
-                {!searchTerm && (
-                  <button
-                    onClick={handleAddAchievement}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors"
-                  >
-                    Add First Achievement
-                  </button>
-                )}
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Achievement
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Year
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Category
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Award
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Participants
-                      </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {filteredAchievements.map((achievement) => (
-                      <tr key={achievement.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4">
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">
-                              {achievement.title}
-                            </div>
-                            <div className="text-sm text-gray-500 truncate max-w-xs">
-                              {achievement.description}
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {achievement.year}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
-                            {achievement.category}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {achievement.award}
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex flex-wrap gap-1">
-                            {achievement.participants.slice(0, 2).map((participant, index) => (
-                              <span
-                                key={index}
-                                className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
-                              >
-                                {participant}
-                              </span>
-                            ))}
-                            {achievement.participants.length > 2 && (
-                              <span className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full">
-                                +{achievement.participants.length - 2} more
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <div className="flex justify-end gap-2">
-                            <button
-                              onClick={() => handleEditAchievement(achievement)}
-                              className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50"
-                              title="Edit"
-                            >
-                              <Edit className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => openDeleteModal(achievement)}
-                              className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
-                              title="Delete"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+        {filteredAchievements.length === 0 ? (
+          <div className="text-center py-12">
+            <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No achievements found</h3>
+            <p className="text-gray-500 mb-4">
+              {searchTerm ? 'Try adjusting your search criteria' : 'Start by adding a new achievement'}
+            </p>
+            {!searchTerm && (
+              <button
+                onClick={handleAddAchievement}
+                className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors"
+              >
+                Add First Achievement
+              </button>
             )}
           </div>
-        </main>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Achievement
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Year
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Category
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Award
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Participants
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredAchievements.map((achievement) => (
+                  <tr key={achievement.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4">
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">
+                          {achievement.title}
+                        </div>
+                        <div className="text-sm text-gray-500 truncate max-w-xs">
+                          {achievement.description}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {achievement.year}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
+                        {achievement.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {achievement.award}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-wrap gap-1">
+                        {achievement.participants.slice(0, 2).map((participant, index) => (
+                          <span
+                            key={index}
+                            className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
+                          >
+                            {participant}
+                          </span>
+                        ))}
+                        {achievement.participants.length > 2 && (
+                          <span className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full">
+                            +{achievement.participants.length - 2} more
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => handleEditAchievement(achievement)}
+                          className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50"
+                          title="Edit"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => openDeleteModal(achievement)}
+                          className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Delete Confirmation Modal */}
@@ -443,7 +367,7 @@ const AdminAchievementsPage = () => {
           </div>
         </div>
       )}
-    </div>
+    </AdminLayout>
   );
 };
 
