@@ -136,7 +136,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
     { name: "News & Announcements", icon: <FaUser />, href: "/admin/news" },
     { name: "Faculty", icon: <FaCog />, href: "/admin/faculty" },
     { name: "Moot Court", icon: <FaCog />, href: "#" },
-    { name: "Legal Aid Clinic", icon: <FaCog />, href: "#" },
+    { name: "Legal Aid Clinic", icon: <FaCog />, href: "/admin/legal-aid" },
   ];
 
   const handleLogout = () => {
