@@ -12,8 +12,10 @@ import {
   FileText,
   Star,
   ExternalLink,
+  ArrowRight
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Resource = () => {
   const today = new Date();
@@ -24,6 +26,7 @@ const Resource = () => {
   const [modalEvents, setModalEvents] = useState<{ title: string; description: string }[]>([]);
 
   const handleDayClick = (day: number) => {
+    setSelectedDay(day);
     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
     const dayEvents = events.filter(e => e.date === dateStr);
 
@@ -315,7 +318,13 @@ const Resource = () => {
                       <div
                         key={day}
                         onClick={() => handleDayClick(day)}
-                        className={`relative py-2 rounded-lg cursor-pointer text-lg font-small transition-all duration-200 ${isToday ? "bg-purple-600 text-white font-bold shadow-md" : "hover:bg-purple-50"}`}
+                        className={`relative flex flex-col items-center justify-center py-2 rounded-lg cursor-pointer text-lg transition-all duration-200
+                          ${isToday
+                            ? "bg-purple-600 text-white font-bold shadow-md"
+                            : selectedDay === day
+                              ? "bg-purple-100 text-purple-800 font-semibold ring-2 ring-purple-400"
+                              : "hover:bg-purple-50"
+                          }`}
                       >
                         {day}
 
@@ -337,26 +346,16 @@ const Resource = () => {
                     );
                   })}
                 </div>
+                <div className="mt-6 flex justify-end">
+                  <Link href="/about-us/Calendar" passHref>
+                    <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2">
+                      View All
+                      <ArrowRight className="w-5 h-5" />
+                    </button>
+                  </Link>
+                </div>
 
-
-                {/* Selected Day Events */}
-                {selectedDay && (
-                  <div className="mt-4 p-4 bg-purple-50 rounded-xl shadow-md text-left">
-                    <h3 className="text-xl font-bold text-purple-600 mb-2">
-                      Events on {selectedDay} {months[currentMonth]} {currentYear}
-                    </h3>
-                    {events.filter(e => e.date === `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(selectedDay).padStart(2, "0")}`)
-                      .map((event, idx) => (
-                        <div key={idx} className="mb-3 p-3 bg-white rounded-lg shadow hover:shadow-md transition">
-                          <h4 className="font-semibold text-gray-900">{event.title}</h4>
-                          <p className="text-gray-600">{event.description}</p>
-                        </div>
-                      ))}
-                    {events.filter(e => e.date === `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(selectedDay).padStart(2, "0")}`).length === 0 && (
-                      <p className="text-gray-600">No events scheduled for this day.</p>
-                    )}
-                  </div>
-                )}
+                {/* Open model */}
                 {modalOpen && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
                     <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl relative">
@@ -411,6 +410,15 @@ const Resource = () => {
                 <p className="text-lg text-gray-600 leading-relaxed">
                   Beyond traditional resources, we provide research assistance, writing workshops, and access to legal technology tools that prepare you for modern legal practice.
                 </p>
+              </div>
+              <div className="mt-6 flex justify-end">
+                <Link href="/about-us/Events" passHref>
+                  <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2">
+                    View All
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+
+                </Link>
               </div>
             </div>
           </div>
