@@ -2,9 +2,9 @@
 "use client";
 
 import React, { useState } from "react";
-import AdminShell from "../../../../components/Layout/AdminShell";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Check } from "lucide-react";
+import AdminLayout from "@/components/Admin/AdminLayout";
 
 interface FacultyForm {
   name: string;
@@ -37,16 +37,18 @@ const FacultyAddPage = () => {
   };
 
   return (
-    <AdminShell>
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
-          <button onClick={() => router.push("/admin/faculty")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
-            <ArrowLeft className="w-5 h-5" /> Back to Faculty
-          </button>
-          <div />
-        </div>
+    <AdminLayout 
+      title="Add Faculty" 
+      subtitle="Create a new faculty member profile"
+    >
+      <div className="flex items-center justify-between mb-6">
+        <button onClick={() => router.push("/admin/faculty")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
+          <ArrowLeft className="w-5 h-5" /> Back to Faculty
+        </button>
+        <div />
+      </div>
 
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">Name *</label>
@@ -84,10 +86,9 @@ const FacultyAddPage = () => {
             <button onClick={submit} className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2">
               <Check className="w-4 h-4" /> Save Faculty
             </button>
-          </div>
         </div>
       </div>
-    </AdminShell>
+    </AdminLayout>
   );
 };
 

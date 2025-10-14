@@ -2,9 +2,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import AdminShell from "../../../../components/Layout/AdminShell";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Check } from "lucide-react";
+import AdminLayout from "@/components/Admin/AdminLayout";
 
 interface FacultyForm {
   name: string;
@@ -60,29 +60,31 @@ const FacultyEditPage = () => {
 
   if (!id) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <AdminLayout title="Faculty not found" subtitle="The requested faculty member could not be found">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Faculty not found</h1>
           <button onClick={() => router.push("/admin/faculty")} className="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 transition-colors">Back to Faculty</button>
         </div>
-      </div>
+      </AdminLayout>
     );
   }
 
   return (
-    <AdminShell>
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
-          <button onClick={() => router.push("/admin/faculty")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
-            <ArrowLeft className="w-5 h-5" /> Back to Faculty
-          </button>
-          <div />
-        </div>
+    <AdminLayout 
+      title="Edit Faculty" 
+      subtitle="Update faculty member profile"
+    >
+      <div className="flex items-center justify-between mb-6">
+        <button onClick={() => router.push("/admin/faculty")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
+          <ArrowLeft className="w-5 h-5" /> Back to Faculty
+        </button>
+        <div />
+      </div>
 
-        {!form ? (
-          <div className="text-center text-gray-600">Loading...</div>
-        ) : (
-          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
+      {!form ? (
+        <div className="text-center text-gray-600">Loading...</div>
+      ) : (
+        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">Name *</label>
@@ -123,8 +125,7 @@ const FacultyEditPage = () => {
             </div>
           </div>
         )}
-      </div>
-    </AdminShell>
+    </AdminLayout>
   );
 };
 
