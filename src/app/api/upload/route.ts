@@ -1,6 +1,7 @@
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import os from "os";
+import { BASE_URL } from "@/lib/config";
 
 export async function POST(request: Request) {
   try {
@@ -20,13 +21,9 @@ export async function POST(request: Request) {
       await mkdir(uploadDir, { recursive: true });
       await writeFile(filePath, buffer);
 
-      let baseUrl = request.headers.get("origin") || request.headers.get("referer") || "";
-      if (!baseUrl) {
-        baseUrl = "http://localhost:3000";
-      }
-      const imageUrl = `/upload/${filename}`;
-      const fullUrl = `${baseUrl.replace(/\/$/,"")}${imageUrl}`;
-      return Response.json({ success: true, url: imageUrl, fullUrl, filename, stored: 'public' });
+  const imageUrl = `/upload/${filename}`;
+  const fullUrl = `${BASE_URL}${imageUrl}`;
+  return Response.json({ success: true, url: imageUrl, fullUrl, filename, stored: 'public' });
     } catch (err: any) {
       // If the filesystem is read-only (common on serverless), fall back to temp dir and return a data URL
       const isReadOnly = err && (err.code === 'EROFS' || err.code === 'EACCES' || String(err).toLowerCase().includes('read-only'));
@@ -36,15 +33,16 @@ export async function POST(request: Request) {
           await mkdir(tmpDir, { recursive: true });
           const tmpPath = path.join(tmpDir, filename);
           await writeFile(tmpPath, buffer);
-          const dataUrl = `data:${(file as any).type || 'application/octet-stream'};base64,${buffer.toString('base64')}`;
+          const imageUrl = `/upload/${filename}`;
+          const fullUrl = `${BASE_URL}${imageUrl}`;
           return Response.json({
             success: true,
             stored: 'tmp',
             tmpPath,
             filename,
-            // Note: tmp files are ephemeral and not served by Next.js. Provide a data URL so the client can immediately use the image if needed.
-            dataUrl,
-            message: 'Deployment filesystem is read-only; file written to temporary dir. For persistent public hosting, configure external storage (S3, Cloud Storage) and return its URL.'
+            url: imageUrl,
+            fullUrl,
+            message: 'Filesystem is read-only in this environment; file was written to a temporary directory on the server. Temporary files are ephemeral and will not be served from the public site. For persistent public hosting, configure external storage (S3, Cloud Storage) and return its URL.'
           }, { status: 200 });
         } catch (tmpErr: any) {
           return Response.json({ success: false, error: String(tmpErr) }, { status: 500 });
