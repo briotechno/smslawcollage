@@ -318,12 +318,12 @@ const Resource = () => {
                       <div
                         key={day}
                         onClick={() => handleDayClick(day)}
-                        className={`relative flex flex-col items-center justify-center py-2 rounded-lg cursor-pointer text-lg transition-all duration-200
-                          ${isToday
+                        className={`relative flex flex-col items-center justify-center py-2 mx-1 rounded-lg cursor-pointer text-lg transition-all duration-200 
+                                                    ${isToday
                             ? "bg-purple-600 text-white font-bold shadow-md"
                             : selectedDay === day
-                              ? "bg-purple-100 text-purple-800 font-semibold ring-2 ring-purple-400"
-                              : "hover:bg-purple-50"
+                              ? "bg-purple-100 text-purple-800 font-semibold r ring-purple-400 mx-1"
+                              : "hover:bg-purple-100 mx-1"
                           }`}
                       >
                         {day}

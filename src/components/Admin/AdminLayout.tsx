@@ -187,7 +187,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
       {/* Sidebar */}
       <aside
         className={
-          `fixed md:sticky top-0 left-0 z-50 h-screen overflow-y-auto bg-purple-600 text-white flex flex-col 
+          `fixed md:sticky top-0 left-0 z-50 h-screen overflow-hidden bg-purple-600 text-white flex flex-col 
            transition-all duration-300 ease-in-out 
            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 
            ${sidebarCollapsed ? 'md:w-16' : 'md:w-64'} w-64`
