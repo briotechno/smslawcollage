@@ -76,8 +76,8 @@ const NewsAdminPage = () => {
   };
 
   return (
-    <AdminLayout 
-      title="News & Announcements" 
+    <AdminLayout
+      title="News & Announcements"
       subtitle="Manage all public news posts and announcements"
     >
       {/* Add */}
@@ -99,7 +99,7 @@ const NewsAdminPage = () => {
                 placeholder="Search by title, category, status, date"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full text-black pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
           </div>
@@ -158,8 +158,8 @@ const NewsAdminPage = () => {
                           item.status === "Published"
                             ? "px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full"
                             : item.status === "Draft"
-                            ? "px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full"
-                            : "px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full"
+                              ? "px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full"
+                              : "px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full"
                         }
                       >
                         {item.status}

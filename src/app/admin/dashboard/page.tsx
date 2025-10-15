@@ -3,22 +3,22 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { 
-  Trophy, 
-  UserPlus, 
-  Calendar, 
-  Newspaper, 
-  Users, 
-  Gavel, 
-  Scale,
-  TrendingUp,
-  Activity,
-  Clock,
-  Star,
-  Award,
-  ArrowRight,
-  Plus,
-  Eye
+import {
+    Trophy,
+    UserPlus,
+    Calendar,
+    Newspaper,
+    Users,
+    Gavel,
+    Scale,
+    TrendingUp,
+    Activity,
+    Clock,
+    Star,
+    Award,
+    ArrowRight,
+    Plus,
+    Eye
 } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
 
@@ -26,70 +26,70 @@ const AdminDashboard = () => {
     const router = useRouter();
 
     const cardData = [
-        { 
-            title: "Achievements", 
-            value: "47", 
-            change: "+12%", 
+        {
+            title: "Achievements",
+            value: "47",
+            change: "+12%",
             icon: Trophy,
             color: "from-yellow-400 to-orange-500",
             bgColor: "bg-gradient-to-br from-yellow-50 to-orange-50",
             route: "/admin/achievements",
             description: "Student achievements"
         },
-        { 
-            title: "Faculty", 
-            value: "23", 
-            change: "+3", 
+        {
+            title: "Faculty",
+            value: "23",
+            change: "+3",
             icon: Users,
             color: "from-blue-400 to-blue-600",
             bgColor: "bg-gradient-to-br from-blue-50 to-indigo-50",
             route: "/admin/faculty",
             description: "Faculty members"
         },
-        { 
-            title: "News & Announcements", 
-            value: "156", 
-            change: "+8", 
+        {
+            title: "News & Announcements",
+            value: "156",
+            change: "+8",
             icon: Newspaper,
             color: "from-green-400 to-green-600",
             bgColor: "bg-gradient-to-br from-green-50 to-emerald-50",
             route: "/admin/news",
             description: "Published articles"
         },
-        { 
-            title: "Legal Aid Clinic", 
-            value: "89", 
-            change: "+15%", 
+        {
+            title: "Legal Aid Clinic",
+            value: "89",
+            change: "+15%",
             icon: Scale,
             color: "from-purple-400 to-purple-600",
             bgColor: "bg-gradient-to-br from-purple-50 to-violet-50",
             route: "/admin/legal-aid",
             description: "Legal aid activities"
         },
-        { 
-            title: "Admission", 
-            value: "342", 
-            change: "+45", 
+        {
+            title: "Admission",
+            value: "342",
+            change: "+45",
             icon: UserPlus,
             color: "from-pink-400 to-pink-600",
             bgColor: "bg-gradient-to-br from-pink-50 to-rose-50",
             route: "#",
             description: "Applications received"
         },
-        { 
-            title: "Calendar", 
-            value: "28", 
-            change: "Current", 
+        {
+            title: "Calendar",
+            value: "28",
+            change: "Current",
             icon: Calendar,
             color: "from-indigo-400 to-indigo-600",
             bgColor: "bg-gradient-to-br from-indigo-50 to-blue-50",
             route: "#",
             description: "Upcoming events"
         },
-        { 
-            title: "Moot Court", 
-            value: "12", 
-            change: "+2", 
+        {
+            title: "Moot Court",
+            value: "12",
+            change: "+2",
             icon: Gavel,
             color: "from-red-400 to-red-600",
             bgColor: "bg-gradient-to-br from-red-50 to-pink-50",
@@ -123,8 +123,8 @@ const AdminDashboard = () => {
 
     const cardVariants = {
         hidden: { opacity: 0, y: 20 },
-        visible: { 
-            opacity: 1, 
+        visible: {
+            opacity: 1,
             y: 0,
             transition: {
                 duration: 0.5,
@@ -134,10 +134,12 @@ const AdminDashboard = () => {
     };
 
     return (
-        <AdminLayout title="Dashboard" subtitle="Welcome back! Here's what's happening at GLS Law College">
+        <AdminLayout 
+        title="Dashboard" 
+        subtitle="Welcome back! Here's what's happening at SMS Law College">
             <div className="space-y-8">
                 {/* Stats Overview */}
-                <motion.div 
+                <motion.div
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                     variants={containerVariants}
                     initial="hidden"
@@ -147,7 +149,7 @@ const AdminDashboard = () => {
                         <motion.div
                             key={card.title}
                             variants={cardVariants}
-                            whileHover={{ 
+                            whileHover={{
                                 y: -5,
                                 transition: { duration: 0.2 }
                             }}
@@ -157,17 +159,16 @@ const AdminDashboard = () => {
                             <div className="flex items-center justify-between mb-4">
                                 <div className={`p-3 rounded-lg bg-gradient-to-r ${card.color} shadow-lg`}>
                                     <card.icon className="w-6 h-6 text-white" />
-                    </div>
+                                </div>
                                 <div className="text-right">
                                     <div className="text-2xl font-bold text-gray-800">{card.value}</div>
-                                    <div className={`text-sm font-medium ${
-                                        card.change.includes('+') ? 'text-green-600' : 
-                                        card.change === 'Current' ? 'text-blue-600' : 'text-gray-600'
-                                    }`}>
+                                    <div className={`text-sm font-medium ${card.change.includes('+') ? 'text-green-600' :
+                                            card.change === 'Current' ? 'text-blue-600' : 'text-gray-600'
+                                        }`}>
                                         {card.change}
-                </div>
-            </div>
-        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div>
                                 <h3 className="font-semibold text-gray-800 mb-1">{card.title}</h3>
                                 <p className="text-sm text-gray-600 mb-3">{card.description}</p>
@@ -185,7 +186,7 @@ const AdminDashboard = () => {
                                         </>
                                     )}
                                 </div>
-                </div>
+                            </div>
                         </motion.div>
                     ))}
                 </motion.div>
@@ -193,7 +194,7 @@ const AdminDashboard = () => {
                 {/* Quick Actions & Recent Activity */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Quick Actions */}
-                    <motion.div 
+                    <motion.div
                         className="lg:col-span-1"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -205,7 +206,7 @@ const AdminDashboard = () => {
                                 Quick Actions
                             </h3>
                             <div className="space-y-3">
-                                <button 
+                                <button
                                     onClick={() => router.push("/admin/achievements/add")}
                                     className="w-full flex items-center justify-between p-3 rounded-lg bg-purple-50 hover:bg-purple-100 transition-colors group"
                                 >
@@ -215,7 +216,7 @@ const AdminDashboard = () => {
                                     </div>
                                     <ArrowRight className="w-4 h-4 text-purple-600 group-hover:translate-x-1 transition-transform" />
                                 </button>
-                        <button
+                                <button
                                     onClick={() => router.push("/admin/faculty/add")}
                                     className="w-full flex items-center justify-between p-3 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors group"
                                 >
@@ -224,7 +225,7 @@ const AdminDashboard = () => {
                                         <span className="font-medium text-gray-800">Add Faculty</span>
                                     </div>
                                     <ArrowRight className="w-4 h-4 text-blue-600 group-hover:translate-x-1 transition-transform" />
-                        </button>
+                                </button>
                                 <button
                                     onClick={() => router.push("/admin/news/add")}
                                     className="w-full flex items-center justify-between p-3 rounded-lg bg-green-50 hover:bg-green-100 transition-colors group"
@@ -246,11 +247,11 @@ const AdminDashboard = () => {
                                     <ArrowRight className="w-4 h-4 text-orange-600 group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </div>
-                    </div>
+                        </div>
                     </motion.div>
 
                     {/* Recent Activity */}
-                    <motion.div 
+                    <motion.div
                         className="lg:col-span-2"
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -286,7 +287,7 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* Performance Metrics */}
-                <motion.div 
+                <motion.div
                     className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-8 text-white"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
