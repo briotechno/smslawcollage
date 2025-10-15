@@ -70,38 +70,41 @@ const FacultyAddPage = () => {
         </button>
       </div>
 
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
+      <div className="max-w-4xl mx-auto bg-white text-black rounded-lg shadow-sm p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Name *
+              Name <span className="text-red-500">*</span>
             </label>
             <input
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter faculty name"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Title *
+              Title <span className="text-red-500">*</span>
             </label>
             <input
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
+              placeholder="Enter faculty title"
               className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Post *
+              Post <span className="text-red-500">*</span>
             </label>
             <input
               value={form.post}
               onChange={(e) => setForm({ ...form, post: e.target.value })}
               className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter post"
             />
           </div>
 
@@ -115,6 +118,7 @@ const FacultyAddPage = () => {
                 setForm({ ...form, experience: e.target.value })
               }
               className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter faculty experience"
             />
           </div>
 
@@ -155,6 +159,7 @@ const FacultyAddPage = () => {
               }
               rows={5}
               className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter faculty expertise"
             />
           </div>
         </div>
