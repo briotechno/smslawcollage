@@ -1,11 +1,10 @@
 import { isEmpty, isEmptyObject } from "@/lib/validation";
 import { connectDB } from "@/lib/db";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "smslawcollage_secret";
 
-async function ensureUsersTable(db) {
+async function ensureUsersTable(db: any) {
   await db.execute(`
     CREATE TABLE IF NOT EXISTS users (
       id INT PRIMARY KEY AUTO_INCREMENT,
@@ -19,23 +18,15 @@ async function ensureUsersTable(db) {
   `);
 }
 
-function signToken(payload) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: "2h" });
+function signToken(payload: any) {
+  return jwt.sign(payload, JWT_SECRET as string, { expiresIn: "2h" });
 }
 
-function verifyToken(token) {
+export async function POST(request: Request) {
   try {
-    return jwt.verify(token, JWT_SECRET);
-  } catch {
-    return null;
-  }
-}
-
-export async function POST(request) {
-  try {
-    const body = await request.json();
+    const body = await (request as any).json();
     const { username = "", password = "" } = body;
-    const errors = {};
+    const errors: any = {};
     if (isEmpty(username)) errors.username = "Username is mandatory.";
     if (isEmpty(password)) errors.password = "Password is mandatory.";
     if (!isEmptyObject(errors)) {
@@ -43,29 +34,28 @@ export async function POST(request) {
     }
     const db = await connectDB();
     await ensureUsersTable(db);
-    const [rows] = await db.execute("SELECT id, username, password, name, email, role FROM users WHERE username = ?", [username]);
+    const [rows] = (await db.execute("SELECT id, username, password, name, email, role FROM users WHERE username = ?", [username])) as any;
     await db.end();
     if (rows.length > 0 && password === rows[0].password) {
-      // Issue JWT token
       const user = rows[0];
       const token = signToken({ id: user.id, username: user.username, role: user.role });
       return Response.json({ success: true, message: "Login successful", token, user: { id: user.id, username: user.username, name: user.name, email: user.email, role: user.role } }, { status: 200 });
     } else {
       return Response.json({ success: false, message: "Invalid username or password" }, { status: 401 });
     }
-  } catch (err) {
+  } catch (err: any) {
     return Response.json({ success: false, message: "Internal server error" }, { status: 500 });
   }
 }
 
-export async function GET(request) {
+export async function GET(request: Request) {
   try {
     const db = await connectDB();
     await ensureUsersTable(db);
-    const [rows] = await db.execute("SELECT id, username, name, email, role, created_at FROM users ORDER BY id DESC");
+    const [rows] = (await db.execute("SELECT id, username, name, email, role, created_at FROM users ORDER BY id DESC")) as any;
     await db.end();
     return Response.json({ success: true, data: rows }, { status: 200 });
-  } catch (err) {
+  } catch (err: any) {
     return Response.json({ success: false, message: "Internal server error" }, { status: 500 });
   }
 }

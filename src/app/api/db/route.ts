@@ -1,17 +1,17 @@
 import { connectDB } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request?: Request) {
   const start = Date.now();
 
   try {
     const conn = await connectDB();
 
     // Test query to verify connection
-    const [rows] = await conn.query("SELECT 1 AS ok");
+    const [rows] = (await (conn as any).query("SELECT 1 AS ok")) as any;
 
     // Close DB connection
-    if (conn && typeof conn.end === "function") await conn.end();
+    if (conn && typeof (conn as any).end === "function") await (conn as any).end();
 
     const ms = Date.now() - start;
 
@@ -25,7 +25,7 @@ export async function GET() {
       },
       { status: 200 }
     );
-  } catch (err) {
+  } catch (err: any) {
     const ms = Date.now() - start;
     console.error("Database connection failed:", err);
 

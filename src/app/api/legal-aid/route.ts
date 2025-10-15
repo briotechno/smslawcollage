@@ -4,18 +4,18 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "smslawcollage_secret";
 
-function verifyTokenFromRequest(request) {
+function verifyTokenFromRequest(request: Request) {
   const auth = request.headers.get("authorization") || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7) : null;
   if (!token) return null;
   try {
-    return jwt.verify(token, JWT_SECRET);
+    return jwt.verify(token, JWT_SECRET as string);
   } catch {
     return null;
   }
 }
 
-async function ensureLegalAidTable(db) {
+async function ensureLegalAidTable(db: any) {
   await db.execute(`
     CREATE TABLE IF NOT EXISTS legal_aid (
       id INT PRIMARY KEY AUTO_INCREMENT,
@@ -28,37 +28,35 @@ async function ensureLegalAidTable(db) {
   `);
 }
 
-export async function GET(request) {
+export async function GET(request: Request) {
   try {
-    const url = new URL(request.url);
+    const url = new URL((request as any).url);
     const id = url.searchParams.get("id");
     const db = await connectDB();
     await ensureLegalAidTable(db);
     if (id) {
-      const [rows] = await db.execute("SELECT * FROM legal_aid WHERE id = ?", [id]);
+      const [rows] = (await db.execute("SELECT * FROM legal_aid WHERE id = ?", [id])) as any;
       await db.end();
       if (!rows || rows.length === 0) {
         return Response.json({ success: false, message: "Activity not found" }, { status: 404 });
       }
       return Response.json({ success: true, data: rows[0] }, { status: 200 });
     }
-    const [rows] = await db.execute("SELECT * FROM legal_aid ORDER BY date DESC, id DESC");
+    const [rows] = (await db.execute("SELECT * FROM legal_aid ORDER BY date DESC, id DESC")) as any;
     await db.end();
     return Response.json({ success: true, data: rows }, { status: 200 });
-  } catch (err) {
+  } catch (err: any) {
     return Response.json({ success: false, error: String(err) }, { status: 500 });
   }
 }
 
-export async function POST(request) {
+export async function POST(request: Request) {
   const user = verifyTokenFromRequest(request);
-  if (!user) {
-    return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
-  }
+  if (!user) return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
   try {
-    const body = await request.json();
+    const body = await (request as any).json();
     const { date = "", title = "", excerpt = "", image = "" } = body;
-    const errors = {};
+    const errors: any = {};
     if (isEmpty(date)) errors.date = "Date is required.";
     if (isEmpty(title)) errors.title = "Title is required.";
     if (isEmpty(excerpt)) errors.excerpt = "Excerpt is required.";
@@ -67,28 +65,23 @@ export async function POST(request) {
     }
     const db = await connectDB();
     await ensureLegalAidTable(db);
-    const [result] = await db.execute(
-      "INSERT INTO legal_aid (date, title, excerpt, image) VALUES (?,?,?,?)",
-      [date, title, excerpt, image]
-    );
+    const [result] = (await db.execute("INSERT INTO legal_aid (date, title, excerpt, image) VALUES (?,?,?,?)", [date, title, excerpt, image])) as any;
     await db.end();
     return Response.json({ success: true, id: result.insertId, message: "Activity created" }, { status: 201 });
-  } catch (err) {
+  } catch (err: any) {
     return Response.json({ success: false, error: String(err) }, { status: 500 });
   }
 }
 
-export async function PUT(request) {
+export async function PUT(request: Request) {
   const user = verifyTokenFromRequest(request);
-  if (!user) {
-    return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
-  }
+  if (!user) return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
   try {
-    const body = await request.json();
+    const body = await (request as any).json();
     const { id } = body;
     if (!id) return Response.json({ success: false, message: "id is required" }, { status: 400 });
-    const fields = [];
-    const params = [];
+    const fields: string[] = [];
+    const params: any[] = [];
     ["date", "title", "excerpt", "image"].forEach(f => {
       if (Object.prototype.hasOwnProperty.call(body, f)) {
         fields.push(`${f} = ?`);
@@ -99,29 +92,27 @@ export async function PUT(request) {
     params.push(id);
     const db = await connectDB();
     await ensureLegalAidTable(db);
-    const [result] = await db.execute(`UPDATE legal_aid SET ${fields.join(", ")} WHERE id = ?`, params);
+    const [result] = (await db.execute(`UPDATE legal_aid SET ${fields.join(", ")} WHERE id = ?`, params)) as any;
     await db.end();
     return Response.json({ success: true, message: "Activity updated" }, { status: 200 });
-  } catch (err) {
+  } catch (err: any) {
     return Response.json({ success: false, error: String(err) }, { status: 500 });
   }
 }
 
-export async function DELETE(request) {
+export async function DELETE(request: Request) {
   const user = verifyTokenFromRequest(request);
-  if (!user) {
-    return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
-  }
+  if (!user) return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
   try {
-    const url = new URL(request.url);
+    const url = new URL((request as any).url);
     const id = url.searchParams.get("id");
     if (!id) return Response.json({ success: false, message: "id query param is required" }, { status: 400 });
     const db = await connectDB();
     await ensureLegalAidTable(db);
-    const [result] = await db.execute("DELETE FROM legal_aid WHERE id = ?", [id]);
+    const [result] = (await db.execute("DELETE FROM legal_aid WHERE id = ?", [id])) as any;
     await db.end();
     return Response.json({ success: true, message: "Activity deleted" }, { status: 200 });
-  } catch (err) {
+  } catch (err: any) {
     return Response.json({ success: false, error: String(err) }, { status: 500 });
   }
 }
