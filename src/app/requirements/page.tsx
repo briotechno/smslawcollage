@@ -86,7 +86,7 @@ export default function RequirementsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {vacancies.map((v) => (
-              <div key={v.id} className="bg-white rounded-lg shadow p-6 flex flex-col">
+              <div key={v.id} className="bg-white rounded-lg shadow-xl hover:shadow-2xl p-6 flex flex-col">
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">{v.title}</h3>
