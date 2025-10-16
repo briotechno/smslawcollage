@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Filter, Plus, Edit, Trash2, Calendar, Image as ImageIcon } from "lucide-react";
+import { Search, Filter, Plus, Edit, Trash2, Calendar } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 interface LegalAidActivity {
   id: string;
@@ -13,53 +14,91 @@ interface LegalAidActivity {
   image: string;
 }
 
+// Seed data
 const seed: LegalAidActivity[] = [
   {
     id: "la1",
     date: "03 DEC, 2019",
     title: "Celebration of the International Day for Persons with Disabilities",
-    excerpt: "The Legal Aid Clinic of GLS Law College conducted an awareness campaign in Blind People's Association, Ahmedabad on account of the International Day for Persons with Disabilities. The campaign majorly focused on the Rights and Benefits available to the Visually Impaired, taking into light \"The Protection of Persons with Disability Act, 2016\"",
+    excerpt:
+      "The Legal Aid Clinic of GLS Law College conducted an awareness campaign in Blind People's Association, Ahmedabad on account of the International Day for Persons with Disabilities. The campaign majorly focused on the Rights and Benefits available to the Visually Impaired, taking into light \"The Protection of Persons with Disability Act, 2016\"",
     image: "/assets/Noimage.jpg",
   },
   {
     id: "la2",
-    date: "17 JULy, 2019",
+    date: "17 JUL, 2019",
     title: "Lex Juris Scienticia Quiz competition",
-    excerpt: "The Lex Juris Scienticia was enlightened with the gracious presence of Hon'ble Justice R.R. Tripathi, Former Judge of Gujarat High Court. The chief guest opened up with law aspirants with the role media plays in accordance with the Judiciary. One cannot categorize every case in the frame of pendency",
+    excerpt:
+      "The Lex Juris Scienticia was enlightened with the gracious presence of Hon'ble Justice R.R. Tripathi, Former Judge of Gujarat High Court. The chief guest opened up with law aspirants with the role media plays in accordance with the Judiciary. One cannot categorize every case in the frame of pendency",
     image: "/assets/Noimage.jpg",
   },
   {
     id: "la3",
     date: "27 FEB, 2018",
     title: "Legal Clinic - Bakrol",
-    excerpt: "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 27th Feb. 2018 which has been adopted by Gujarat Law Society.",
+    excerpt:
+      "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 27th Feb. 2018 which has been adopted by Gujarat Law Society.",
     image: "/assets/Noimage.jpg",
   },
   {
     id: "la4",
     date: "22 MAR, 2018",
     title: "Legal Clinic – A Legal Initiative at Bakrol (Ahmedabad)",
-    excerpt: "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 31st January 2018 which has been adopted by Gujarat Law Society.",
+    excerpt:
+      "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 31st January 2018 which has been adopted by Gujarat Law Society.",
     image: "/assets/Noimage.jpg",
   },
   {
     id: "la5",
     date: "02 SEP, 2017",
     title: "The Launch of ELC",
-    excerpt: "Official launch of the Environmental Law Clinic with dignitaries and a flagship awareness drive.",
+    excerpt:
+      "Official launch of the Environmental Law Clinic with dignitaries and a flagship awareness drive.",
     image: "/assets/Noimage.jpg",
   },
 ];
 
 const LegalAidAdminPage = () => {
   const router = useRouter();
+  const { showToast } = useToast();
   const [list, setList] = useState<LegalAidActivity[]>([]);
   const [search, setSearch] = useState("");
   const [showDelete, setShowDelete] = useState(false);
   const [deleting, setDeleting] = useState<LegalAidActivity | null>(null);
+  const [loading, setLoading] = useState(false);
 
+  // Initialize with seed data
   useEffect(() => setList(seed), []);
 
+  // Fetch API data
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+        const headers: any = {};
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        const res = await fetch("/api/legal-aid", { headers });
+        const data = await res.json();
+
+        if (res.ok && data?.success) {
+          setList(data.data || []);
+        } else {
+          setList([]);
+        }
+      } catch (err) {
+        console.error(err);
+        setList([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, []);
+
+  // Filter list based on search
   const filtered = list.filter((m) => {
     const q = search.toLowerCase();
     return (
@@ -75,25 +114,70 @@ const LegalAidAdminPage = () => {
     setDeleting(m);
     setShowDelete(true);
   };
-  const confirmDelete = () => {
+
+  const confirmDelete = async () => {
     if (!deleting) return;
-    setList((prev) => prev.filter((x) => x.id !== deleting.id));
-    setShowDelete(false);
-    setDeleting(null);
+
+    setLoading(true);
+
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const headers: any = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
+      const res = await fetch(`/api/legal-aid?id=${deleting.id}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        // Remove from local state
+        setList((prev) => prev.filter((x) => x.id !== deleting.id));
+        showToast({
+          type: "success",
+          title: "Achievement Deleted",
+          message: `"${deleting.title}" has been deleted successfully.`,
+        });
+      } else {
+        showToast({
+          type: "error",
+          title: "Deletion Failed",
+          message: data.message || "Failed to delete the activity.",
+        });
+      }
+    } catch (err) {
+      console.error("Error deleting activity:", err);
+      showToast({
+        type: "error",
+        title: "Deletion Failed",
+        message: "Something went wrong while deleting.",
+      });
+    } finally {
+      setDeleting(null);
+      setShowDelete(false);
+      setLoading(false);
+    }
   };
 
   return (
-    <AdminLayout 
-      title="Legal Aid Activities" 
+    <AdminLayout
+      title="Legal Aid Activities"
       subtitle="Manage legal aid clinic activities and events"
     >
+      {/* Add button */}
       <div className="flex items-center justify-between mb-6">
         <div></div>
-        <button onClick={add} className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2">
+        <button
+          onClick={add}
+          className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2"
+        >
           <Plus className="w-5 h-5" /> Add Activity
         </button>
       </div>
 
+      {/* Search & Filter */}
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 relative">
@@ -111,26 +195,43 @@ const LegalAidAdminPage = () => {
         </div>
       </div>
 
+      {/* Activities Table */}
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">All Activities ({filtered.length})</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            All Activities ({filtered.length})
+          </h3>
         </div>
+
         {filtered.length === 0 ? (
           <div className="text-center py-12">
             <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No activities found</h3>
             <p className="text-gray-500 mb-4">Start by adding a legal aid activity</p>
-            <button onClick={add} className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors">Add First Activity</button>
+            <button
+              onClick={add}
+              className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors"
+            >
+              Add First Activity
+            </button>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activity</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Excerpt</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Activity
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Excerpt
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -139,14 +240,12 @@ const LegalAidAdminPage = () => {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative w-12 h-12 rounded overflow-hidden border border-gray-200 bg-gray-50">
-                          <img 
-                            src={m.image} 
-                            alt={m.title} 
-                            className="object-cover w-full h-full" 
-                          />
+                          <img src={m.image} alt={m.title} className="object-cover w-full h-full" />
                         </div>
                         <div>
-                          <div className="text-sm font-medium text-gray-900 max-w-xs truncate">{m.title}</div>
+                          <div className="text-sm font-medium text-gray-900 max-w-xs truncate">
+                            {m.title}
+                          </div>
                         </div>
                       </div>
                     </td>
@@ -161,10 +260,18 @@ const LegalAidAdminPage = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end gap-2">
-                        <button onClick={() => edit(m)} className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50" title="Edit">
+                        <button
+                          onClick={() => edit(m)}
+                          className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50"
+                          title="Edit"
+                        >
                           <Edit className="w-4 h-4" />
                         </button>
-                        <button onClick={() => askDelete(m)} className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50" title="Delete">
+                        <button
+                          onClick={() => askDelete(m)}
+                          className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
+                          title="Delete"
+                        >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -180,16 +287,66 @@ const LegalAidAdminPage = () => {
       {/* Delete Confirmation Modal */}
       {showDelete && deleting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Delete Activity</h2>
-            <p className="text-gray-600 mb-6">Are you sure you want to delete "{deleting.title}"?</p>
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4">
+            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              Delete Activity
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to delete{" "}
+              <strong className="text-gray-900">"{deleting.title}"</strong>? This
+              action cannot be undone.
+            </p>
+
             <div className="flex justify-end gap-3">
-              <button onClick={() => { setShowDelete(false); setDeleting(null); }} className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">Cancel</button>
-              <button onClick={confirmDelete} className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">Delete</button>
+              <button
+                onClick={() => {
+                  setShowDelete(false);
+                  setDeleting(null);
+                }}
+                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={confirmDelete}
+                disabled={loading} // use your loading state here
+                className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center justify-center ${loading ? "opacity-70 cursor-wait" : ""
+                  }`}
+              >
+                {loading ? (
+                  <>
+                    <svg
+                      className="animate-spin h-4 w-4 mr-2 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      />
+                    </svg>
+                    Deleting...
+                  </>
+                ) : (
+                  "Delete"
+                )}
+              </button>
             </div>
           </div>
         </div>
       )}
+
     </AdminLayout>
   );
 };

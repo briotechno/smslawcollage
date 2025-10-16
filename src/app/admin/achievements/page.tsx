@@ -15,6 +15,11 @@ import { useRouter } from "next/navigation";
 import AdminLayout from "@/components/Admin/AdminLayout";
 import { useToast } from "@/components/Toast/ToastProvider";
 
+interface Participant {
+  name: string;
+  rollNo: string;
+}
+
 interface Achievement {
   id: string;
   title: string;
@@ -23,7 +28,8 @@ interface Achievement {
   category: string;
   award: string;
   prize: string;
-  participants: string[];
+  // participants: string[];
+  participants: Participant[];
   event?: string;
   organizer?: string;
   level?: string;
@@ -36,6 +42,7 @@ const AdminAchievementsPage = () => {
   const [selectedType, setSelectedType] = useState<
     "academic" | "cultural" | "sports" | "participation"
   >("academic");
+  const [loading, setLoading] = useState(false);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletingAchievement, setDeletingAchievement] =
@@ -70,47 +77,47 @@ const AdminAchievementsPage = () => {
   ];
 
   // sample data
-  const sampleAchievements: Achievement[] = [
-    {
-      id: "1",
-      title: "National Moot Court Competition Winners",
-      description:
-        "Mr. Aditya Dave, Mr. Monarch Pandya and Mr. Nathan Gomes bagged the winning Trophy.",
-      year: "2024",
-      category: "Moot Court",
-      award: "1st Position",
-      prize: "₹1,00,000",
-      participants: [
-        "Mr. Aditya Dave",
-        "Mr. Monarch Pandya",
-        "Mr. Nathan Gomes",
-      ],
-      type: "academic",
-    },
-    {
-      id: "2",
-      title: "Athena Moot Court Competition Winners",
-      description:
-        "Mr. Niel Bhatt, Mr. Jaydev Chudasma and Ms. Radhika Buddha secured first position.",
-      year: "2019",
-      category: "Moot Court",
-      award: "1st Position",
-      prize: "₹3,000",
-      participants: [
-        "Mr. Niel Bhatt",
-        "Mr. Jaydev Chudasma",
-        "Ms. Radhika Buddha",
-      ],
-      type: "cultural",
-    },
-  ];
+  // const sampleAchievements: Achievement[] = [
+  //   {
+  //     id: "1",
+  //     title: "National Moot Court Competition Winners",
+  //     description:
+  //       "Mr. Aditya Dave, Mr. Monarch Pandya and Mr. Nathan Gomes bagged the winning Trophy.",
+  //     year: "2024",
+  //     category: "Moot Court",
+  //     award: "1st Position",
+  //     prize: "₹1,00,000",
+  //     participants: [
+  //       "Mr. Aditya Dave",
+  //       "Mr. Monarch Pandya",
+  //       "Mr. Nathan Gomes",
+  //     ],
+  //     type: "academic",
+  //   },
+  //   {
+  //     id: "2",
+  //     title: "Athena Moot Court Competition Winners",
+  //     description:
+  //       "Mr. Niel Bhatt, Mr. Jaydev Chudasma and Ms. Radhika Buddha secured first position.",
+  //     year: "2019",
+  //     category: "Moot Court",
+  //     award: "1st Position",
+  //     prize: "₹3,000",
+  //     participants: [
+  //       "Mr. Niel Bhatt",
+  //       "Mr. Jaydev Chudasma",
+  //       "Ms. Radhika Buddha",
+  //     ],
+  //     type: "cultural",
+  //   },
+  // ];
 
-  useEffect(() => {
-    const filtered = sampleAchievements.filter(
-      (a) => a.type === selectedType
-    );
-    setAchievements(filtered);
-  }, [selectedType]);
+  // useEffect(() => {
+  //   const filtered = sampleAchievements.filter(
+  //     (a) => a.type === selectedType
+  //   );
+  //   setAchievements(filtered);
+  // }, [selectedType]);
 
   const filteredAchievements = achievements.filter(
     (achievement) =>
@@ -127,19 +134,77 @@ const AdminAchievementsPage = () => {
     router.push(`/admin/achievements/edit?id=${achievement.id}`);
   };
 
-  const handleDeleteAchievement = () => {
-    if (!deletingAchievement) return;
-    setAchievements((prev) =>
-      prev.filter((a) => a.id !== deletingAchievement.id)
-    );
-    setShowDeleteModal(false);
-    setDeletingAchievement(null);
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+        const headers: any = {};
+        if (token) headers["Authorization"] = `Bearer ${token}`;
 
-    showToast({
-      type: "success",
-      title: "Achievement Deleted",
-      message: `"${deletingAchievement.title}" has been successfully deleted.`,
-    });
+        const res = await fetch("/api/achievements", { headers });
+        const data = await res.json();
+
+        if (res.ok && data?.success) {
+          setAchievements(data.data || []);
+        } else {
+          setAchievements([]);
+        }
+      } catch (err) {
+        console.error(err);
+        setAchievements([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, []);
+
+  const handleDeleteAchievement = async () => {
+    if (!deletingAchievement) return;
+
+    setLoading(true);
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const headers: any = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
+      const res = await fetch(`/api/achievements?id=${deletingAchievement.id}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data?.success) {
+        setAchievements((prev) =>
+          prev.filter((a) => a.id !== deletingAchievement.id)
+        );
+        showToast({
+          type: "success",
+          title: "Achievement Deleted",
+          message: `"${deletingAchievement.title}" has been successfully deleted.`,
+        });
+      } else {
+        showToast({
+          type: "error",
+          title: "Deletion Failed",
+          message: data?.message || "Something went wrong while deleting.",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      showToast({
+        type: "error",
+        title: "Deletion Failed",
+        message: "Something went wrong while deleting.",
+      });
+    } finally {
+      setShowDeleteModal(false);
+      setDeletingAchievement(null);
+      setLoading(false);
+    }
   };
 
   return (
@@ -211,7 +276,33 @@ const AdminAchievementsPage = () => {
 
       {/* Achievements Table / Cards */}
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        {filteredAchievements.length === 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-16">
+            <div className="inline-flex items-center gap-3 p-6 rounded-lg">
+              <svg
+                className="animate-spin h-8 w-8 text-purple-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+              <p className="text-gray-600 font-medium">Loading achievements...</p>
+            </div>
+          </div>
+        ) : filteredAchievements.length === 0 ? (
           <div className="text-center py-12 px-4">
             <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">
@@ -277,7 +368,7 @@ const AdminAchievementsPage = () => {
                               key={i}
                               className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
                             >
-                              {p}
+                              {p.name}
                             </span>
                           ))}
                           {achievement.participants.length > 2 && (
@@ -357,22 +448,17 @@ const AdminAchievementsPage = () => {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && deletingAchievement && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                <Trash2 className="w-5 h-5 text-red-600" />
-              </div>
-              <h2 className="text-lg font-semibold text-gray-900">
-                Delete Achievement
-              </h2>
-            </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4">
+            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              Delete Achievement
+            </h2>
             <p className="text-gray-600 mb-6 text-sm sm:text-base">
-              Are you sure you want to delete "
-              <strong>{deletingAchievement.title}</strong>"? This action cannot
-              be undone.
+              Are you sure you want to delete{" "}
+              <strong>{deletingAchievement.title}</strong>? This action cannot be
+              undone.
             </p>
-            <div className="flex flex-col sm:flex-row justify-end gap-3">
+            <div className="flex justify-end gap-3">
               <button
                 onClick={() => {
                   setShowDeleteModal(false);
@@ -382,11 +468,40 @@ const AdminAchievementsPage = () => {
               >
                 Cancel
               </button>
+
               <button
                 onClick={handleDeleteAchievement}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                disabled={loading}
+                className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors ${loading ? "opacity-70 cursor-wait" : ""
+                  }`}
               >
-                Delete
+                {loading ? (
+                  <>
+                    <svg
+                      className="animate-spin h-4 w-4 mr-2 inline-block text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      />
+                    </svg>
+                    Deleting...
+                  </>
+                ) : (
+                  "Delete"
+                )}
               </button>
             </div>
           </div>

@@ -8,13 +8,12 @@ import { useToast } from "@/components/Toast/ToastProvider";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Achievement {
-  id: string;
   title: string;
   description: string;
   year: string;
   category: string;
-  award: string;
-  prize: string;
+  award?: string;
+  prize?: string;
   participants: string[];
   event?: string;
   organizer?: string;
@@ -27,7 +26,8 @@ const AddAchievementPage = () => {
   const { showToast } = useToast();
   const [showModal, setShowModal] = useState(false);
   const [newParticipant, setNewParticipant] = useState("");
-  const [formData, setFormData] = useState<Partial<Achievement>>({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<Achievement>({
     title: "",
     description: "",
     year: "",
@@ -63,7 +63,7 @@ const AddAchievementPage = () => {
     setShowModal(false);
   };
 
-  const handleAddAchievement = () => {
+  const handleAddAchievement = async () => {
     if (
       !formData.title ||
       !formData.description ||
@@ -78,18 +78,53 @@ const AddAchievementPage = () => {
       return;
     }
 
+    console.log("Api call>>1")
+    setIsSubmitting(true);
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      const headers: any = { "Content-Type": "application/json" };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+      const response = await fetch("/api/achievements", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      console.log("Api call>>2", result)
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to add achievement");
+      }
+      console.log("Api call>>3", result)
+
+      // Show success message
+      showToast({
+        type: "success",
+        title: "Achievement Added",
+        message: `"${formData.title}" has been successfully added!`
+      });
+      console.log("Api call>>4",)
+
+      // Navigate back to achievements page
+      router.push("/admin/achievements");
+
+    } catch (error: any) {
+      console.log("Api call>>error", error)
+      // console.error("API Error:", error);
+      showToast({
+        type: "error",
+        title: "Error",
+        message: error.message || "Something went wrong while saving.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+    console.log("Api call>>5")
+
     // In a real app, this would make an API call
     console.log("Adding achievement:", formData);
 
-    // Show success message
-    showToast({
-      type: "success",
-      title: "Achievement Added",
-      message: `"${formData.title}" has been successfully added!`
-    });
 
-    // Navigate back to achievements page
-    router.push("/admin/achievements");
   };
 
   // const addParticipant = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -24,11 +24,40 @@ import AdminLayout from "@/components/Admin/AdminLayout";
 
 const AdminDashboard = () => {
     const router = useRouter();
+    const [loading, setLoading] = useState(true);
+    const [counts, setCounts] = useState({
+        achievements: 0,
+        faculty: 0,
+        legalAid: 0,
+        news: 0,
+    });
+
+    // Api Call 
+    useEffect(() => {
+        setLoading(true);
+        const fetchCounts = async () => {
+            try {
+                const res = await fetch("/api/counter");
+                const data = await res.json();
+                if (data.success && data.counts) {
+                    setCounts(data.counts);
+                }
+                console.log("Api call", data)
+            } catch (error) {
+                console.error("Failed to fetch counter data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCounts();
+    }, []);
 
     const cardData = [
         {
             title: "Achievements",
-            value: "47",
+            // value: "47",
+            value: counts.achievements.toString(),
             change: "+12%",
             icon: Trophy,
             color: "from-yellow-400 to-orange-500",
@@ -38,7 +67,7 @@ const AdminDashboard = () => {
         },
         {
             title: "Faculty",
-            value: "23",
+            value: counts.faculty.toString(),
             change: "+3",
             icon: Users,
             color: "from-blue-400 to-blue-600",
@@ -48,7 +77,7 @@ const AdminDashboard = () => {
         },
         {
             title: "News & Announcements",
-            value: "156",
+            value: counts.news.toString(),
             change: "+8",
             icon: Newspaper,
             color: "from-green-400 to-green-600",
@@ -58,7 +87,7 @@ const AdminDashboard = () => {
         },
         {
             title: "Legal Aid Clinic",
-            value: "89",
+            value: counts.legalAid.toString(),
             change: "+15%",
             icon: Scale,
             color: "from-purple-400 to-purple-600",
@@ -68,7 +97,7 @@ const AdminDashboard = () => {
         },
         {
             title: "Admission",
-            value: "342",
+            value: "0",
             change: "+45",
             icon: UserPlus,
             color: "from-pink-400 to-pink-600",
@@ -78,7 +107,7 @@ const AdminDashboard = () => {
         },
         {
             title: "Calendar",
-            value: "28",
+            value: "0",
             change: "Current",
             icon: Calendar,
             color: "from-indigo-400 to-indigo-600",
@@ -88,7 +117,7 @@ const AdminDashboard = () => {
         },
         {
             title: "Moot Court",
-            value: "12",
+            value: "0",
             change: "+2",
             icon: Gavel,
             color: "from-red-400 to-red-600",
@@ -133,10 +162,27 @@ const AdminDashboard = () => {
         }
     };
 
+    if (loading) {
+        return (
+            <AdminLayout title="Dashboard" subtitle="Loading data...">
+                <div className="flex items-center justify-center h-64">
+                    <div className="inline-flex items-center gap-3  p-6 rounded-lg ">
+                        <svg className="animate-spin h-6 w-6 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                        </svg>
+                    </div>
+                    <p className="text-gray-500 animate-pulse">Loading dashboard...</p>
+                </div>
+            </AdminLayout>
+        );
+    }
+
     return (
-        <AdminLayout 
-        title="Dashboard" 
-        subtitle="Welcome back! Here's what's happening at SMS Law College">
+
+        <AdminLayout
+            title="Dashboard"
+            subtitle="Welcome back! Here's what's happening at SMS Law College">
             <div className="space-y-8">
                 {/* Stats Overview */}
                 <motion.div
@@ -163,7 +209,7 @@ const AdminDashboard = () => {
                                 <div className="text-right">
                                     <div className="text-2xl font-bold text-gray-800">{card.value}</div>
                                     <div className={`text-sm font-medium ${card.change.includes('+') ? 'text-green-600' :
-                                            card.change === 'Current' ? 'text-blue-600' : 'text-gray-600'
+                                        card.change === 'Current' ? 'text-blue-600' : 'text-gray-600'
                                         }`}>
                                         {card.change}
                                     </div>
