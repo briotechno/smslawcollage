@@ -143,6 +143,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
   const [modalOpen, setModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false); // mobile drawer
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // desktop collapse
+  const [authChecked, setAuthChecked] = useState(false);
+  const [authorized, setAuthorized] = useState(false);
 
   // hydrate collapse state from localStorage
   useEffect(() => {
@@ -150,6 +152,29 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
       const stored = localStorage.getItem("admin.sidebarCollapsed");
       if (stored === "true") setSidebarCollapsed(true);
     } catch {}
+  }, []);
+
+  // client-side auth guard: use localStorage token / isLoggedIn flag
+  useEffect(() => {
+    try {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const token = localStorage.getItem("token");
+      if (isLoggedIn === "true" || token) {
+        setAuthorized(true);
+      } else {
+        setAuthorized(false);
+        if (!window.location.pathname.startsWith("/admin/login")) {
+          window.location.href = "/admin/login";
+        }
+      }
+    } catch (e) {
+      setAuthorized(false);
+      if (!window.location.pathname.startsWith("/admin/login")) {
+        window.location.href = "/admin/login";
+      }
+    } finally {
+      setAuthChecked(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -173,6 +198,20 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
     localStorage.removeItem("isLoggedIn");
     window.location.href = "/admin/login";
   };
+
+  // while we haven't checked auth, show a simple loader to avoid flashing admin UI
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-gray-500">Checking authentication…</div>
+      </div>
+    );
+  }
+
+  if (!authorized) {
+    // if not authorized, we've already redirected; render nothing here
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex bg-gray-100">
