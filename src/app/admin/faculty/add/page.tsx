@@ -38,6 +38,8 @@ const FacultyAddPage = () => {
     }
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const submit = () => {
     if (!form.name || !form.title || !form.post) {
       showToast({
@@ -47,13 +49,27 @@ const FacultyAddPage = () => {
       });
       return;
     }
-    console.log("Create faculty:", form);
-    showToast({
-      type: "success",
-      title: "Faculty Added",
-      message: `"${form.name}" has been successfully added to the faculty!`
-    });
-    router.push("/admin/faculty");
+
+    setIsSubmitting(true);
+    (async () => {
+      try {
+        const payload: any = { ...form };
+        if (payload.image === "/assets/Noimage.jpg") payload.image = "";
+  const res = await import('@/lib/adminFetch').then(m => m.default('/api/faculty', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }));
+  const data = await res.json();
+        if (res.ok && data.success) {
+          showToast({ type: 'success', title: 'Added', message: `"${form.name}" added` });
+          router.push('/admin/faculty');
+        } else {
+          showToast({ type: 'error', title: 'Create failed', message: data?.message || 'Failed to create faculty' });
+        }
+      } catch (err) {
+        console.error(err);
+        showToast({ type: 'error', title: 'Network error', message: 'Unable to create faculty' });
+      } finally {
+        setIsSubmitting(false);
+      }
+    })();
   };
 
   return (
@@ -164,7 +180,7 @@ const FacultyAddPage = () => {
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
+          <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
           <button
             onClick={() => router.push("/admin/faculty")}
             className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
@@ -173,9 +189,22 @@ const FacultyAddPage = () => {
           </button>
           <button
             onClick={submit}
-            className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2"
+            disabled={isSubmitting}
+            className={`px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
           >
-            <Check className="w-4 h-4" /> Save Faculty
+            {isSubmitting ? (
+              <>
+                <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                </svg>
+                Saving...
+              </>
+            ) : (
+              <>
+                <Check className="w-4 h-4" /> Save Faculty
+              </>
+            )}
           </button>
         </div>
       </div>
