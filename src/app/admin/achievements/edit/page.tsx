@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  Plus,
-  X,
-  Check,
-  ArrowLeft,
-} from "lucide-react";
+import { Plus, X, Check, ArrowLeft } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
 import { useToast } from "@/components/Toast/ToastProvider";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,195 +13,111 @@ interface Achievement {
   description: string;
   year: string;
   category: string;
-  award: string;
-  prize: string;
-  participants: string[];
+  award?: string;
+  prize?: string;
+  participants?: string[];
   event?: string;
   organizer?: string;
   level?: string;
-  type: 'academic' | 'cultural' | 'sports' | 'participation';
+  type: "academic" | "cultural" | "sports" | "participation";
 }
 
 const EditAchievementContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const achievementId = searchParams.get('id');
+  const achievementId = searchParams.get("id");
   const { showToast } = useToast();
+
+  const [formData, setFormData] = useState<Partial<Achievement>>({
+    title: "",
+    description: "",
+    year: "",
+    category: "",
+    award: "",
+    prize: "",
+    participants: [],
+    event: "",
+    organizer: "",
+    level: "",
+    type: "academic",
+  });
+
   const [showModal, setShowModal] = useState(false);
   const [newParticipant, setNewParticipant] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [formData, setFormData] = useState<Partial<Achievement>>({
-    title: '',
-    description: '',
-    year: '',
-    category: '',
-    award: '',
-    prize: '',
-    participants: [],
-    event: '',
-    organizer: '',
-    level: '',
-    type: 'academic'
-  });
-
-  // Sample data - in real app, this would come from API
-  const sampleAchievements: Achievement[] = [
-    {
-      id: '1',
-      title: "National Moot Court Competition Winners",
-      description: "Mr. Aditya Dave, Mr. Monarch Pandya and Mr. Nathan Gomes - students of Semester IX bagged the winning Trophy and the cash prize of Rs 1 Lakh in The National Moot Court Competition organised by L.J.School of Law.",
-      year: "2024",
-      category: "Moot Court",
-      award: "1st Position",
-      prize: "₹1,00,000",
-      participants: ["Mr. Aditya Dave", "Mr. Monarch Pandya", "Mr. Nathan Gomes"],
-      type: 'academic'
-    },
-    {
-      id: '2',
-      title: "Athena Moot Court Competition Winners",
-      description: "Mr. Niel Bhatt (II), Mr. Jaydev Chudasma (IV) and Ms. Radhika Buddha (VI) secured first position with cash prize of rupees 3000/- at Athena Moot Court Competition hosted by National Literary and Cultural Competition - L.J. College, Mehasana, 2019.",
-      year: "2019",
-      category: "Moot Court",
-      award: "1st Position",
-      prize: "₹3,000",
-      participants: ["Mr. Niel Bhatt", "Mr. Jaydev Chudasma", "Ms. Radhika Buddha"],
-      event: "Athena Moot Court Competition",
-      type: 'cultural'
-    },
-    {
-      id: '3',
-      title: "Badminton Silver Medal - Titanium Jural",
-      description: "Ms. Kajal Shah (Sem VI) secured Silver medal in badminton in the event 'Titanium Jural' organized by GLS Law College.",
-      year: "2024",
-      category: "Badminton",
-      award: "Silver Medal",
-      prize: "Individual Excellence",
-      participants: ["Ms. Kajal Shah"],
-      event: "Titanium Jural",
-      type: 'sports'
-    },
-    {
-      id: '4',
-      title: "7th ILMU National Moot Court Competition",
-      description: "Institute of Law, Nirma University hosted 7th ILMU National Moot Court Competition in association with The Chambers of K.T.S. Tulsi, 2017 wherein GLS Law College was represented by Shyam Naik (Sem IV), Krina Majithiya (Sem II), and Aaditya Karnavat (Sem II).",
-      year: "2017",
-      category: "Moot Court",
-      award: "Participation",
-      prize: "National Level",
-      participants: ["Shyam Naik", "Krina Majithiya", "Aaditya Karnavat"],
-      organizer: "Institute of Law, Nirma University",
-      level: "National",
-      type: 'participation'
+  // Fetch achievement by ID
+  const fetchById = async (id: string) => {
+    try {
+      const res = await fetch(`/api/achievements?id=${encodeURIComponent(id)}`);
+      const data = await res.json();
+      if (res.ok && data.success) return data.data as Partial<Achievement>;
+      return null;
+    } catch (err) {
+      console.error(err);
+      return null;
     }
-  ];
+  };
 
   useEffect(() => {
-    if (achievementId) {
-      // Find the achievement by ID
-      const achievement = sampleAchievements.find(a => a.id === achievementId);
-      if (achievement) {
-        setFormData(achievement);
-      }
-    }
+    if (!achievementId) return;
+    (async () => {
+      const data = await fetchById(achievementId);
+      if (data) setFormData(data);
+    })();
   }, [achievementId]);
 
   const handleAddParticipant = () => {
     if (!newParticipant.trim()) {
-      showToast({
-        type: "error",
-        title: "Empty Field",
-        message: "Please enter a participant name.",
-      });
+      showToast({ type: "error", title: "Empty Field", message: "Please enter a participant name." });
       return;
     }
     setFormData((prev) => ({
       ...prev,
       participants: [...(prev.participants || []), newParticipant.trim()],
     }));
-    showToast({
-      type: "success",
-      title: "Participant Added",
-      message: `${newParticipant.trim()} has been added to the achievement.`,
-    });
+    showToast({ type: "success", title: "Participant Added", message: `${newParticipant.trim()} added.` });
     setNewParticipant("");
     setShowModal(false);
   };
-
-  const handleUpdateAchievement = async () => {
-    if (!formData) return;
-    if (
-      !formData.title ||
-      !formData.description ||
-      !formData.year ||
-      !formData.category
-    ) {
-      showToast({
-        type: "error",
-        title: "Validation Error",
-        message: "Please fill in all required fields"
-      });
-      return;
-    }
-
-    (async () => {
-      setIsSubmitting(true);
-      try {
-        const payload: any = { ...formData };
-        if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
-        payload.id = achievementId;
-        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-        const headers: any = { "Content-Type": "application/json" };
-        if (token) headers['Authorization'] = `Bearer ${token}`;
-        const res = await fetch("/api/achievements", {
-          method: "PUT",
-          headers,
-          credentials: "include",
-          body: JSON.stringify(payload),
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          showToast({ type: "success", title: "News Updated", message: `"${formData.title}" updated` });
-          router.push("/admin/news");
-        } else {
-          showToast({ type: "error", title: "Update failed", message: data.message || "Failed to update news" });
-        }
-      } catch (err) {
-        console.error(err);
-        showToast({ type: "error", title: "Network error", message: "Unable to update news" });
-      } setIsSubmitting(false);
-    })();
-
-    // In a real app, this would make an API call
-    console.log("Update news:", formData);
-
-    // Show success message
-    showToast({
-      type: "success",
-      title: "Participant Updated",
-      message: `"${formData.title}" has been successfully added!`
-    });
-
-    // Navigate back to achievements page
-    router.push("/admin/achievements");
-  };
-
-  // const addParticipant = () => {
-  //   const participant = prompt("Enter participant name:");
-  //   if (participant) {
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       participants: [...(prev.participants || []), participant],
-  //     }));
-  //   }
-  // };
 
   const removeParticipant = (index: number) => {
     setFormData((prev) => ({
       ...prev,
       participants: prev.participants?.filter((_, i) => i !== index) || [],
     }));
+  };
+
+  const handleUpdateAchievement = async () => {
+    if (!formData.title || !formData.description || !formData.year || !formData.category) {
+      showToast({ type: "error", title: "Validation Error", message: "Please fill all required fields" });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const headers: any = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
+      const res = await fetch("/api/achievements", {
+        method: "PUT",
+        headers,
+        body: JSON.stringify({ ...formData, id: achievementId }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showToast({ type: "success", title: "Achievement Updated", message: `"${formData.title}" updated` });
+        router.push("/admin/achievements");
+      } else {
+        showToast({ type: "error", title: "Update Failed", message: data.message || "Failed to update achievement" });
+      }
+    } catch (err) {
+      console.error(err);
+      showToast({ type: "error", title: "Network Error", message: "Unable to update achievement" });
+    }
+    setIsSubmitting(false);
   };
 
   if (!achievementId) {
@@ -536,10 +447,21 @@ const EditAchievementContent = () => {
             </button>
             <button
               onClick={handleUpdateAchievement}
-              className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2"
-            >
-              <Check className="w-4 h-4" />
-              Update Achievement
+              disabled={isSubmitting}
+              className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2">
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                  </svg>
+                  Updating...
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" /> Update Achievement
+                </>
+              )}
             </button>
           </div>
         </div>

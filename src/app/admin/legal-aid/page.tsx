@@ -287,11 +287,16 @@ const LegalAidAdminPage = () => {
       {/* Delete Confirmation Modal */}
       {showDelete && deleting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Delete Activity</h2>
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4">
+            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              Delete Activity
+            </h2>
             <p className="text-gray-600 mb-6">
-              Are you sure you want to delete "{deleting.title}"?
+              Are you sure you want to delete{" "}
+              <strong className="text-gray-900">"{deleting.title}"</strong>? This
+              action cannot be undone.
             </p>
+
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => {
@@ -302,16 +307,46 @@ const LegalAidAdminPage = () => {
               >
                 Cancel
               </button>
+
               <button
                 onClick={confirmDelete}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                disabled={loading} // use your loading state here
+                className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center justify-center ${loading ? "opacity-70 cursor-wait" : ""
+                  }`}
               >
-                Delete
+                {loading ? (
+                  <>
+                    <svg
+                      className="animate-spin h-4 w-4 mr-2 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      />
+                    </svg>
+                    Deleting...
+                  </>
+                ) : (
+                  "Delete"
+                )}
               </button>
             </div>
           </div>
         </div>
       )}
+
     </AdminLayout>
   );
 };

@@ -276,7 +276,33 @@ const AdminAchievementsPage = () => {
 
       {/* Achievements Table / Cards */}
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        {filteredAchievements.length === 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-16">
+            <div className="inline-flex items-center gap-3 p-6 rounded-lg">
+              <svg
+                className="animate-spin h-8 w-8 text-purple-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+              <p className="text-gray-600 font-medium">Loading achievements...</p>
+            </div>
+          </div>
+        ) : filteredAchievements.length === 0 ? (
           <div className="text-center py-12 px-4">
             <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">
@@ -352,7 +378,6 @@ const AdminAchievementsPage = () => {
                           )}
                         </div>
                       </td>
-
                       <td className="px-6 py-4 text-right">
                         <div className="flex justify-end gap-2">
                           <button
@@ -423,22 +448,17 @@ const AdminAchievementsPage = () => {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && deletingAchievement && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                <Trash2 className="w-5 h-5 text-red-600" />
-              </div>
-              <h2 className="text-lg font-semibold text-gray-900">
-                Delete Achievement
-              </h2>
-            </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4">
+            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              Delete Achievement
+            </h2>
             <p className="text-gray-600 mb-6 text-sm sm:text-base">
-              Are you sure you want to delete "
-              <strong>{deletingAchievement.title}</strong>"? This action cannot
-              be undone.
+              Are you sure you want to delete{" "}
+              <strong>{deletingAchievement.title}</strong>? This action cannot be
+              undone.
             </p>
-            <div className="flex flex-col sm:flex-row justify-end gap-3">
+            <div className="flex justify-end gap-3">
               <button
                 onClick={() => {
                   setShowDeleteModal(false);
@@ -448,11 +468,40 @@ const AdminAchievementsPage = () => {
               >
                 Cancel
               </button>
+
               <button
                 onClick={handleDeleteAchievement}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                disabled={loading}
+                className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors ${loading ? "opacity-70 cursor-wait" : ""
+                  }`}
               >
-                Delete
+                {loading ? (
+                  <>
+                    <svg
+                      className="animate-spin h-4 w-4 mr-2 inline-block text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      />
+                    </svg>
+                    Deleting...
+                  </>
+                ) : (
+                  "Delete"
+                )}
               </button>
             </div>
           </div>

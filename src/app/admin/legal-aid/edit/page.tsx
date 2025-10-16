@@ -13,57 +13,6 @@ interface LegalAidActivityForm {
   image: string; // URL or base64
 }
 
-const mockFetchLegalAidActivity = async (id: string): Promise<LegalAidActivityForm | null> => {
-  const activities = [
-    {
-      id: "la1",
-      date: "03 DEC, 2019",
-      title: "Celebration of the International Day for Persons with Disabilities",
-      excerpt: "The Legal Aid Clinic of GLS Law College conducted an awareness campaign in Blind People's Association, Ahmedabad on account of the International Day for Persons with Disabilities. The campaign majorly focused on the Rights and Benefits available to the Visually Impaired, taking into light \"The Protection of Persons with Disability Act, 2016\"",
-      image: "/assets/Noimage.jpg",
-    },
-    {
-      id: "la2",
-      date: "17 JULy, 2019",
-      title: "Lex Juris Scienticia Quiz competition",
-      excerpt: "The Lex Juris Scienticia was enlightened with the gracious presence of Hon'ble Justice R.R. Tripathi, Former Judge of Gujarat High Court. The chief guest opened up with law aspirants with the role media plays in accordance with the Judiciary. One cannot categorize every case in the frame of pendency",
-      image: "/assets/Noimage.jpg",
-    },
-    {
-      id: "la3",
-      date: "27 FEB, 2018",
-      title: "Legal Clinic - Bakrol",
-      excerpt: "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 27th Feb. 2018 which has been adopted by Gujarat Law Society.",
-      image: "/assets/Noimage.jpg",
-    },
-    {
-      id: "la4",
-      date: "22 MAR, 2018",
-      title: "Legal Clinic – A Legal Initiative at Bakrol (Ahmedabad)",
-      excerpt: "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 31st January 2018 which has been adopted by Gujarat Law Society.",
-      image: "/assets/Noimage.jpg",
-    },
-    {
-      id: "la5",
-      date: "02 SEP, 2017",
-      title: "The Launch of ELC",
-      excerpt: "Official launch of the Environmental Law Clinic with dignitaries and a flagship awareness drive.",
-      image: "/assets/Noimage.jpg",
-    },
-  ];
-
-  const activity = activities.find(a => a.id === id);
-  if (activity) {
-    return {
-      date: activity.date,
-      title: activity.title,
-      excerpt: activity.excerpt,
-      image: activity.image,
-    };
-  }
-  return null;
-};
-
 const LegalAidEditContent = () => {
   const router = useRouter();
   const params = useSearchParams();
@@ -72,18 +21,36 @@ const LegalAidEditContent = () => {
   const [form, setForm] = useState<LegalAidActivityForm | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Fetch activity by ID
+  const fetchById = async (id: string): Promise<LegalAidActivityForm | null> => {
+    try {
+      const res = await fetch(`/api/legal-aid?id=${encodeURIComponent(id)}`);
+      const data = await res.json();
+      if (res.ok && data.success) {
+        return data.data as LegalAidActivityForm;
+      }
+      return null;
+    } catch (err) {
+      console.error("Fetch failed:", err);
+      return null;
+    }
+  };
+
   useEffect(() => {
     if (!id) return;
     (async () => {
-      const data = await mockFetchLegalAidActivity(id);
-      setForm(
-        data ?? {
+      const data = await fetchById(id);
+      if (data) {
+        setForm(data);
+      } else {
+        // Fallback default structure if no API data
+        setForm({
           date: "",
           title: "",
           excerpt: "",
           image: "/assets/Noimage.jpg",
-        }
-      );
+        });
+      }
     })();
   }, [id]);
 
@@ -98,52 +65,58 @@ const LegalAidEditContent = () => {
     }
   };
 
-  const submit = () => {
+  const handleSubmit = async () => {
     if (!form) return;
     if (!form.title || !form.excerpt || !form.date) {
       showToast({
         type: "error",
         title: "Validation Error",
-        message: "Please fill in all required fields"
+        message: "Please fill in all required fields",
       });
       return;
     }
 
-    (async () => {
-      setIsSubmitting(true);
-      try {
-        const payload: any = { ...form };
-        if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
-        payload.id = id;
-        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-        const headers: any = { "Content-Type": "application/json" };
-        if (token) headers['Authorization'] = `Bearer ${token}`;
-        const res = await fetch("/api/legal-aid", {
-          method: "PUT",
-          headers,
-          credentials: "include",
-          body: JSON.stringify(payload),
+    setIsSubmitting(true);
+    try {
+      const payload = { ...form, id };
+      const token =
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const headers: any = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
+      const res = await fetch("/api/legal-aid", {
+        method: "PUT",
+        headers,
+        credentials: "include",
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        showToast({
+          type: "success",
+          title: "Legal Aid Activity Updated",
+          message: `"${form.title}" updated successfully!`,
         });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          showToast({
-            type: "success",
-            title: "Legal Aid Activity updated",
-            message: `Legal Aid Activity updated successfully!`
-          });
-          router.push("/admin/legal-aid");
-        } else {
-          showToast({ type: "error", title: "Update failed", message: data.message || "Failed to update legal-aid" });
-        }
-      } catch (err) {
-        console.error(err);
-        showToast({ type: "error", title: "Network error", message: "Unable to update legal-aid" });
+        router.push("/admin/legal-aid");
+      } else {
+        showToast({
+          type: "error",
+          title: "Update failed",
+          message: data.message || "Failed to update legal aid activity",
+        });
       }
+    } catch (err) {
+      console.error(err);
+      showToast({
+        type: "error",
+        title: "Network error",
+        message: "Unable to update legal aid activity",
+      });
+    } finally {
       setIsSubmitting(false);
-    })();
-
-    console.log("Update legal aid activity:", { id, ...form });
-
+    }
   };
 
   if (!id) {
@@ -213,8 +186,22 @@ const LegalAidEditContent = () => {
 
         <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
           <button onClick={() => router.push("/admin/legal-aid")} className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">Cancel</button>
-          <button onClick={submit} className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2">
-            <Check className="w-4 h-4" /> Update Legal Aid Activity
+          <button onClick={handleSubmit}
+            disabled={isSubmitting}
+            className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2">
+            {isSubmitting ? (
+              <>
+                <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                </svg>
+                Updating...
+              </>
+            ) : (
+              <>
+                <Check className="w-4 h-4" /> Update Legal Aid Activity
+              </>
+            )}
           </button>
         </div>
       </div>
