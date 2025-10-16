@@ -99,7 +99,7 @@ const HeroSection = () => {
                       shape tomorrow's justice system.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    {/* <div className="flex flex-col sm:flex-row gap-4">
                       <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2">
                         <Play className="w-5 h-5" />
                         Watch Our Story
@@ -107,7 +107,7 @@ const HeroSection = () => {
                       <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105">
                         Explore Programs
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

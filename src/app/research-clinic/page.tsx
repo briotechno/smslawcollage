@@ -7,9 +7,9 @@ export default function ResearchClinicPage() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <EnvironmentalLawClinicPage />
-      <GenderLAWCLINICpage />
+      {/* <GenderLAWCLINICpage />
       <IntellectualPropertyLawClinicpage />
-      <LegalAidClinicpage />
+      <LegalAidClinicpage /> */}
     </div>
   );
 }

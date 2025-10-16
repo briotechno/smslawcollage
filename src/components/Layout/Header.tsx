@@ -81,11 +81,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-purple-900/95 backdrop-blur-md shadow-lg border-b border-purple-700"
           : "bg-gradient-to-r from-purple-900 to-purple-800 shadow-sm"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
@@ -107,7 +106,6 @@ export default function Header() {
                 key={item.name}
                 className="relative"
                 onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
               >
                 <Link
                   href={item.href}
@@ -116,16 +114,19 @@ export default function Header() {
                   <span>{item.name}</span>
                   {item.hasDropdown && (
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${
-                        activeDropdown === item.name ? "rotate-180" : ""
-                      }`}
+                      className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
+                        }`}
                     />
                   )}
                 </Link>
 
                 {/* Dropdown */}
                 {item.hasDropdown && activeDropdown === item.name && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                  <div
+                    className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                    onMouseEnter={() => setActiveDropdown(item.name)} // keep open
+                    onMouseLeave={() => setActiveDropdown(null)} // close only if leave dropdown area
+                  >
                     {item.dropdownItems?.map((dropdownItem) => (
                       <Link
                         key={dropdownItem.name}
@@ -158,19 +159,16 @@ export default function Header() {
             aria-label="Toggle menu"
           >
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileMenuOpen ? "rotate-45" : "-translate-y-1"
-              }`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "rotate-45" : "-translate-y-1"
+                }`}
             />
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
             />
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileMenuOpen ? "-rotate-45 -translate-y-1" : "translate-y-1"
-              }`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-1" : "translate-y-1"
+                }`}
             />
           </button>
         </div>
@@ -178,9 +176,8 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`xl:hidden bg-purple-800 border-t border-purple-700 transition-all duration-300 overflow-hidden ${
-          mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={`xl:hidden bg-purple-800 border-t border-purple-700 transition-all duration-300 overflow-hidden ${mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          }`}
       >
         <nav className="px-4 py-4 space-y-2">
           {menuItems.map((item) => (
@@ -190,17 +187,16 @@ export default function Header() {
                 onClick={() =>
                   item.hasDropdown
                     ? setActiveMobileDropdown(
-                        activeMobileDropdown === item.name ? null : item.name
-                      )
+                      activeMobileDropdown === item.name ? null : item.name
+                    )
                     : setMobileMenuOpen(false)
                 }
               >
                 <span>{item.name}</span>
                 {item.hasDropdown && (
                   <ChevronDown
-                    className={`w-4 h-4 transform transition-transform duration-200 ${
-                      activeMobileDropdown === item.name ? "rotate-180" : ""
-                    }`}
+                    className={`w-4 h-4 transform transition-transform duration-200 ${activeMobileDropdown === item.name ? "rotate-180" : ""
+                      }`}
                   />
                 )}
               </button>

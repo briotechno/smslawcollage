@@ -163,10 +163,10 @@ const StudentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
+      <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[130vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider1.jpg"
+            src="/assets/Slider2.jpg"
             alt="SMS Law College Students"
             fill
             style={{ objectFit: "cover" }}
@@ -210,7 +210,7 @@ const StudentPage = () => {
                 comprehensive support that shapes tomorrow's legal leaders.
               </motion.p>
 
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -223,7 +223,7 @@ const StudentPage = () => {
                 <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 text-sm sm:text-base">
                   Apply Now
                 </button>
-              </motion.div>
+              </motion.div> */}
             </div>
           </div>
         </div>
@@ -315,10 +315,10 @@ const StudentPage = () => {
                       </div>
                     ))}
                   </div>
-                  <button className="w-full bg-gray-100 hover:bg-purple-600 text-gray-700 hover:text-white px-4 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2">
+                  {/* <button className="w-full bg-gray-100 hover:bg-purple-600 text-gray-700 hover:text-white px-4 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2">
                     Learn More
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </button> */}
                 </div>
               </motion.div>
             ))}
