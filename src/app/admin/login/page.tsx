@@ -1,24 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { GoAlert } from "react-icons/go";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 const Loginpage = () => {
   const router = useRouter();
+  const { showToast } = useToast();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Redirect if already logged in
   useEffect(() => {
+    // if there's an existing token saved, redirect to dashboard
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-    // if (isLoggedIn) router.push("/dashboard");
+    if (isLoggedIn === "true") router.replace("/admin/dashboard");
   }, [router]);
+
 
   const submit = async () => {
     let hasError = false;
@@ -35,27 +38,50 @@ const Loginpage = () => {
 
     setError(newError);
     if (hasError) return;
-    router.push("/admin/dashboard");
-    // try {
-    //   const res = await fetch("https://dummyjson.com/auth/login", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ username: email, password, expiresInMins: 30 }),
-    //   });
 
-    //   const data = await res.json();
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: email, password }),
+        credentials: "include",
+      });
 
-    //   if (res.ok) {
-    //     localStorage.setItem("isLoggedIn", "true");
-    //     localStorage.setItem("user", JSON.stringify(data));
-    //     router.push("/admin/dashboard");
-    //   } else {
-    //     alert(data.message || "Login failed");
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    //   alert("Something went wrong!");
-    // }
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+    showToast({ type: "error", title: "Login failed", message: data.message || "Login failed" });
+        setIsLoading(false);
+        return;
+      }
+
+      // Save fallback token to localStorage if returned (cookie is HttpOnly)
+      if (data?.token) {
+        try {
+          localStorage.setItem("token", data.token);
+        } catch (e) {
+          // ignore storage errors
+        }
+      }
+
+      // optimistic mark
+      try {
+        if (data?.token) localStorage.setItem("token", data.token);
+        localStorage.setItem("isLoggedIn", "true");
+      } catch (e) {
+        // ignore
+      }
+
+      showToast({ type: "success", title: "Signed in", message: "Login successful — redirecting…" });
+      router.push("/admin/dashboard");
+      setIsLoading(false);
+     
+    } catch (err) {
+      console.error(err);
+  showToast({ type: "error", title: "Network error", message: "Network error — please try again" });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -67,14 +93,16 @@ const Loginpage = () => {
               A
             </div>
             <h1 className="text-2xl font-semibold text-purple-600">Welcome back</h1>
-            <p className="text-gray-500 text-sm">
-              Sign in to your account to continue
-            </p>
+            <p className="text-gray-500 text-sm">Sign in to your account to continue</p>
           </div>
 
-          <form className="space-y-4">
-
-            {/* Username Field */}
+          <form
+            className="space-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              submit();
+            }}
+          >
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-black">
                 Username
@@ -101,7 +129,6 @@ const Loginpage = () => {
               </div>
             </div>
 
-            {/* Password Field */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-black">
                 Password
@@ -137,7 +164,6 @@ const Loginpage = () => {
               </div>
             </div>
 
-            {/* Options */}
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2">
                 <input type="checkbox" className="h-4 w-4 text-indigo-600 rounded" />
@@ -148,23 +174,43 @@ const Loginpage = () => {
               </a>
             </div>
 
-            {/* Submit */}
             <div>
               <button
-                type="button"
-                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-purple-600 text-white font-medium px-4 py-3 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                onClick={submit}
+                type="submit"
+                disabled={isLoading}
+                className={`w-full inline-flex items-center justify-center gap-2 rounded-md bg-purple-600 text-white font-medium px-4 py-3 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                  isLoading ? "opacity-70 cursor-wait" : ""
+                }`}
               >
-                Sign in
+                {isLoading ? (
+                  <>
+                    <svg
+                      className="animate-spin h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      />
+                    </svg>
+                    Signing in...
+                  </>
+                ) : (
+                  "Sign in"
+                )}
               </button>
             </div>
-
-            {/* <p className="text-center text-sm text-gray-500">
-              Don't have an account?{" "}
-              <a href="#" className="text-indigo-600 font-medium hover:underline">
-                Sign up
-              </a>
-            </p> */}
           </form>
         </section>
 

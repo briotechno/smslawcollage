@@ -143,6 +143,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
   const [modalOpen, setModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false); // mobile drawer
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // desktop collapse
+  const [authChecked, setAuthChecked] = useState(false);
+  const [authorized, setAuthorized] = useState(false);
 
   // hydrate collapse state from localStorage
   useEffect(() => {
@@ -150,6 +152,29 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
       const stored = localStorage.getItem("admin.sidebarCollapsed");
       if (stored === "true") setSidebarCollapsed(true);
     } catch {}
+  }, []);
+
+  // client-side auth guard: use localStorage token / isLoggedIn flag
+  useEffect(() => {
+    try {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const token = localStorage.getItem("token");
+      if (isLoggedIn === "true" || token) {
+        setAuthorized(true);
+      } else {
+        setAuthorized(false);
+        if (!window.location.pathname.startsWith("/admin/login")) {
+          window.location.href = "/admin/login";
+        }
+      }
+    } catch (e) {
+      setAuthorized(false);
+      if (!window.location.pathname.startsWith("/admin/login")) {
+        window.location.href = "/admin/login";
+      }
+    } finally {
+      setAuthChecked(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -173,6 +198,39 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
     localStorage.removeItem("isLoggedIn");
     window.location.href = "/admin/login";
   };
+
+  // while we haven't checked auth, show a simple loader to avoid flashing admin UI
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <svg
+            className="animate-spin h-10 w-10 text-purple-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+            />
+          </svg>
+      </div>
+    );
+  }
+
+  if (!authorized) {
+    // if not authorized, we've already redirected; render nothing here
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex bg-gray-100">

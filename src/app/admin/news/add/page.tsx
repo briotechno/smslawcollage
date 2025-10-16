@@ -25,6 +25,7 @@ const AddNewsPage = () => {
   const { showToast } = useToast();
   const [showModal, setShowModal] = useState(false);
   const [newTag, setNewTag] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState<NewsItemForm>({
     title: "",
     summary: "",
@@ -87,6 +88,7 @@ const AddNewsPage = () => {
   };
 
   const submit = () => {
+    setIsSubmitting(true);
     if (
       !form.title || !form.summary || !form.date || !form.content || !form.status
     ) {
@@ -95,21 +97,36 @@ const AddNewsPage = () => {
         title: "Validation Error",
         message: "Please fill in all required fields"
       });
+      setIsSubmitting(false);
       return;
     }
-
-    // In a real app, this would make an API call
-    console.log("Adding tag:", form);
-
-    // Show success message
-    showToast({
-      type: "success",
-      title: "News Added",
-      message: `"${form.title}" has been successfully added!`
-    });
-
-    // Navigate back to achievements page
-    router.push("/admin/news");
+    (async () => {
+      try {
+        const payload = { ...form } as any;
+        // send empty string if default placeholder
+        if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const headers: any = { "Content-Type": "application/json" };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch("/api/news", {
+          method: "POST",
+          headers,
+          credentials: "include",
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast({ type: "success", title: "News Added", message: `"${form.title}" added` });
+          router.push("/admin/news");
+        } else {
+          showToast({ type: "error", title: "Create failed", message: data.message || "Failed to create news" });
+        }
+      } catch (err) {
+        console.error(err);
+        showToast({ type: "error", title: "Network error", message: "Unable to create news" });
+      }
+      setIsSubmitting(false);
+    })();
   };
 
   return (
@@ -308,9 +325,22 @@ const AddNewsPage = () => {
             </button>
             <button
               onClick={submit}
-              className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2"
+              disabled={isSubmitting}
+              className={`px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
             >
-              <Check className="w-4 h-4" /> Save News
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                  </svg>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" /> Save News
+                </>
+              )}
             </button>
           </div>
         </div>
