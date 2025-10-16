@@ -34,12 +34,12 @@ export async function POST(request: Request) {
     }
     const db = await connectDB();
     await ensureUsersTable(db);
-    const [rows] = (await db.execute("SELECT id, username, password, name, email, role FROM users WHERE username = ?", [username])) as any;
+    const [rows] = (await db.execute("SELECT id, username, password, name, email, role,image FROM users WHERE username = ?", [username])) as any;
     await db.end();
     if (rows.length > 0 && password === rows[0].password) {
       const user = rows[0];
       const token = signToken({ id: user.id, username: user.username, role: user.role });
-      return Response.json({ success: true, message: "Login successful", token, user: { id: user.id, username: user.username, name: user.name, email: user.email, role: user.role } }, { status: 200 });
+      return Response.json({ success: true, message: "Login successful", token, user: { id: user.id, username: user.username, name: user.name, email: user.email, role: user.role,image:user?.image } }, { status: 200 });
     } else {
       return Response.json({ success: false, message: "Invalid username or password" }, { status: 401 });
     }

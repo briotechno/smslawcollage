@@ -69,6 +69,12 @@ const Loginpage = () => {
       try {
         if (data?.token) localStorage.setItem("token", data.token);
         localStorage.setItem("isLoggedIn", "true");
+        // store user object if returned by the API
+        if (data?.user) {
+          try {
+            localStorage.setItem('user', JSON.stringify(data.user));
+          } catch {}
+        }
       } catch (e) {
         // ignore
       }

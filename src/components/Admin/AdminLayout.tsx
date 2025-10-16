@@ -145,6 +145,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // desktop collapse
   const [authChecked, setAuthChecked] = useState(false);
   const [authorized, setAuthorized] = useState(false);
+  const [currentUser, setCurrentUser] = useState<{ name?: string; image?: string } | null>(null);
 
   // hydrate collapse state from localStorage
   useEffect(() => {
@@ -177,6 +178,38 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
     }
   }, []);
 
+  // load current user from localStorage and listen for updates
+  useEffect(() => {
+    const loadUser = () => {
+      try {
+        const raw = localStorage.getItem('user');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          setCurrentUser({ name: parsed.name, image: parsed.image });
+          return;
+        }
+      } catch (e) {
+        // ignore
+      }
+      setCurrentUser(null);
+    };
+
+    loadUser();
+
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'user') loadUser();
+    };
+
+    const onUserUpdated = () => loadUser();
+
+    window.addEventListener('storage', onStorage);
+    window.addEventListener('user-updated', onUserUpdated as EventListener);
+    return () => {
+      window.removeEventListener('storage', onStorage);
+      window.removeEventListener('user-updated', onUserUpdated as EventListener);
+    };
+  }, []);
+
   useEffect(() => {
     try {
       localStorage.setItem("admin.sidebarCollapsed", sidebarCollapsed ? "true" : "false");
@@ -195,7 +228,10 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
   ];
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
+    try { localStorage.removeItem('isLoggedIn'); } catch {}
+    try { localStorage.removeItem('token'); } catch {}
+    try { localStorage.removeItem('user'); } catch {}
+    setCurrentUser(null);
     window.location.href = "/admin/login";
   };
 
@@ -373,11 +409,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
                 aria-haspopup="menu"
                 aria-expanded={dropdownOpen}
               >
-                <span className="text-gray-700 font-medium hidden lg:inline text-sm">Admin</span>
+                <span className="text-gray-700 font-medium hidden lg:inline text-sm">{currentUser?.name ?? 'Admin'}</span>
                 <img
-                  src="https://i.pravatar.cc/40"
-                  alt="profile"
-                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-gray-300"
+                  src={currentUser?.image || '/assets/Noimage.jpg'}
+                  alt={currentUser?.name || 'profile'}
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-gray-300 object-cover"
                 />
               </button>
 
