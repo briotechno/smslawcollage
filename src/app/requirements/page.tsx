@@ -2,11 +2,50 @@
 
 import React from "react";
 import Link from "next/link";
-import LayoutShell from "@/components/Layout/LayoutShell";
+// LayoutShell is applied by the root layout; do not wrap pages with it to avoid duplicate header/footer
 import { Download, Briefcase } from "lucide-react";
 
 const vacancies = [
   {
+    id: 'r1',
+    title: 'Assistant Professor - Law',
+    department: 'Legal Education',
+    deadline: '2025-11-30',
+    file: '/assets/dummy-requirement.pdf'
+  },
+  {
+    id: 'r2',
+    title: 'Library Assistant',
+    department: 'Library',
+    deadline: '2025-12-15',
+    file: '/assets/dummy-requirement.pdf'
+  }, {
+    id: 'r1',
+    title: 'Assistant Professor - Law',
+    department: 'Legal Education',
+    deadline: '2025-11-30',
+    file: '/assets/dummy-requirement.pdf'
+  },
+  {
+    id: 'r2',
+    title: 'Library Assistant',
+    department: 'Library',
+    deadline: '2025-12-15',
+    file: '/assets/dummy-requirement.pdf'
+  }, {
+    id: 'r1',
+    title: 'Assistant Professor - Law',
+    department: 'Legal Education',
+    deadline: '2025-11-30',
+    file: '/assets/dummy-requirement.pdf'
+  },
+  {
+    id: 'r2',
+    title: 'Library Assistant',
+    department: 'Library',
+    deadline: '2025-12-15',
+    file: '/assets/dummy-requirement.pdf'
+  }, {
     id: 'r1',
     title: 'Assistant Professor - Law',
     department: 'Legal Education',
@@ -24,7 +63,7 @@ const vacancies = [
 
 export default function RequirementsPage() {
   return (
-    <LayoutShell>
+    <>
       {/* Hero */}
   <div className="relative overflow-hidden bg-gradient-to-r from-purple-900 to-purple-800 text-white pt-44 pb-44">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,6 +127,6 @@ export default function RequirementsPage() {
         </section>
 
       </div>
-    </LayoutShell>
+    </>
   );
 }
