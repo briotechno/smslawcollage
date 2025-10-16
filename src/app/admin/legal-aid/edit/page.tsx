@@ -4,6 +4,7 @@ import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Check, Upload } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 interface LegalAidActivityForm {
   date: string;
@@ -66,6 +67,7 @@ const mockFetchLegalAidActivity = async (id: string): Promise<LegalAidActivityFo
 const LegalAidEditContent = () => {
   const router = useRouter();
   const params = useSearchParams();
+  const { showToast } = useToast();
   const id = params.get("id");
   const [form, setForm] = useState<LegalAidActivityForm | null>(null);
 
@@ -98,11 +100,19 @@ const LegalAidEditContent = () => {
   const submit = () => {
     if (!form) return;
     if (!form.title || !form.excerpt || !form.date) {
-      alert("Please fill required fields (title, excerpt, date)");
+      showToast({
+        type: "error",
+        title: "Validation Error",
+        message: "Please fill in all required fields"
+      });
       return;
     }
     console.log("Update legal aid activity:", { id, ...form });
-    alert("Legal Aid Activity updated successfully!");
+    showToast({
+      type: "success",
+      title: "Legal Aid Activity updated",
+      message: `Legal Aid Activity updated successfully!`
+    });
     router.push("/admin/legal-aid");
   };
 
@@ -128,8 +138,8 @@ const LegalAidEditContent = () => {
   }
 
   return (
-    <AdminLayout 
-      title="Edit Legal Aid Activity" 
+    <AdminLayout
+      title="Edit Legal Aid Activity"
       subtitle="Update legal aid clinic activity"
     >
       <div className="flex items-center justify-between mb-6">
@@ -140,14 +150,14 @@ const LegalAidEditContent = () => {
       </div>
 
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-black">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Title <span className="text-red-500">*</span></label>
             <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter activity title" />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Date *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Date <span className="text-red-500">*</span></label>
             <input type="text" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="e.g., 03 DEC, 2019" />
           </div>
 
@@ -166,7 +176,7 @@ const LegalAidEditContent = () => {
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Excerpt *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Excerpt <span className="text-red-500">*</span></label>
             <textarea value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} rows={6} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter detailed description of the activity" />
           </div>
         </div>
@@ -174,7 +184,7 @@ const LegalAidEditContent = () => {
         <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
           <button onClick={() => router.push("/admin/legal-aid")} className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">Cancel</button>
           <button onClick={submit} className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2">
-            <Check className="w-4 h-4" /> Update Activity
+            <Check className="w-4 h-4" /> Update Legal Aid Activity
           </button>
         </div>
       </div>

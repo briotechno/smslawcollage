@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Check, Upload } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 interface LegalAidActivityForm {
   date: string;
@@ -14,6 +15,7 @@ interface LegalAidActivityForm {
 
 const LegalAidAddPage = () => {
   const router = useRouter();
+  const { showToast } = useToast();
   const [form, setForm] = useState<LegalAidActivityForm>({
     date: "",
     title: "",
@@ -34,11 +36,19 @@ const LegalAidAddPage = () => {
 
   const submit = () => {
     if (!form.title || !form.excerpt || !form.date) {
-      alert("Please fill required fields (title, excerpt, date)");
+      showToast({
+        type: "error",
+        title: "Validation Error",
+        message: "Please fill in all required fields"
+      });
       return;
     }
     console.log("Create legal aid activity:", form);
-    alert("Legal Aid Activity added successfully!");
+    showToast({
+      type: "success",
+      title: "Faculty Added",
+      message: `"${form.title}" has been successfully added to the faculty!`
+    });
     router.push("/admin/legal-aid");
   };
 
@@ -56,11 +66,11 @@ const LegalAidAddPage = () => {
         </button>
       </div>
 
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
+      <div className="max-w-4xl mx-auto bg-white text-black rounded-lg shadow-sm p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Title *
+              Title <span className="text-red-500">*</span>
             </label>
             <input
               value={form.title}
@@ -72,10 +82,10 @@ const LegalAidAddPage = () => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Date *
+              Date <span className="text-red-500">*</span>
             </label>
             <input
-              type="text"
+              type="date"
               value={form.date}
               onChange={(e) => setForm({ ...form, date: e.target.value })}
               className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -110,7 +120,7 @@ const LegalAidAddPage = () => {
 
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Excerpt *
+              Excerpt <span className="text-red-500">*</span>
             </label>
             <textarea
               value={form.excerpt}
