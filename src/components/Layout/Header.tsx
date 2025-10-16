@@ -65,6 +65,7 @@ const menuItems = [
     ],
   },
   { name: "Admission", href: "/admission" },
+    { name: "Requirements", href: "/requirements" },
 ];
 
 export default function Header() {
@@ -109,7 +110,7 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="px-4 py-2 text-sm font-medium text-white hover:text-purple-200 flex items-center gap-1 transition-all duration-200 group"
+                  className="px-4 py-2 text-sm font-medium text-white hover:text-purple-200 flex items-center gap-1 transition-all duration-200 group relative"
                 >
                   <span>{item.name}</span>
                   {item.hasDropdown && (
@@ -119,6 +120,11 @@ export default function Header() {
                     />
                   )}
                 </Link>
+                {/* {item.name === 'Requirements' && (
+                  <span className="absolute -top-0.5 right-2 inline-flex items-center px-1 py-[0.2px] bg-white text-purple-700 text-[10px] font-semibold rounded-full animate-pulse z-50">
+                    New
+                  </span>
+                )} */}
 
                 {/* Dropdown */}
                 {item.hasDropdown && activeDropdown === item.name && (
@@ -192,7 +198,14 @@ export default function Header() {
                     : setMobileMenuOpen(false)
                 }
               >
-                <span>{item.name}</span>
+                <span className="flex items-center gap-2 relative">
+                  <span>{item.name}</span>
+                  {item.name === 'Requirements' && (
+                    <span className="absolute -top-1 -right-2 inline-flex items-center px-2 py-0.5 bg-white text-purple-700 text-xs font-semibold rounded-full animate-pulse z-50">
+                      New
+                    </span>
+                  )}
+                </span>
                 {item.hasDropdown && (
                   <ChevronDown
                     className={`w-4 h-4 transform transition-transform duration-200 ${activeMobileDropdown === item.name ? "rotate-180" : ""

@@ -185,6 +185,7 @@ const NewsAdminPage = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
@@ -195,6 +196,9 @@ const NewsAdminPage = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filtered.map((item) => (
                   <tr key={item.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4">
+                      <img src={item.imageUrl==""?'/assets/Noimage.jpg':item.imageUrl} alt={item.title} className="w-10 h-10 rounded object-cover border" />
+                    </td>
                     <td className="px-6 py-4">
                       <div className="text-sm font-medium text-gray-900">{item.title}</div>
                       <div className="text-sm text-gray-500 truncate max-w-xl">{item.summary}</div>

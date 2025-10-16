@@ -27,14 +27,31 @@ const FacultyAddPage = () => {
     image: "/assets/Noimage.jpg",
   });
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setForm({ ...form, image: reader.result as string });
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+    const preview = URL.createObjectURL(file);
+    setForm((p) => ({ ...p, image: preview }));
+    setIsUploadingImage(true);
+    try {
+      const fd = new FormData();
+      fd.append('image', file, file.name);
+      const res = await import('@/lib/adminFetch').then(m => m.default('/api/upload', { method: 'POST', body: fd }));
+      const data = await res.json();
+      if (res.ok && data.success && data.url) {
+        setForm((p) => ({ ...p, image: data.url }));
+        showToast({ type: 'success', title: 'Uploaded', message: 'Image uploaded successfully' });
+      } else {
+        showToast({ type: 'error', title: 'Upload failed', message: data?.message || 'Failed to upload image' });
+      }
+    } catch (err) {
+      console.error(err);
+      showToast({ type: 'error', title: 'Upload error', message: 'Unable to upload image' });
+    } finally {
+      setIsUploadingImage(false);
     }
   };
 
@@ -47,13 +64,27 @@ const FacultyAddPage = () => {
       });
       return;
     }
-    console.log("Create faculty:", form);
-    showToast({
-      type: "success",
-      title: "Faculty Added",
-      message: `"${form.name}" has been successfully added to the faculty!`
-    });
-    router.push("/admin/faculty");
+
+    setIsSubmitting(true);
+    (async () => {
+      try {
+        const payload: any = { ...form };
+        if (payload.image === "/assets/Noimage.jpg") payload.image = "";
+  const res = await import('@/lib/adminFetch').then(m => m.default('/api/faculty', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }));
+  const data = await res.json();
+        if (res.ok && data.success) {
+          showToast({ type: 'success', title: 'Added', message: `"${form.name}" added` });
+          router.push('/admin/faculty');
+        } else {
+          showToast({ type: 'error', title: 'Create failed', message: data?.message || 'Failed to create faculty' });
+        }
+      } catch (err) {
+        console.error(err);
+        showToast({ type: 'error', title: 'Network error', message: 'Unable to create faculty' });
+      } finally {
+        setIsSubmitting(false);
+      }
+    })();
   };
 
   return (
@@ -136,8 +167,15 @@ const FacultyAddPage = () => {
                 />
               </div>
               <label className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-md cursor-pointer hover:bg-purple-700 transition-colors">
-                <Upload className="w-4 h-4" />
-                Upload
+                {isUploadingImage ? (
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                  </svg>
+                ) : (
+                  <Upload className="w-4 h-4" />
+                )}
+                {isUploadingImage ? 'Uploading...' : 'Upload'}
                 <input
                   type="file"
                   accept="image/*"
@@ -164,7 +202,7 @@ const FacultyAddPage = () => {
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
+          <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
           <button
             onClick={() => router.push("/admin/faculty")}
             className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
@@ -173,9 +211,22 @@ const FacultyAddPage = () => {
           </button>
           <button
             onClick={submit}
-            className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2"
+            disabled={isSubmitting}
+            className={`px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
           >
-            <Check className="w-4 h-4" /> Save Faculty
+            {isSubmitting ? (
+              <>
+                <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                </svg>
+                Saving...
+              </>
+            ) : (
+              <>
+                <Check className="w-4 h-4" /> Save Faculty
+              </>
+            )}
           </button>
         </div>
       </div>
