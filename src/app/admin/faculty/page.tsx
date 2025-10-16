@@ -158,7 +158,7 @@ const FacultyAdminPage = () => {
                   <tr key={m.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <img src={m.image} alt={m.name} className="w-10 h-10 rounded object-cover border" />
+                        <img src={m.image==''?'/assets/Noimage.jpg':m.image} alt={m.name} className="w-10 h-10 rounded object-cover border" />
                         <div>
                           <div className="text-sm font-medium text-gray-900">{m.name}</div>
                           <div className="text-sm text-gray-500">{m.experience}</div>

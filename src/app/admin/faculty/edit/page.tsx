@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, Check, Upload } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
 import { useToast } from "@/components/Toast/ToastProvider";
 
@@ -36,6 +36,7 @@ const FacultyEditContent = () => {
   const [form, setForm] = useState<FacultyForm | null>(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -139,8 +140,56 @@ const FacultyEditContent = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
-              <input value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" />
+              <label className="block text-sm font-medium text-gray-700 mb-2">Image</label>
+              <div className="flex items-center gap-4">
+                <div className="relative w-24 h-24 rounded-md overflow-hidden border border-gray-200 bg-gray-50">
+                  <img
+                    src={form.image || '/assets/Noimage.jpg'}
+                    alt="Faculty Preview"
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <label className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-md cursor-pointer hover:bg-purple-700 transition-colors">
+                  {isUploadingImage ? (
+                    <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                    </svg>
+                  ) : (
+                    <Upload className="w-4 h-4" />
+                  )}
+                  {isUploadingImage ? 'Uploading...' : 'Upload Image'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file || !form) return;
+                      const preview = URL.createObjectURL(file);
+                      setForm((p) => p ? ({ ...p, image: preview }) : p);
+                      setIsUploadingImage(true);
+                      try {
+                        const fd = new FormData();
+                        fd.append('image', file, file.name);
+                        const res = await import('@/lib/adminFetch').then(m => m.default('/api/upload', { method: 'POST', body: fd }));
+                        const data = await res.json();
+                        if (res.ok && data.success && data.url) {
+                          setForm((p) => p ? ({ ...p, image: data.url }) : p);
+                          showToast({ type: 'success', title: 'Uploaded', message: 'Image uploaded successfully' });
+                        } else {
+                          showToast({ type: 'error', title: 'Upload failed', message: data?.message || 'Failed to upload image' });
+                        }
+                      } catch (err) {
+                        console.error(err);
+                        showToast({ type: 'error', title: 'Upload error', message: 'Unable to upload image' });
+                      } finally {
+                        setIsUploadingImage(false);
+                      }
+                    }}
+                  />
+                </label>
+              </div>
             </div>
 
             <div className="md:col-span-2">
