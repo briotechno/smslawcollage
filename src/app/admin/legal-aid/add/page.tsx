@@ -16,6 +16,7 @@ interface LegalAidActivityForm {
 const LegalAidAddPage = () => {
   const router = useRouter();
   const { showToast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState<LegalAidActivityForm>({
     date: "",
     title: "",
@@ -43,12 +44,42 @@ const LegalAidAddPage = () => {
       });
       return;
     }
+    (async () => {
+      try {
+        const payload = { ...form } as any;
+        // send empty string if default placeholder
+        if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const headers: any = { "Content-Type": "application/json" };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch("/api/legal-aid", {
+          method: "POST",
+          headers,
+          credentials: "include",
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast({
+            type: "success",
+            title: "Faculty Added",
+            message: `"${form.title}" has been successfully added to the faculty!`
+          });
+          router.push("/admin/legal-aid");
+        } else {
+          showToast({
+            type: "error",
+            title: "Create failed",
+            message: data.message || "Failed to create news"
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        showToast({ type: "error", title: "Network error", message: "Unable to create news" });
+      }
+      setIsSubmitting(false);
+    })();
     console.log("Create legal aid activity:", form);
-    showToast({
-      type: "success",
-      title: "Faculty Added",
-      message: `"${form.title}" has been successfully added to the faculty!`
-    });
     router.push("/admin/legal-aid");
   };
 

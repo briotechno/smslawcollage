@@ -15,6 +15,11 @@ import { useRouter } from "next/navigation";
 import AdminLayout from "@/components/Admin/AdminLayout";
 import { useToast } from "@/components/Toast/ToastProvider";
 
+interface Participant {
+  name: string;
+  rollNo: string;
+}
+
 interface Achievement {
   id: string;
   title: string;
@@ -23,7 +28,8 @@ interface Achievement {
   category: string;
   award: string;
   prize: string;
-  participants: string[];
+  // participants: string[];
+  participants: Participant[];
   event?: string;
   organizer?: string;
   level?: string;
@@ -36,6 +42,7 @@ const AdminAchievementsPage = () => {
   const [selectedType, setSelectedType] = useState<
     "academic" | "cultural" | "sports" | "participation"
   >("academic");
+  const [loading, setLoading] = useState(false);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletingAchievement, setDeletingAchievement] =
@@ -70,47 +77,47 @@ const AdminAchievementsPage = () => {
   ];
 
   // sample data
-  const sampleAchievements: Achievement[] = [
-    {
-      id: "1",
-      title: "National Moot Court Competition Winners",
-      description:
-        "Mr. Aditya Dave, Mr. Monarch Pandya and Mr. Nathan Gomes bagged the winning Trophy.",
-      year: "2024",
-      category: "Moot Court",
-      award: "1st Position",
-      prize: "₹1,00,000",
-      participants: [
-        "Mr. Aditya Dave",
-        "Mr. Monarch Pandya",
-        "Mr. Nathan Gomes",
-      ],
-      type: "academic",
-    },
-    {
-      id: "2",
-      title: "Athena Moot Court Competition Winners",
-      description:
-        "Mr. Niel Bhatt, Mr. Jaydev Chudasma and Ms. Radhika Buddha secured first position.",
-      year: "2019",
-      category: "Moot Court",
-      award: "1st Position",
-      prize: "₹3,000",
-      participants: [
-        "Mr. Niel Bhatt",
-        "Mr. Jaydev Chudasma",
-        "Ms. Radhika Buddha",
-      ],
-      type: "cultural",
-    },
-  ];
+  // const sampleAchievements: Achievement[] = [
+  //   {
+  //     id: "1",
+  //     title: "National Moot Court Competition Winners",
+  //     description:
+  //       "Mr. Aditya Dave, Mr. Monarch Pandya and Mr. Nathan Gomes bagged the winning Trophy.",
+  //     year: "2024",
+  //     category: "Moot Court",
+  //     award: "1st Position",
+  //     prize: "₹1,00,000",
+  //     participants: [
+  //       "Mr. Aditya Dave",
+  //       "Mr. Monarch Pandya",
+  //       "Mr. Nathan Gomes",
+  //     ],
+  //     type: "academic",
+  //   },
+  //   {
+  //     id: "2",
+  //     title: "Athena Moot Court Competition Winners",
+  //     description:
+  //       "Mr. Niel Bhatt, Mr. Jaydev Chudasma and Ms. Radhika Buddha secured first position.",
+  //     year: "2019",
+  //     category: "Moot Court",
+  //     award: "1st Position",
+  //     prize: "₹3,000",
+  //     participants: [
+  //       "Mr. Niel Bhatt",
+  //       "Mr. Jaydev Chudasma",
+  //       "Ms. Radhika Buddha",
+  //     ],
+  //     type: "cultural",
+  //   },
+  // ];
 
-  useEffect(() => {
-    const filtered = sampleAchievements.filter(
-      (a) => a.type === selectedType
-    );
-    setAchievements(filtered);
-  }, [selectedType]);
+  // useEffect(() => {
+  //   const filtered = sampleAchievements.filter(
+  //     (a) => a.type === selectedType
+  //   );
+  //   setAchievements(filtered);
+  // }, [selectedType]);
 
   const filteredAchievements = achievements.filter(
     (achievement) =>
@@ -127,19 +134,77 @@ const AdminAchievementsPage = () => {
     router.push(`/admin/achievements/edit?id=${achievement.id}`);
   };
 
-  const handleDeleteAchievement = () => {
-    if (!deletingAchievement) return;
-    setAchievements((prev) =>
-      prev.filter((a) => a.id !== deletingAchievement.id)
-    );
-    setShowDeleteModal(false);
-    setDeletingAchievement(null);
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+        const headers: any = {};
+        if (token) headers["Authorization"] = `Bearer ${token}`;
 
-    showToast({
-      type: "success",
-      title: "Achievement Deleted",
-      message: `"${deletingAchievement.title}" has been successfully deleted.`,
-    });
+        const res = await fetch("/api/achievements", { headers });
+        const data = await res.json();
+
+        if (res.ok && data?.success) {
+          setAchievements(data.data || []);
+        } else {
+          setAchievements([]);
+        }
+      } catch (err) {
+        console.error(err);
+        setAchievements([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, []);
+
+  const handleDeleteAchievement = async () => {
+    if (!deletingAchievement) return;
+
+    setLoading(true);
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const headers: any = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
+      const res = await fetch(`/api/achievements?id=${deletingAchievement.id}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data?.success) {
+        setAchievements((prev) =>
+          prev.filter((a) => a.id !== deletingAchievement.id)
+        );
+        showToast({
+          type: "success",
+          title: "Achievement Deleted",
+          message: `"${deletingAchievement.title}" has been successfully deleted.`,
+        });
+      } else {
+        showToast({
+          type: "error",
+          title: "Deletion Failed",
+          message: data?.message || "Something went wrong while deleting.",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      showToast({
+        type: "error",
+        title: "Deletion Failed",
+        message: "Something went wrong while deleting.",
+      });
+    } finally {
+      setShowDeleteModal(false);
+      setDeletingAchievement(null);
+      setLoading(false);
+    }
   };
 
   return (
@@ -277,7 +342,7 @@ const AdminAchievementsPage = () => {
                               key={i}
                               className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
                             >
-                              {p}
+                              {p.name}
                             </span>
                           ))}
                           {achievement.participants.length > 2 && (
@@ -287,6 +352,7 @@ const AdminAchievementsPage = () => {
                           )}
                         </div>
                       </td>
+
                       <td className="px-6 py-4 text-right">
                         <div className="flex justify-end gap-2">
                           <button

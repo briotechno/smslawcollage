@@ -70,6 +70,7 @@ const LegalAidEditContent = () => {
   const { showToast } = useToast();
   const id = params.get("id");
   const [form, setForm] = useState<LegalAidActivityForm | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -107,13 +108,42 @@ const LegalAidEditContent = () => {
       });
       return;
     }
+
+    (async () => {
+      setIsSubmitting(true);
+      try {
+        const payload: any = { ...form };
+        if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
+        payload.id = id;
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const headers: any = { "Content-Type": "application/json" };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch("/api/legal-aid", {
+          method: "PUT",
+          headers,
+          credentials: "include",
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast({
+            type: "success",
+            title: "Legal Aid Activity updated",
+            message: `Legal Aid Activity updated successfully!`
+          });
+          router.push("/admin/legal-aid");
+        } else {
+          showToast({ type: "error", title: "Update failed", message: data.message || "Failed to update legal-aid" });
+        }
+      } catch (err) {
+        console.error(err);
+        showToast({ type: "error", title: "Network error", message: "Unable to update legal-aid" });
+      }
+      setIsSubmitting(false);
+    })();
+
     console.log("Update legal aid activity:", { id, ...form });
-    showToast({
-      type: "success",
-      title: "Legal Aid Activity updated",
-      message: `Legal Aid Activity updated successfully!`
-    });
-    router.push("/admin/legal-aid");
+
   };
 
   if (!id) {

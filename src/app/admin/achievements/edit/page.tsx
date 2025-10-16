@@ -34,6 +34,8 @@ const EditAchievementContent = () => {
   const { showToast } = useToast();
   const [showModal, setShowModal] = useState(false);
   const [newParticipant, setNewParticipant] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState<Partial<Achievement>>({
     title: '',
     description: '',
@@ -132,7 +134,7 @@ const EditAchievementContent = () => {
     setShowModal(false);
   };
 
-  const handleUpdateAchievement = () => {
+  const handleUpdateAchievement = async () => {
     if (!formData) return;
     if (
       !formData.title ||
@@ -147,6 +149,34 @@ const EditAchievementContent = () => {
       });
       return;
     }
+
+    (async () => {
+      setIsSubmitting(true);
+      try {
+        const payload: any = { ...formData };
+        if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
+        payload.id = achievementId;
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const headers: any = { "Content-Type": "application/json" };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch("/api/achievements", {
+          method: "PUT",
+          headers,
+          credentials: "include",
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast({ type: "success", title: "News Updated", message: `"${formData.title}" updated` });
+          router.push("/admin/news");
+        } else {
+          showToast({ type: "error", title: "Update failed", message: data.message || "Failed to update news" });
+        }
+      } catch (err) {
+        console.error(err);
+        showToast({ type: "error", title: "Network error", message: "Unable to update news" });
+      } setIsSubmitting(false);
+    })();
 
     // In a real app, this would make an API call
     console.log("Update news:", formData);
@@ -195,15 +225,15 @@ const EditAchievementContent = () => {
     );
   }
 
-  if (!formData.title) {
-    return (
-      <AdminLayout title="Edit Achievement" subtitle="Update achievement record">
-        <div className="text-center py-12">
-          <div className="text-gray-500">Loading...</div>
-        </div>
-      </AdminLayout>
-    );
-  }
+  // if (!formData.title) {
+  //   return (
+  //     <AdminLayout title="Edit Achievement" subtitle="Update achievement record">
+  //       <div className="text-center py-12">
+  //         <div className="text-gray-500">Loading...</div>
+  //       </div>
+  //     </AdminLayout>
+  //   );
+  // }
 
   return (
     <AdminLayout
