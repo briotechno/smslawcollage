@@ -214,7 +214,7 @@ const AchievementsPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {achievementCategories.map((category, index) => (
               <motion.div
                 key={index}
@@ -251,13 +251,13 @@ const AchievementsPage = () => {
                       </div>
                     ))}
                   </div>
-                  <Link
+                  {/* <Link
                     href={category.href}
                     className="w-full bg-gray-100 hover:bg-purple-600 text-gray-700 hover:text-white px-4 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     View Details
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </Link> */}
                 </div>
               </motion.div>
             ))}

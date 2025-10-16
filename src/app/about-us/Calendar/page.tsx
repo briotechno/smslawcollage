@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const Calendarpage = () => {
     const today = new Date();
@@ -88,23 +89,31 @@ const Calendarpage = () => {
 
     return (
         <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
+                <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900">
+                    <span className="text-purple-600 mb-12">Calendar</span>
+                </h1>
+                <div className="w-32 h-1 bg-purple-600 mx-auto mt-4 rounded-full mb-12"></div>
+                <div className="flex justify-start">
+                  <Link href="/" passHref>
+                    <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2">
+                      <ArrowLeft className="w-5 h-5" />
+                      Back
+                    </button>
+                  </Link>
+                </div>
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 my-16"
+                    className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 my-5"
                 >
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start relative">
                         {/* Calendar Section */}
                         <div className="lg:col-span-2 text-center">
-                            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900">
-                                <span className="text-purple-600 mb-12">Calendar</span>
-                            </h1>
-                            <div className="w-32 h-1 bg-purple-600 mx-auto mt-4 rounded-full mb-12"></div>
 
-                            <div className="bg-white rounded-2xl shadow-md p-6 md:p-8">
+                            <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
                                 {/* Header */}
 
                                 <div className="flex items-center justify-between mb-6">

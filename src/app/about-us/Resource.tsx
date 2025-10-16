@@ -244,10 +244,10 @@ const Resource = () => {
                     </div>
                   ))}
                 </div>
-                <button className="mt-6 w-full bg-gray-100 hover:bg-purple-600 text-gray-700 hover:text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2">
+                {/* <button className="mt-6 w-full bg-gray-100 hover:bg-purple-600 text-gray-700 hover:text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2">
                   <ExternalLink className="w-4 h-4" />
                   Access Resource
-                </button>
+                </button> */}
               </div>
             </motion.div>
           ))}

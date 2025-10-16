@@ -150,6 +150,7 @@ const AntiRaggingCommittee = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
+
         <div className="absolute inset-0">
           <Image
             src="/assets/Slider2.jpg"
@@ -514,7 +515,7 @@ const AntiRaggingCommittee = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600">
+      {/* <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -541,7 +542,7 @@ const AntiRaggingCommittee = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

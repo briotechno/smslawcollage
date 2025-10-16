@@ -73,14 +73,14 @@ const programs = [
   { name: "Internship", href: "/academics" },
 ];
 
-const galleryItems = [
-  { src: "/assets/Slider1.jpg", title: "Campus Life" },
-  { src: "/assets/Slider2.jpg", title: "Guest Lecture" },
-  { src: "/assets/Slider3.jpg", title: "Orientation" },
-  { src: "/assets/Slider4.jpg", title: "Workshop" },
-  { src: "/assets/Slider5.jpg", title: "Seminar" },
-  { src: "/assets/Slider1.jpg", title: "Sports Day" },
-];
+// const galleryItems = [
+//   { src: "/assets/Slider1.jpg", title: "Campus Life" },
+//   { src: "/assets/Slider2.jpg", title: "Guest Lecture" },
+//   { src: "/assets/Slider3.jpg", title: "Orientation" },
+//   { src: "/assets/Slider4.jpg", title: "Workshop" },
+//   { src: "/assets/Slider5.jpg", title: "Seminar" },
+//   { src: "/assets/Slider1.jpg", title: "Sports Day" },
+// ];
 
 const stats = [
   { icon: Users, number: "500+", label: "Students" },
@@ -322,7 +322,7 @@ export default function Footer() {
         </motion.div>
 
         {/* Photo Gallery */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -351,7 +351,7 @@ export default function Footer() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
 
       {/* Social Media & Bottom Bar */}

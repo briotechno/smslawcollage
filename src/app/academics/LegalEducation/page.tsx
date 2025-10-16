@@ -20,6 +20,7 @@ import {
   Building,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const LegalEducation = () => {
   const fadeInUp = {
@@ -244,13 +245,17 @@ const LegalEducation = () => {
               Join SMS Law College and begin your path to becoming a successful legal professional.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2">
-                <ExternalLink className="w-5 h-5" />
-                Apply Now
-              </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105">
-                Learn More
-              </button>
+              <Link href="/admission" passHref>
+                <button className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2">
+                  <ExternalLink className="w-5 h-5" />
+                  Apply Now
+                </button>
+              </Link>
+              <Link href="/" passHref>
+                <button className="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105">
+                  Learn More
+                </button>
+              </Link>
             </div>
           </motion.div>
         </div>
