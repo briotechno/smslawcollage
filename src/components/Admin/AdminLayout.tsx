@@ -413,7 +413,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
                 <img
                   src={currentUser?.image || '/assets/Noimage.jpg'}
                   alt={currentUser?.name || 'profile'}
-                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-gray-300 object-cover"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-purple-600 object-cover"
                 />
               </button>
 
@@ -425,15 +425,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
                     aria-hidden="true"
                   />
                   <div className="absolute right-0 mt-2 w-48 sm:w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-scale-in">
-                    <button
-                      onClick={() => {
-                        setModalOpen(true);
-                        setDropdownOpen(false);
-                      }}
-                      className="flex items-center gap-2 w-full px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors text-sm"
-                    >
-                      <FaKey className="w-4 h-4" /> Change Password
-                    </button>
+                   
                     <button
                       onClick={handleLogout}
                       className="flex items-center gap-2 w-full px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors text-sm"
