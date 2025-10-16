@@ -253,6 +253,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title, subtitle, ac
         aria-label="Sidebar"
       >
         <div className={`flex items-center justify-between border-b ${sidebarCollapsed ? 'p-4' : 'p-6'}`}>
+          <img src="/assets/logo.png" alt="Logo" className={`${sidebarCollapsed ? 'w-[100%]' : 'w-[25%]'} transition-opacity`} />
           <div className={`text-2xl font-bold ${sidebarCollapsed ? 'opacity-0 md:opacity-0' : 'opacity-100'} transition-opacity`}>
             Admin Panel
           </div>
