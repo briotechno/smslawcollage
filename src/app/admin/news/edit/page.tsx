@@ -19,31 +19,17 @@ interface NewsItemForm {
   tags: string[];
 }
 
-// Mock fetch by id
-const mockFetchById = async (id: string): Promise<NewsItemForm | null> => {
-  const map: Record<string, NewsItemForm> = {
-    n1: {
-      title: "Orientation Program for New Batch",
-      summary: "Welcome session for the incoming students with faculty introductions.",
-      content: "We cordially welcome the new batch. The orientation program will cover academic roadmap, code of conduct, and campus tour.",
-      date: "2025-07-10",
-      category: "Events",
-      status: "Published",
-      imageUrl: "",
-      tags: ["orientation", "students"],
-    },
-    n2: {
-      title: "Guest Lecture: Emerging Trends in Cyber Law",
-      summary: "Industry expert session on cyber security and digital forensics.",
-      content: "The session will focus on recent jurisprudence in cyber law, practical cases, and career pathways in this domain.",
-      date: "2025-08-05",
-      category: "Lectures",
-      status: "Draft",
-      imageUrl: "",
-      tags: ["cyber law", "lecture"],
-    },
-  };
-  return map[id] ?? null;
+const fetchById = async (id: string): Promise<NewsItemForm | null> => {
+  try {
+    const res = await fetch(`/api/news?id=${encodeURIComponent(id)}`);
+    const data = await res.json();
+    if (res.ok && data.success) {
+      return data.data as NewsItemForm;
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
 };
 
 const EditNewsContent = () => {
@@ -51,6 +37,7 @@ const EditNewsContent = () => {
   const { showToast } = useToast();
   const [showModal, setShowModal] = useState(false);
   const [newTag, setNewTag] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const params = useSearchParams();
   const id = params.get("id");
   const [form, setForm] = useState<NewsItemForm | null>(null);
@@ -58,7 +45,7 @@ const EditNewsContent = () => {
   useEffect(() => {
     if (!id) return;
     (async () => {
-      const data = await mockFetchById(id);
+      const data = await fetchById(id);
       setForm(
         data ?? {
           title: "",
@@ -118,18 +105,34 @@ const EditNewsContent = () => {
       return;
     }
 
-    // In a real app, this would make an API call
-    console.log("Update news:", form);
-
-    // Show success message
-    showToast({
-      type: "success",
-      title: "News Updated",
-      message: `"${form.title}" has been successfully added!`
-    });
-
-    // Navigate back to achievements page
-    router.push("/admin/news");
+    (async () => {
+      setIsSubmitting(true);
+      try {
+        const payload: any = { ...form };
+        if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
+        payload.id = id;
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const headers: any = { "Content-Type": "application/json" };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch("/api/news", {
+          method: "PUT",
+          headers,
+          credentials: "include",
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast({ type: "success", title: "News Updated", message: `"${form.title}" updated` });
+          router.push("/admin/news");
+        } else {
+          showToast({ type: "error", title: "Update failed", message: data.message || "Failed to update news" });
+        }
+      } catch (err) {
+        console.error(err);
+        showToast({ type: "error", title: "Network error", message: "Unable to update news" });
+      }
+      setIsSubmitting(false);
+    })();
   };
 
   if (!id) {
@@ -340,9 +343,22 @@ const EditNewsContent = () => {
             </button>
             <button
               onClick={submit}
-              className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2"
+              disabled={isSubmitting}
+              className={`px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
             >
-              <Check className="w-4 h-4" /> Update News
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                  </svg>
+                  Updating...
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" /> Update News
+                </>
+              )}
             </button>
           </div>
         </div>
