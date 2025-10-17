@@ -10,6 +10,7 @@ import {
   Edit,
   Trash2,
   Search,
+  Filter,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminLayout from "@/components/Admin/AdminLayout";
@@ -48,6 +49,7 @@ const AdminAchievementsPage = () => {
   const [deletingAchievement, setDeletingAchievement] =
     useState<Achievement | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const achievementTypes = [
     {
@@ -119,12 +121,15 @@ const AdminAchievementsPage = () => {
   //   setAchievements(filtered);
   // }, [selectedType]);
 
-  const filteredAchievements = achievements.filter(
-    (achievement) =>
-      achievement.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      achievement.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      achievement.year.includes(searchTerm)
-  );
+  const filteredAchievements = achievements
+    .filter((achievement) => achievement.type === selectedType)
+    .filter(
+      (achievement) =>
+        achievement.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        achievement.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        achievement.year.includes(searchTerm)
+    );
+
 
   const handleAddAchievement = () => {
     router.push("/admin/achievements/add");
@@ -164,7 +169,8 @@ const AdminAchievementsPage = () => {
   const handleDeleteAchievement = async () => {
     if (!deletingAchievement) return;
 
-    setLoading(true);
+    setIsDeleting(true); // only for delete button
+
     try {
       const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
       const headers: any = { "Content-Type": "application/json" };
@@ -178,14 +184,13 @@ const AdminAchievementsPage = () => {
       const data = await res.json();
 
       if (res.ok && data?.success) {
-        setAchievements((prev) =>
-          prev.filter((a) => a.id !== deletingAchievement.id)
-        );
         showToast({
           type: "success",
           title: "Achievement Deleted",
-          message: `"${deletingAchievement.title}" has been successfully deleted.`,
+          message: `"${deletingAchievement.title}" deleted successfully.`,
         });
+
+        setAchievements((prev) => prev.filter((a) => a.id !== deletingAchievement.id));
       } else {
         showToast({
           type: "error",
@@ -197,13 +202,13 @@ const AdminAchievementsPage = () => {
       console.error(err);
       showToast({
         type: "error",
-        title: "Deletion Failed",
-        message: "Something went wrong while deleting.",
+        title: "Network Error",
+        message: "Unable to delete achievement.",
       });
     } finally {
+      setIsDeleting(false);
       setShowDeleteModal(false);
       setDeletingAchievement(null);
-      setLoading(false);
     }
   };
 
@@ -243,7 +248,8 @@ const AdminAchievementsPage = () => {
                     {type.label}
                   </div>
                   <div className="text-sm text-gray-500">
-                    {achievements.length} achievements
+                    {/* {achievements.length} achievements */}
+                    {achievements.filter(a => a.type === type.value).length} achievements
                   </div>
                 </div>
               </div>
@@ -253,18 +259,7 @@ const AdminAchievementsPage = () => {
       </div>
 
       {/* Add Button + Search */}
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="relative w-full sm:max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Search achievements..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full text-black pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
-        </div>
-
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-end gap-4">
         <button
           onClick={handleAddAchievement}
           className="bg-purple-600 text-white px-5 py-2.5 rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2"
@@ -272,6 +267,24 @@ const AdminAchievementsPage = () => {
           <Plus className="w-5 h-5" />
           Add Achievement
         </button>
+      </div>
+
+      {/* Search & Filter */}
+      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search achievements..."
+              className="w-full text-black pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+          <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center gap-2">
+            <Filter className="w-4 h-4" /> Filter
+          </button>
+        </div>
       </div>
 
       {/* Achievements Table / Cards */}
@@ -299,7 +312,6 @@ const AdminAchievementsPage = () => {
                   d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                 />
               </svg>
-              <p className="text-gray-600 font-medium">Loading achievements...</p>
             </div>
           </div>
         ) : filteredAchievements.length === 0 ? (
@@ -363,12 +375,12 @@ const AdminAchievementsPage = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap gap-1">
-                          {achievement.participants.slice(0, 2).map((p, i) => (
+                          {achievement.participants.slice(0, 2).map((p:any, i) => (
                             <span
                               key={i}
                               className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
                             >
-                              {p.name}
+                              {p}
                             </span>
                           ))}
                           {achievement.participants.length > 2 && (
@@ -471,31 +483,14 @@ const AdminAchievementsPage = () => {
 
               <button
                 onClick={handleDeleteAchievement}
-                disabled={loading}
-                className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors ${loading ? "opacity-70 cursor-wait" : ""
-                  }`}
+                disabled={isDeleting}
+                className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors ${isDeleting ? "opacity-70 cursor-wait" : ""}`}
               >
-                {loading ? (
+                {isDeleting ? (
                   <>
-                    <svg
-                      className="animate-spin h-4 w-4 mr-2 inline-block text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                      />
+                    <svg className="animate-spin h-4 w-4 mr-2 inline-block text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                     </svg>
                     Deleting...
                   </>

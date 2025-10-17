@@ -45,6 +45,7 @@ const EditAchievementContent = () => {
   const [showModal, setShowModal] = useState(false);
   const [newParticipant, setNewParticipant] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Fetch achievement by ID
   const fetchById = async (id: string) => {
@@ -62,8 +63,18 @@ const EditAchievementContent = () => {
   useEffect(() => {
     if (!achievementId) return;
     (async () => {
+      setLoading(true);
       const data = await fetchById(achievementId);
-      if (data) setFormData(data);
+      if (data) {
+        setFormData(data);
+      } else {
+        showToast({
+          type: "error",
+          title: "Not Found",
+          message: "Achievement data could not be loaded.",
+        });
+      }
+      setLoading(false);
     })();
   }, [achievementId]);
 
@@ -120,7 +131,7 @@ const EditAchievementContent = () => {
     setIsSubmitting(false);
   };
 
-  if (!achievementId) {
+  if (!formData) {
     return (
       <AdminLayout title="Achievement not found" subtitle="The requested achievement could not be found">
         <div className="text-center">
@@ -136,15 +147,21 @@ const EditAchievementContent = () => {
     );
   }
 
-  // if (!formData.title) {
-  //   return (
-  //     <AdminLayout title="Edit Achievement" subtitle="Update achievement record">
-  //       <div className="text-center py-12">
-  //         <div className="text-gray-500">Loading...</div>
-  //       </div>
-  //     </AdminLayout>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <AdminLayout title="Edit Achievement" subtitle="Update achievement record">
+        <div className="flex items-center justify-center min-h-[70vh]">
+          <div className="flex flex-col items-center justify-center text-center">
+            <svg className="animate-spin h-6 w-6 text-purple-600 mx-auto mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+            </svg>
+          </div>
+          {/* <div className="text-gray-500">Loading achievements details...</div> */}
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout
@@ -445,10 +462,12 @@ const EditAchievementContent = () => {
             >
               Cancel
             </button>
+
             <button
               onClick={handleUpdateAchievement}
               disabled={isSubmitting}
-              className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2">
+              className={`px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
+            >
               {isSubmitting ? (
                 <>
                   <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -475,6 +494,10 @@ const EditAchievementPage = () => {
     <Suspense fallback={
       <AdminLayout title="Edit Achievement" subtitle="Update achievement details">
         <div className="text-center py-12">
+          <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+          </svg>
           <div className="text-gray-500">Loading...</div>
         </div>
       </AdminLayout>
