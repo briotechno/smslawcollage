@@ -15,11 +15,16 @@ const Loginpage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const [remember, setRemember] = useState(false);
 
   useEffect(() => {
     // if there's an existing token saved, redirect to dashboard
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn === "true") router.replace("/admin/dashboard");
+    try {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") || sessionStorage.getItem("isLoggedIn");
+      if (isLoggedIn === "true") router.replace("/admin/dashboard");
+    } catch (e) {
+      // ignore storage errors
+    }
   }, [router]);
 
 
@@ -56,23 +61,26 @@ const Loginpage = () => {
         return;
       }
 
-      // Save fallback token to localStorage if returned (cookie is HttpOnly)
-      if (data?.token) {
-        try {
-          localStorage.setItem("token", data.token);
-        } catch (e) {
-          // ignore storage errors
-        }
-      }
-
-      // optimistic mark
+      // Save token according to 'remember' preference; cookie may be HttpOnly
       try {
-        if (data?.token) localStorage.setItem("token", data.token);
-        localStorage.setItem("isLoggedIn", "true");
+        if (data?.token) {
+          if (remember) sessionStorage.removeItem('token');
+          try { 
+            if (remember) localStorage.setItem("token", data.token);
+            else sessionStorage.setItem("token", data.token);
+          } catch {}
+        }
+        // optimistic mark
+        try {
+          if (remember) localStorage.setItem("isLoggedIn", "true");
+          else sessionStorage.setItem("isLoggedIn", "true");
+        } catch {}
         // store user object if returned by the API
         if (data?.user) {
           try {
-            localStorage.setItem('user', JSON.stringify(data.user));
+            const payload = JSON.stringify(data.user);
+            if (remember) localStorage.setItem('user', payload);
+            else sessionStorage.setItem('user', payload);
           } catch {}
         }
       } catch (e) {
@@ -172,12 +180,15 @@ const Loginpage = () => {
 
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2">
-                <input type="checkbox" className="h-4 w-4 text-indigo-600 rounded" />
+                  <input
+                    type="checkbox"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 rounded"
+                  />
                 <span className="text-black">Remember me</span>
               </label>
-              <a href="#" className="text-black hover:underline">
-                Forgot password?
-              </a>
+            
             </div>
 
             <div>
