@@ -65,7 +65,7 @@ const menuItems = [
     ],
   },
   { name: "Admission", href: "/admission" },
-    { name: "Requirements", href: "/requirements" },
+    { name: "Recruitment", href: "/requirements" },
 ];
 
 export default function Header() {
