@@ -21,6 +21,8 @@ const AdminCalendarPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletingEvent, setDeletingEvent] = useState<CalendarEvent | null>(null);
+  const [itemLoadingId, setItemLoadingId] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -56,6 +58,8 @@ const AdminCalendarPage = () => {
 
   const handleAdd = () => router.push("/admin/Calendar/add");
   const handleEdit = (event: CalendarEvent) => {
+    setItemLoadingId(event.id);
+    // navigate; leaving the page will unmount this component so the loading state can stay
     router.push(`/admin/Calendar/edit?id=${event.id}`);
   };
   const openDelete = (event: CalendarEvent) => {
@@ -64,26 +68,20 @@ const AdminCalendarPage = () => {
   };
   const handleDelete = async () => {
     if (!deletingEvent) return;
-    setLoading(true);
+    setIsDeleting(true);
     try {
-      const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
-      const headers: any = { "Content-Type": "application/json" };
-      if (token) headers["Authorization"] = `Bearer ${token}`;
-      const res = await fetch(`/api/calendar?id=${deletingEvent.id}`, {
-        method: "DELETE",
-        headers,
-      });
+      const res = await import("@/lib/adminFetch").then((m) => m.default(`/api/calendar?id=${encodeURIComponent(deletingEvent.id)}`, { method: "DELETE" }));
       const data = await res.json();
       if (res.ok && data?.success) {
         showToast({ type: "success", title: "Deleted", message: "Event deleted" });
         setEvents((prev) => prev.filter((e) => e.id !== deletingEvent.id));
       } else {
-        showToast({ type: "error", title: "Delete failed", message: data.message || "Delete failed" });
+        showToast({ type: "error", title: "Delete failed", message: data?.message || "Delete failed" });
       }
     } catch (err) {
       showToast({ type: "error", title: "Network error", message: "Network error" });
     } finally {
-      setLoading(false);
+      setIsDeleting(false);
       setShowDeleteModal(false);
       setDeletingEvent(null);
     }
@@ -162,7 +160,7 @@ const AdminCalendarPage = () => {
                         {event.color ? (
                           <span className="inline-block w-10 h-10 rounded-full border" style={{ background: event.color }} title={event.color}></span>
                         ) : (
-                          <span className="inline-block w-10 h-10 rounded-full border bg-gray-100 text-gray-400 flex items-center justify-center">—</span>
+                          <span className="inline-flex w-10 h-10 rounded-full border bg-gray-100 text-gray-400 items-center justify-center">—</span>
                         )}
                       </div>
                     </td>
@@ -171,11 +169,25 @@ const AdminCalendarPage = () => {
                     <td className="px-6 py-4 text-gray-900">{event.date}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end gap-2">
-                        <button onClick={() => handleEdit(event)} className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50" title="Edit" disabled={loading}>
-                          <Edit className="w-4 h-4" />
+                        <button onClick={() => handleEdit(event)} className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50" title="Edit" disabled={!!itemLoadingId}>
+                          {itemLoadingId === event.id ? (
+                            <svg className="animate-spin h-4 w-4 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                            </svg>
+                          ) : (
+                            <Edit className="w-4 h-4" />
+                          )}
                         </button>
-                        <button onClick={() => openDelete(event)} className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50" title="Delete" disabled={loading}>
-                          <Trash2 className="w-4 h-4" />
+                        <button onClick={() => openDelete(event)} className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50" title="Delete" disabled={isDeleting && deletingEvent?.id === event.id}>
+                          {isDeleting && deletingEvent?.id === event.id ? (
+                            <svg className="animate-spin h-4 w-4 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                            </svg>
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
                         </button>
                       </div>
                     </td>
@@ -202,19 +214,19 @@ const AdminCalendarPage = () => {
             setDeletingEvent(null);
           }}
           className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
-          disabled={loading}
+          disabled={isDeleting}
         >
           Cancel
         </button>
 
         <button
           onClick={handleDelete}
-          disabled={loading}
+          disabled={isDeleting}
           className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors ${
-            loading ? "opacity-70 cursor-wait" : ""
+            isDeleting ? "opacity-70 cursor-wait" : ""
           }`}
         >
-          {loading ? (
+          {isDeleting ? (
             <>
               <svg
                 className="animate-spin h-4 w-4 mr-2 inline-block"
