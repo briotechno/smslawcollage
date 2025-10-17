@@ -28,42 +28,42 @@ const GrievanceRedressCommittee = () => {
       designation: "Dean, Faculty of Law",
       position: "Chairperson",
       email: "dean@smslawcollege.edu",
-      phone: "+91-9876543210",
+      phone: "+91-98792 85000",
     },
     {
       name: "Ms. Vidhi Shah",
       designation: "Assistant Professor",
       position: "Member Secretary",
       email: "vidhi.shah@smslawcollege.edu",
-      phone: "+91-9876543211",
+      phone: "+91-98792 85000",
     },
     {
       name: "Ms. Payal Mehta",
       designation: "Assistant Professor (Non-Law)",
       position: "Member",
       email: "payal.mehta@smslawcollege.edu",
-      phone: "+91-9876543212",
+      phone: "+91-98792 85000",
     },
     {
       name: "Ms. Suja Nair",
       designation: "Assistant Professor (Law)",
       position: "Member",
       email: "suja.nair@smslawcollege.edu",
-      phone: "+91-9876543213",
+      phone: "+91-98792 85000",
     },
     {
       name: "Dr. Prachi Motiyani",
       designation: "Assistant Professor, Gujarat University",
       position: "Third Party Member",
       email: "prachi.motiyani@gujaratuniversity.edu",
-      phone: "+91-9876543214",
+      phone: "+91-98792 85000",
     },
     {
       name: "Ms. Urvashi Sharma",
       designation: "Student Representative (Semester I, 2021-26 Batch)",
       position: "Student Member",
       email: "urvashi.sharma@student.smslawcollege.edu",
-      phone: "+91-9876543215",
+      phone: "+91-98792 85000",
     },
   ];
 
@@ -233,7 +233,7 @@ const GrievanceRedressCommittee = () => {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-purple-600" />
-                    <span className="text-gray-700">+91-9876543210</span>
+                    <span className="text-gray-700">+91 98792 85000</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-purple-600" />
