@@ -188,31 +188,34 @@ export default function Header() {
         <nav className="px-4 py-4 space-y-2">
           {menuItems.map((item) => (
             <div key={item.name}>
-              <button
-                className="w-full flex justify-between items-center text-left px-4 py-3 text-white font-medium hover:bg-purple-700 rounded-lg transition-all duration-200"
-                onClick={() =>
-                  item.hasDropdown
-                    ? setActiveMobileDropdown(
-                      activeMobileDropdown === item.name ? null : item.name
-                    )
-                    : setMobileMenuOpen(false)
-                }
-              >
-                <span className="flex items-center gap-2 relative">
-                  <span>{item.name}</span>
-                  {item.name === 'Requirements' && (
-                    <span className="absolute -top-1 -right-2 inline-flex items-center px-2 py-0.5 bg-white text-purple-700 text-xs font-semibold rounded-full animate-pulse z-50">
-                      New
-                    </span>
-                  )}
-                </span>
+              <div className="flex items-center">
+                <Link
+                  href={item.href}
+                  className="flex-1 px-4 py-3 text-white font-medium hover:bg-purple-700 rounded-lg transition-all duration-200"
+                  onClick={() => !item.hasDropdown && setMobileMenuOpen(false)}
+                >
+                  <span className="flex items-center gap-2 relative">
+                    <span>{item.name}</span>
+                    {item.name === 'Requirements' && (
+                      <span className="absolute -top-1 -right-2 inline-flex items-center px-2 py-0.5 bg-white text-purple-700 text-xs font-semibold rounded-full animate-pulse z-50">
+                        New
+                      </span>
+                    )}
+                  </span>
+                </Link>
                 {item.hasDropdown && (
-                  <ChevronDown
-                    className={`w-4 h-4 transform transition-transform duration-200 ${activeMobileDropdown === item.name ? "rotate-180" : ""
-                      }`}
-                  />
-                )}
-              </button>
+                  <button
+                    className="p-3 text-white hover:bg-purple-700 rounded-lg transition-all duration-200"
+                    onClick={() => setActiveMobileDropdown(
+                      activeMobileDropdown === item.name ? null : item.name
+                    )}
+                  >
+                    <ChevronDown
+                      className={`w-4 h-4 transform transition-transform duration-200 ${activeMobileDropdown === item.name ? "rotate-180" : ""
+                        }`}
+                    />
+                  </button>
+                )}</div>
 
               {/* Mobile Dropdown Items */}
               {item.hasDropdown && activeMobileDropdown === item.name && (
