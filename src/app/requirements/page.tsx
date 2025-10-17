@@ -35,59 +35,61 @@ export default function RequirementsPage() {
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-[url('/assets/Slider2.jpg')] bg-cover bg-right opacity-30 hidden lg:block" />
       </div>
 
-      <div className="max-w-6xl mx-auto py-16 px-4">
-        {/* Vacancies Section */}
-        <section id="vacancies" className="mb-12">
-          <div className="flex items-center gap-4 mb-6">
-            <Briefcase className="w-8 h-8 text-purple-700" />
-            <h2 className="text-2xl font-bold text-gray-900">
-              Current Vacancies
-            </h2>
-          </div>
+      <div className="bg-white w-full">
+        {" "}
+        <div className="max-w-6xl mx-auto py-16 px-4">
+          {/* Vacancies Section */}
+          <section id="vacancies" className="mb-12">
+            <div className="flex items-center gap-4 mb-6">
+              <Briefcase className="w-8 h-8 text-purple-700" />
+              <h2 className="text-2xl font-bold text-gray-900">
+                Current Vacancies
+              </h2>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {vacancies.map((v) => (
-              <div
-                key={v.id}
-                className="bg-white rounded-lg shadow-xl hover:shadow-2xl p-6 flex flex-col"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      {v.title}
-                    </h3>
-                    <div className="text-sm text-gray-500">
-                      Department: {v.department}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {vacancies.map((v) => (
+                <div
+                  key={v.id}
+                  className="bg-white rounded-lg shadow-xl hover:shadow-2xl p-6 flex flex-col"
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900">
+                        {v.title}
+                      </h3>
+                      <div className="text-sm text-gray-500">
+                        Department: {v.department}
+                      </div>
                     </div>
-                  </div>
-                  {/* <div className="text-sm text-gray-600">
+                    {/* <div className="text-sm text-gray-600">
                     Last date: <span className="font-medium">{v.deadline}</span>
                   </div> */}
-                </div>
+                  </div>
 
-                <div className="mt-4 flex items-center gap-4">
-                  <Link
-                    href={v.file}
-                    target="_blank"
-                    className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
-                  >
-                    <Download className="w-4 h-4" /> Download Form
-                  </Link>
-                  <Link
-                    href={v.notification}
-                    target="_blank"
-                    className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
-                  >
-                    <Download className="w-4 h-4" /> Download Notification
-                  </Link>
+                  <div className="mt-4 flex items-center gap-4">
+                    <Link
+                      href={v.file}
+                      target="_blank"
+                      className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
+                    >
+                      <Download className="w-4 h-4" /> Download Form
+                    </Link>
+                    <Link
+                      href={v.notification}
+                      target="_blank"
+                      className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
+                    >
+                      <Download className="w-4 h-4" /> Download Notification
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
 
-        {/* How to Apply Section */}
-        {/* <section id="apply" className="mb-12">
+          {/* How to Apply Section */}
+          {/* <section id="apply" className="mb-12">
           <h3 className="text-xl font-semibold mb-4">How to Apply</h3>
           <ol className="list-decimal pl-6 space-y-2 text-gray-700">
             <li>
@@ -108,26 +110,27 @@ export default function RequirementsPage() {
           </ol>
         </section> */}
 
-        {/* Important Notes / Contact */}
-        <section className="mb-12">
-          <h3 className="text-xl font-semibold mb-4">Important Notes</h3>
-          <ul className="list-disc pl-6 space-y-2 text-gray-700">
-            <li>Shortlisted candidates will be contacted via email/phone.</li>
-            <li>
-              Reservation and other rules apply as per university and regulatory
-              guidelines.
-            </li>
-            <li>
-              For queries, contact:{" "}
-              <a
-                href="mailto:info@smslawcollege.org"
-                className="text-purple-700 underline"
-              >
-                info@smslawcollege.org
-              </a>
-            </li>
-          </ul>
-        </section>
+          {/* Important Notes / Contact */}
+          <section className="mb-12">
+            <h3 className="text-xl font-semibold mb-4">Important Notes</h3>
+            <ul className="list-disc pl-6 space-y-2 text-gray-700">
+              <li>Shortlisted candidates will be contacted via email/phone.</li>
+              <li>
+                Reservation and other rules apply as per university and
+                regulatory guidelines.
+              </li>
+              <li>
+                For queries, contact:{" "}
+                <a
+                  href="mailto:info@smslawcollege.org"
+                  className="text-purple-700 underline"
+                >
+                  info@smslawcollege.org
+                </a>
+              </li>
+            </ul>
+          </section>
+        </div>
       </div>
     </>
   );
