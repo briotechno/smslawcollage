@@ -17,11 +17,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const images = [
-  "/assets/Slider1.jpg",
-  "/assets/Slider2.jpg",
-  "/assets/Slider3.jpg",
-  "/assets/Slider4.jpg",
-  "/assets/Slider5.jpg",
+  "/assets/HeroSection/HeroSection1.jpeg",
+  "/assets/HeroSection/HeroSection2.jpeg",
+  "/assets/HeroSection/HeroSection3.jpeg",
+  "/assets/HeroSection/HeroSection4.jpeg",
+  "/assets/HeroSection/HeroSection5.jpeg",
+  "/assets/HeroSection/HeroSection6.jpeg",
+  "/assets/HeroSection/HeroSection7.jpeg",
 ];
 
 const HeroSection = () => {

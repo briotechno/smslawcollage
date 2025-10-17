@@ -1,48 +1,56 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
 import { FaLeaf } from "react-icons/fa";
 
-const activities = [
-  {
-    date: "03 DEC, 2019",
-    title: "Celebration of the International Day for Persons with Disabilities",
-    excerpt:
-      "The Legal Aid Clinic of GLS Law College conducted an awareness campaign in Blind People’s Association, Ahmedabad on account of the International Day for Persons with Disabilities. The campaign majorly focused on the Rights and Benefits available to the Visually Impaired, taking into light “The Protection of Persons with Disability Act, 2016",
-    image: "/assets/Noimage.jpg",
-  },
-  {
-    date: "17 JULy, 2019",
-    title: "Lex Juris Scienticia Quiz competition",
-    excerpt:
-      "The Lex Juris Scienticia was enlightened with the gracious presence of Hon’ble Justice R.R. Tripathi, Former Judge of Gujarat High Court. The chief guest opened up with law aspirants with the role media plays in accordance with the Judiciary. One cannot categorize every case in the frame of pendency",
-    image: "/assets/Noimage.jpg",
-  },
-  {
-    date: "27 FEB, 2018",
-    title: "Legal Clinic - Bakrol",
-    excerpt:
-      "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 27th Feb. 2018 which has been adopted by Gujarat Law Society.",
-    image: "/assets/Noimage.jpg",
-  },
-  {
-    date: "22 MAR, 2018",
-    title: "Legal Clinic – A Legal Initiative at Bakrol (Ahmedabad)",
-    excerpt:
-      "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 31st January 2018 which has been adopted by Gujarat Law Society.",
-    image: "/assets/Noimage.jpg",
-  },
-  {
-    date: "02 SEP, 2017",
-    title: "The Launch of ELC",
-    excerpt:
-      "Official launch of the Environmental Law Clinic with dignitaries and a flagship awareness drive.",
-    image: "/assets/Noimage.jpg",
-  },
-];
+interface LegalAidActivity {
+  id: number;
+  date: string;
+  title: string;
+  excerpt: string;
+  image: string;
+}
+
+// const activities = [
+//   {
+//     date: "03 DEC, 2019",
+//     title: "Celebration of the International Day for Persons with Disabilities",
+//     excerpt:
+//       "The Legal Aid Clinic of GLS Law College conducted an awareness campaign in Blind People’s Association, Ahmedabad on account of the International Day for Persons with Disabilities. The campaign majorly focused on the Rights and Benefits available to the Visually Impaired, taking into light “The Protection of Persons with Disability Act, 2016",
+//     image: "/assets/Noimage.jpg",
+//   },
+//   {
+//     date: "17 JULy, 2019",
+//     title: "Lex Juris Scienticia Quiz competition",
+//     excerpt:
+//       "The Lex Juris Scienticia was enlightened with the gracious presence of Hon’ble Justice R.R. Tripathi, Former Judge of Gujarat High Court. The chief guest opened up with law aspirants with the role media plays in accordance with the Judiciary. One cannot categorize every case in the frame of pendency",
+//     image: "/assets/Noimage.jpg",
+//   },
+//   {
+//     date: "27 FEB, 2018",
+//     title: "Legal Clinic - Bakrol",
+//     excerpt:
+//       "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 27th Feb. 2018 which has been adopted by Gujarat Law Society.",
+//     image: "/assets/Noimage.jpg",
+//   },
+//   {
+//     date: "22 MAR, 2018",
+//     title: "Legal Clinic – A Legal Initiative at Bakrol (Ahmedabad)",
+//     excerpt:
+//       "The Student of legal aid Clinic of GLS Law College and In charge Faculty members with Two High court Advocate went to the Bakrol village for providing Free legal aid to People of Bakrol on 31st January 2018 which has been adopted by Gujarat Law Society.",
+//     image: "/assets/Noimage.jpg",
+//   },
+//   {
+//     date: "02 SEP, 2017",
+//     title: "The Launch of ELC",
+//     excerpt:
+//       "Official launch of the Environmental Law Clinic with dignitaries and a flagship awareness drive.",
+//     image: "/assets/Noimage.jpg",
+//   },
+// ];
 
 const recentActivities = [
   "Lex Juris Scienticia Quiz competition",
@@ -53,6 +61,39 @@ const recentActivities = [
 ];
 
 const LegalAidClinicpage = () => {
+  const [activities, setActivities] = useState<LegalAidActivity[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const token =
+          typeof window !== "undefined"
+            ? localStorage.getItem("token") || sessionStorage.getItem("token")
+            : null;
+
+        const headers: any = {};
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        const res = await fetch("/api/legal-aid", { headers });
+        const data = await res.json();
+
+        if (res.ok && data?.success) {
+          setActivities(data.data || []);
+        } else {
+          setActivities([]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch legal aid activities", err);
+        setActivities([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchActivities();
+  }, []);
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -162,36 +203,75 @@ const LegalAidClinicpage = () => {
               <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
 
               <div className="space-y-4">
-                {activities.map((act, idx) => (
-                  <motion.article
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: idx * 0.05 }}
-                    className="bg-white rounded-lg shadow p-5 border border-gray-100 flex flex-col md:flex-row gap-4"
-                  >
-                    <div className="md:w-40 h-28 relative rounded overflow-hidden flex-shrink-0">
-                      <Image
-                        src={act.image}
-                        alt={act.title}
-                        fill
-                        // style={{ objectFit: "cover" }}
+                {/* Loader */}
+                {loading ? (
+                  <div className="flex flex-col items-center justify-center py-20">
+                    <svg
+                      className="animate-spin h-10 w-10 text-purple-600 mb-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
                       />
-                    </div>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      />
+                    </svg>
+                  </div>
+                ) : activities.length === 0 ? (
+                  <p className="text-center text-gray-600 py-20">
+                    No activities found.
+                  </p>
+                ) : (
+                  <div className="space-y-6">
+                    {activities.map((act, idx) => (
+                      <motion.article
+                        key={act.id || idx}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: idx * 0.05 }}
+                        className="bg-white rounded-lg shadow p-5 border border-gray-100 flex flex-col md:flex-row gap-4"
+                      >
+                        <div className="md:w-40 h-28 relative rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src={act.image || "/assets/Noimage.jpg"}
+                            alt={act.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
 
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Calendar className="w-4 h-4" /> <span>{act.date}</span>
-                      </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <Calendar className="w-4 h-4" />{" "}
+                            <span>
+                              {new Date(act.date).toLocaleDateString("en-IN", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                              })}
+                            </span>
+                          </div>
 
-                      <h4 className="mt-2 text-lg font-semibold text-purple-600">
-                        {act.title}
-                      </h4>
-                      <p className="mt-2 text-gray-600">{act.excerpt}</p>
-                    </div>
-                  </motion.article>
-                ))}
+                          <h4 className="mt-2 text-lg font-semibold text-purple-600">
+                            {act.title}
+                          </h4>
+                          <p className="mt-2 text-gray-600">{act.excerpt}</p>
+                        </div>
+                      </motion.article>
+                    ))}
+                  </div>
+                )}
               </div>
             </section>
           </section>

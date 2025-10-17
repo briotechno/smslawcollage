@@ -18,6 +18,9 @@ import {
 import Image from "next/image";
 
 const AcademicAchievementsPage = () => {
+  const [activities, setActivities] = React.useState<any[]>([]);
+const [loading, setLoading] = React.useState(true);
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     show: { opacity: 1, y: 0, transition: { duration: 0.8 } },

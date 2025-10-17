@@ -65,12 +65,12 @@ const quickLinks = [
 ];
 
 const programs = [
-  { name: "LLB Program", href: "/academics" },
-  { name: "LLM Program", href: "/academics" },
-  { name: "Diploma Courses", href: "/academics" },
-  { name: "Certificate Courses", href: "/academics" },
-  { name: "Skill Development", href: "/skill-development" },
-  { name: "Internship", href: "/academics" },
+  { name: "LL.B Program", href: "/academics" },
+  { name: "LL.M (Criminology) Program", href: "/academics" },
+  { name: "LL.M ( Business) Program", href: "/academics" },
+  { name: "B.A LL.B (Intrigreted)", href: "/academics" },
+  // { name: "Skill Development", href: "/skill-development" },
+  // { name: "Internship", href: "/academics" },
 ];
 
 // const galleryItems = [
@@ -154,9 +154,13 @@ export default function Footer() {
                   <MapPin className="w-5 h-5 text-white mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-gray-300 text-sm">
-                      SMS Law College
+                      Shri S M Shah Law Collage
                       <br />
-                      Mahesana – 380 006
+                      Avani Seeda Vidhya Sankul
+                      <br />
+                      Nagalpur High way
+                      <br />
+                      Mehsana 384002
                       <br />
                       Gujarat, India
                     </p>
@@ -165,22 +169,28 @@ export default function Footer() {
 
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-white flex-shrink-0" />
-                  <p className="text-gray-300 text-sm">+91 98765 43210</p>
+                  <p className="text-gray-300 text-sm">+02762250449</p>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-white flex-shrink-0" />
                   <p className="text-gray-300 text-sm">
-                    info@smslawcollege.edu.in
+                    lawcollegemeh@yahoo.in
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-white flex-shrink-0" />
+                  <p className="text-gray-300 text-sm">
+                    smslcmeh@gmail.com
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3">
+                {/* <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-white flex-shrink-0" />
                   <p className="text-gray-300 text-sm">
                     Mon - Fri: 9:00 AM - 5:00 PM
                   </p>
-                </div>
+                </div> */}
               </div>
             </motion.div>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   BookOpen,
@@ -17,13 +17,88 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
+interface CalendarEvent {
+  date: string;
+  title: string;
+  description: string;
+  color: string;
+}
+
+interface NewsItem {
+  id: string;
+  title: string;
+  summary: string;
+  content: string;
+  category: string;
+  date: string;
+  imageUrl: string;
+}
+
 const Resource = () => {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalEvents, setModalEvents] = useState<{ title: string; description: string }[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [modalEvents, setModalEvents] = useState<CalendarEvent[]>([]);
+
+  // Api call for Calender page
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const token =
+          typeof window !== "undefined"
+            ? localStorage.getItem("token") || sessionStorage.getItem("token")
+            : null;
+        const headers: any = {};
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        const res = await fetch("/api/calendar", { headers });
+        const data = await res.json();
+
+        if (res.ok && data?.success) {
+          setEvents(data.data || []);
+        } else {
+          setEvents([]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch events", err);
+        setEvents([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  // Api call for Event page
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      try {
+        const token =
+          typeof window !== "undefined" ? localStorage.getItem("token") : null;
+        const headers: any = {};
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+        const res = await fetch("/api/news", { headers });
+        const data = await res.json();
+        if (res.ok && data?.success) {
+          setNews(data.data || []);
+        } else {
+          setNews([]);
+        }
+      } catch (err) {
+        setNews([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
 
   const handleDayClick = (day: number) => {
     setSelectedDay(day);
@@ -136,43 +211,45 @@ const Resource = () => {
   };
 
   // Events
-  const events = [
-    {
-      date: "2025-10-15",
-      title: "Guest Lecture on Corporate Law",
-      description: "Join our legal expert for a corporate law session.",
-      color: "bg-purple-600"
-    },
-    {
-      date: "2025-11-15",
-      title: "Guest Lecture on Corporate Law",
-      description: "Join our legal expert for a corporate law session.",
-      color: "bg-purple-600"
-    },
-    {
-      date: "2025-10-15",
-      title: "Seminar on Intellectual Property",
-      description: "Learn about IP laws in practice.",
-      color: "bg-blue-500"
-    },
-    {
-      date: "2025-10-20",
-      title: "Workshop on Legal Drafting",
-      description: "Hands-on workshop on drafting contracts.",
-      color: "bg-green-500"
-    },
-    {
-      date: "2025-10-25",
-      title: "Mock Trial Competition",
-      description: "Participate in a simulated court trial.",
-      color: "bg-red-500"
-    },
-  ];
+  // const events = [
+  //   {
+  //     date: "2025-10-15",
+  //     title: "Guest Lecture on Corporate Law",
+  //     description: "Join our legal expert for a corporate law session.",
+  //     color: "bg-purple-600"
+  //   },
+  //   {
+  //     date: "2025-11-15",
+  //     title: "Guest Lecture on Corporate Law",
+  //     description: "Join our legal expert for a corporate law session.",
+  //     color: "bg-purple-600"
+  //   },
+  //   {
+  //     date: "2025-10-15",
+  //     title: "Seminar on Intellectual Property",
+  //     description: "Learn about IP laws in practice.",
+  //     color: "bg-blue-500"
+  //   },
+  //   {
+  //     date: "2025-10-20",
+  //     title: "Workshop on Legal Drafting",
+  //     description: "Hands-on workshop on drafting contracts.",
+  //     color: "bg-green-500"
+  //   },
+  //   {
+  //     date: "2025-10-25",
+  //     title: "Mock Trial Competition",
+  //     description: "Participate in a simulated court trial.",
+  //     color: "bg-red-500"
+  //   },
+  // ];
 
-  const handleEventClick = (event: { title: string; description: string; color: string }) => {
+  const handleEventClick = (event: CalendarEvent) => {
     setModalEvents([event]);
     setModalOpen(true);
   };
+
+  const firstNews = news[0];
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50" id="Knowledge-Resource-page">
@@ -387,39 +464,68 @@ const Resource = () => {
                 </h1>
                 <div className="w-32 h-1 bg-purple-600 mx-auto mt-4 rounded-full"></div>
               </div>
-              <div className="relative rounded-2xl overflow-hidden shadow-lg mb-6">
-                <Image
-                  src="/assets/Slider2.jpg"
-                  alt="Events"
-                  width={600}
-                  height={400}
-                  className="w-full h-[350px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6">
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    Upcoming Legal Workshops
-                  </h2>
-                  <p className="text-gray-200 text-sm">
-                    Join our interactive events and expand your legal expertise with professionals and mentors.
-                  </p>
-                </div>
-              </div>
 
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Additional Learning Support</h3>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  Beyond traditional resources, we provide research assistance, writing workshops, and access to legal technology tools that prepare you for modern legal practice.
-                </p>
-              </div>
+              {loading ? (
+                <div className="flex flex-col items-center justify-center col-span-full py-20">
+                  <svg
+                    className="animate-spin h-10 w-10 text-purple-600 mb-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  {/* <p className="text-gray-600 text-lg">Loading news...</p> */}
+                </div>
+              ) : !firstNews ? (
+                <p className="text-center text-gray-600 col-span-full py-20">No news available.</p>
+              ) : (
+                <div className="relative rounded-2xl overflow-hidden shadow-lg mb-6">
+                  <Image
+                    src={firstNews.imageUrl || "/assets/Slider2.jpg"}
+                    alt={firstNews.title}
+                    width={600}
+                    height={400}
+                    className="w-full h-[350px] object-cover"
+                  />
+                  <div className="inset-0 flex flex-col justify-end p-6">
+                    <h2 className="text-2xl font-bold text-black mb-2">{firstNews.title}</h2>
+                    <p className="text-xl font-semibold text-black mb-2">{firstNews.summary}</p>
+                    <p className="text-xl font-semibold text-black mb-8">{firstNews.content}</p>
+                    <h3 className="absolute top-3 left-3 bg-white/90 text-purple-700 text-sm font-semibold px-3 py-1 rounded-full shadow">
+                      {firstNews.category}
+                    </h3>
+                    <p className="absolute text-purple-700 text-sm font-semibold px-3 py-1 rounded-full shadow text-gray-200 text-xs mt-1">
+                      {new Date(firstNews.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </div>
+                </div>
+              )}
               <div className="mt-6 flex justify-end">
                 <Link href="/about-us/Events" passHref>
                   <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2">
                     View All
                     <ArrowRight className="w-5 h-5" />
                   </button>
-
                 </Link>
               </div>
+
             </div>
           </div>
         </motion.div>
