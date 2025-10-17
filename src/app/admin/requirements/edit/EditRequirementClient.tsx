@@ -122,10 +122,10 @@ const EditRequirementClient: React.FC = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <button
-          onClick={() => router.push("/admin/faculty")}
+          onClick={() => router.push("/admin/requirements")}
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
         >
-          <ArrowLeft className="w-5 h-5" /> Back to Faculty
+          <ArrowLeft className="w-5 h-5" /> Back to Requirement
         </button>
         <div />
       </div>{" "}
