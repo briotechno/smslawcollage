@@ -3,11 +3,16 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
-  FaUser,
-  FaCog,
-  FaSignOutAlt,
-  FaKey,
-  FaTachometerAlt,
+  FaTachometerAlt, // Dashboard
+  FaTrophy,         // Achievements
+  FaUserTie,        // Faculty
+  FaCalendarAlt,    // Calendar Events
+  FaNewspaper,      // News
+  FaUniversity,     // Admission
+  FaBalanceScale,   // Moot Court / Legal
+  FaHandsHelping,   // Legal Aid Clinic
+  FaClipboardList,
+  FaSignOutAlt,  // Requirements
 } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useToast } from "../Toast/ToastProvider";
@@ -246,15 +251,15 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
   }, [sidebarCollapsed]);
 
   const menuItems = [
-    { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
-    { name: "Achievements", icon: <FaUser />, href: "/admin/achievements" },
-    { name: "Admission", icon: <FaCog />, href: "#" },
-    { name: "Calendar", icon: <FaTachometerAlt />, href: "/admin/Calendar" },
-    { name: "News & Announcements", icon: <FaUser />, href: "/admin/news" },
-    { name: "Faculty", icon: <FaCog />, href: "/admin/faculty" },
-    { name: "Moot Court", icon: <FaCog />, href: "#" },
-    { name: "Legal Aid Clinic", icon: <FaCog />, href: "/admin/legal-aid" },
-    { name: "Requirements", icon: <FaCog />, href: "/admin/requirements" },
+   { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
+  { name: "Achievements", icon: <FaTrophy />, href: "/admin/achievements" },
+  //{ name: "Admission", icon: <FaUniversity />, href: "#" },
+  { name: "Calendar Events", icon: <FaCalendarAlt />, href: "/admin/Calendar" },
+  { name: "News & Announcements", icon: <FaNewspaper />, href: "/admin/news" },
+  { name: "Faculty", icon: <FaUserTie />, href: "/admin/faculty" },
+  //{ name: "Moot Court", icon: <FaBalanceScale />, href: "#" },
+  { name: "Legal Aid Clinic", icon: <FaHandsHelping />, href: "/admin/legal-aid" },
+  { name: "Requirements", icon: <FaClipboardList />, href: "/admin/requirements" },
   ];
 
   const handleLogout = () => {
