@@ -501,19 +501,19 @@ const Resource = () => {
                     className="w-full h-[350px] object-cover"
                   />
                   <div className="inset-0 flex flex-col justify-end p-6">
-                    <h2 className="text-2xl font-bold text-black mb-2">{firstNews.title}</h2>
-                    <p className="text-xl font-semibold text-black mb-2">{firstNews.summary}</p>
-                    <p className="text-xl font-semibold text-black mb-8">{firstNews.content}</p>
+                   <h2 className="text-2xl font-bold text-gray-900 mb-2">{firstNews.title}</h2>
+<p className="text-lg font-medium text-gray-700 mb-2">{firstNews.summary}</p>
+<p className="text-base text-gray-600 mb-8 leading-relaxed">{firstNews.content}</p>
                     <h3 className="absolute top-3 left-3 bg-white/90 text-purple-700 text-sm font-semibold px-3 py-1 rounded-full shadow">
                       {firstNews.category}
                     </h3>
-                    <p className="absolute text-purple-700 text-sm font-semibold px-3 py-1 rounded-full shadow text-gray-200 text-xs mt-1">
+                    {/* <p className="absolute text-purple-700 text-sm font-semibold px-3 py-1 rounded-full shadow text-gray-200 text-xs mt-1">
                       {new Date(firstNews.date).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
                         year: "numeric",
                       })}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               )}
