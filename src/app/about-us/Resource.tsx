@@ -337,6 +337,7 @@ const Resource = () => {
                               key={idx}
                               className={`w-2 h-2 rounded-full cursor-pointer ${event.color}`}
                               title={event.title}
+                              style={{ backgroundColor: event.color }}
                               onClick={(e) => {
                                 e.stopPropagation(); // prevent parent day click
                                 handleEventClick(event);

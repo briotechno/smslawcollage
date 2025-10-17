@@ -203,8 +203,9 @@ const Calendarpage = () => {
                           {dayEvents.map((event, idx) => (
                             <span
                               key={idx}
-                              className={`w-2 h-2 rounded-full ${event.color}`}
+                              className={`w-2 h-2 rounded-full bg-[${event.color}]`}
                               title={event.title}
+                              style={{ backgroundColor: event.color }}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleEventClick(event);
