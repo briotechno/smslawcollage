@@ -57,11 +57,71 @@ const GenderLAWCLINICpage = () => {
               <span className="text-purple-600"> LAW CLINIC</span>
             </h3>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
-            <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ex officiis in blanditiis, cum natus reprehenderit atque? Commodi consectetur blanditiis deleniti corrupti aut qui asperiores veniam harum? Cum voluptas vero animi sed, temporibus officia error?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ex officiis in blanditiis, cum natus reprehenderit atque? Commodi consectetur blanditiis deleniti corrupti aut qui asperiores veniam harum? Cum voluptas vero animi sed, temporibus officia error?
+            <p className="text-lg text-gray-700 text-justify mb-6">
+              The Gender Law Clinic is dedicated to advancing gender justice, legal awareness, and advocacy for equality. We provide free legal aid, conduct research, and organize outreach programs to empower individuals and communities facing gender-based discrimination.
             </p>
 
-            <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ex officiis in blanditiis, cum natus reprehenderit atque? Commodi consectetur blanditiis deleniti corrupti aut qui asperiores veniam harum? Cum voluptas vero animi sed, temporibus officia error?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ex officiis in blanditiis, cum natus reprehenderit atque? Commodi consectetur blanditiis deleniti corrupti aut qui asperiores veniam harum? Cum voluptas vero animi sed, temporibus officia error?
-            </p>
+            {/* Services Section */}
+            <div className="grid md:grid-cols-2 gap-8 mb-10">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="text-xl font-semibold text-purple-600 mb-4">Our Services</h4>
+                <ul className="list-disc pl-6 space-y-3 text-gray-700">
+                  <li>Legal counseling for gender-based violence and discrimination</li>
+                  <li>Workshops on gender rights and legal remedies</li>
+                  <li>Support for survivors of domestic violence, harassment, and abuse</li>
+                  <li>Assistance with filing complaints and legal documentation</li>
+                  <li>Community outreach and awareness campaigns</li>
+                </ul>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="text-xl font-semibold text-purple-600 mb-4">Impact & Initiatives</h4>
+                <ul className="list-disc pl-6 space-y-3 text-gray-700">
+                  <li>Over 200 cases of gender injustice addressed in the last year</li>
+                  <li>Annual Gender Justice Week with expert panels and student debates</li>
+                  <li>Collaboration with NGOs and government agencies</li>
+                  <li>Publication of research papers on gender law reforms</li>
+                  <li>Legal literacy drives in rural and urban communities</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Team Section */}
+            <div className="bg-purple-50 p-6 rounded-lg mb-10">
+              <h4 className="text-xl font-semibold text-purple-600 mb-4">Meet Our Team</h4>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-white p-4 rounded shadow text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-purple-200 flex items-center justify-center mb-2">
+                    <span className="text-purple-700 font-bold text-2xl">SJ</span>
+                  </div>
+                  <div className="font-semibold">Dr. S. Joshi</div>
+                  <div className="text-sm text-gray-600">Faculty Coordinator</div>
+                </div>
+                <div className="bg-white p-4 rounded shadow text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-purple-200 flex items-center justify-center mb-2">
+                    <span className="text-purple-700 font-bold text-2xl">AK</span>
+                  </div>
+                  <div className="font-semibold">A. Kumar</div>
+                  <div className="text-sm text-gray-600">Student Lead</div>
+                </div>
+                <div className="bg-white p-4 rounded shadow text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-purple-200 flex items-center justify-center mb-2">
+                    <span className="text-purple-700 font-bold text-2xl">PR</span>
+                  </div>
+                  <div className="font-semibold">P. Rao</div>
+                  <div className="text-sm text-gray-600">Legal Advisor</div>
+                </div>
+              </div>
+            </div>
+
+          
+
+            {/* Contact Section */}
+            <div className="bg-gradient-to-r from-purple-600 to-purple-400 p-8 rounded-lg text-white text-center">
+              <h4 className="text-xl font-semibold mb-3">Contact Us</h4>
+              <p className="mb-2">Email: genderclinic@smslawcollege.edu.in</p>
+              <p className="mb-2">Phone: +91-98765-43210</p>
+              <p>Office Hours: Mon-Fri, 10am - 4pm</p>
+            </div>
           </section>
         </div>
       </main>

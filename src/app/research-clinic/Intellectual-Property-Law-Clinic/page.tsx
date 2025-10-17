@@ -51,17 +51,100 @@ const IntellectualPropertyLawClinicpage = () => {
       {/*Intellectual Property Law Clinic */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <section id="activities" className="mt-8 space-y-6 lg:col-span-12 py-5">
+          <section id="activities" className="mt-8 space-y-10 lg:col-span-12 py-5">
             <h3 className="text-4xl sm:text-5xl font-bold text-center text-gray-900 mb-6">
               Intellectual
               <span className="text-purple-600"> Property Law Clinic</span>
             </h3>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
-            <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ex officiis in blanditiis, cum natus reprehenderit atque? Commodi consectetur blanditiis deleniti corrupti aut qui asperiores veniam harum? Cum voluptas vero animi sed, temporibus officia error?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ex officiis in blanditiis, cum natus reprehenderit atque? Commodi consectetur blanditiis deleniti corrupti aut qui asperiores veniam harum? Cum voluptas vero animi sed, temporibus officia error?
-            </p>
+            <div className="rounded-xl p-8 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 shadow-xl mb-10">
+              <p className="text-lg text-gray-700 text-justify mb-6">
+                The Intellectual Property Law Clinic is committed to fostering innovation, protecting creative works, and promoting legal literacy in intellectual property (IP) rights. We offer free legal aid, conduct research, and organize outreach programs to support inventors, artists, entrepreneurs, and students.
+              </p>
+            </div>
 
-            <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ex officiis in blanditiis, cum natus reprehenderit atque? Commodi consectetur blanditiis deleniti corrupti aut qui asperiores veniam harum? Cum voluptas vero animi sed, temporibus officia error?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ex officiis in blanditiis, cum natus reprehenderit atque? Commodi consectetur blanditiis deleniti corrupti aut qui asperiores veniam harum? Cum voluptas vero animi sed, temporibus officia error?
-            </p>
+            {/* Services Section */}
+            <div className="grid md:grid-cols-2 gap-8 mb-10">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="text-xl font-semibold text-purple-600 mb-4">Our Services</h4>
+                <ul className="list-disc pl-6 space-y-3 text-gray-700">
+                  <li>Legal counseling on patents, copyrights, trademarks, and designs</li>
+                  <li>Workshops on IP registration and protection</li>
+                  <li>Support for filing IP applications and documentation</li>
+                  <li>Assistance with IP infringement and dispute resolution</li>
+                  <li>Community outreach and awareness campaigns</li>
+                </ul>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="text-xl font-semibold text-purple-600 mb-4">Impact & Initiatives</h4>
+                <ul className="list-disc pl-6 space-y-3 text-gray-700">
+                  <li>Over 100 IP applications assisted in the last year</li>
+                  <li>Annual IP Awareness Week with expert panels and student competitions</li>
+                  <li>Collaboration with industry, startups, and government agencies</li>
+                  <li>Publication of research papers on IP law reforms</li>
+                  <li>Legal literacy drives for creators and entrepreneurs</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Team Section */}
+            <div className="bg-purple-50 p-6 rounded-lg mb-10">
+              <h4 className="text-xl font-semibold text-purple-600 mb-4">Meet Our Team</h4>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-white p-4 rounded shadow text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-purple-200 flex items-center justify-center mb-2">
+                    <span className="text-purple-700 font-bold text-2xl">RS</span>
+                  </div>
+                  <div className="font-semibold">Dr. R. Sharma</div>
+                  <div className="text-sm text-gray-600">Faculty Coordinator</div>
+                </div>
+                <div className="bg-white p-4 rounded shadow text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-purple-200 flex items-center justify-center mb-2">
+                    <span className="text-purple-700 font-bold text-2xl">MK</span>
+                  </div>
+                  <div className="font-semibold">M. Khan</div>
+                  <div className="text-sm text-gray-600">Student Lead</div>
+                </div>
+                <div className="bg-white p-4 rounded shadow text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-purple-200 flex items-center justify-center mb-2">
+                    <span className="text-purple-700 font-bold text-2xl">SP</span>
+                  </div>
+                  <div className="font-semibold">S. Patel</div>
+                  <div className="text-sm text-gray-600">Legal Advisor</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Resources Section */}
+            <div className="grid md:grid-cols-2 gap-8 mb-10">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="text-xl font-semibold text-purple-600 mb-4">Resources</h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li><a href="#" className="text-purple-700 underline">IP Rights Handbook (PDF)</a></li>
+                  <li><a href="#" className="text-purple-700 underline">Patent Application Form</a></li>
+                  <li><a href="#" className="text-purple-700 underline">Recent Judgments on IP Law</a></li>
+                  <li><a href="#" className="text-purple-700 underline">Helpline Numbers</a></li>
+                </ul>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="text-xl font-semibold text-purple-600 mb-4">Get Involved</h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li>Volunteer for outreach programs</li>
+                  <li>Join research and publication teams</li>
+                  <li>Participate in annual IP Awareness Week</li>
+                  <li>Attend workshops and seminars</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Suggestions for Engagement */}
+            <div className="bg-gradient-to-r from-purple-700 via-purple-500 to-purple-400 p-8 rounded-lg text-white text-center shadow-xl mb-10">
+              <h4 className="text-xl font-semibold mb-3">Contact & Collaboration</h4>
+              <p className="mb-2">Email: ipclinic@smslawcollege.edu.in</p>
+              <p className="mb-2">Phone: +91-98765-43211</p>
+              <p className="mb-4">Office Hours: Mon-Fri, 10am - 4pm</p>
+             
+            </div>
           </section>
         </div>
       </main>
