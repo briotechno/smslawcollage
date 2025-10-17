@@ -121,7 +121,7 @@ const AddNewsPage = () => {
         const payload = { ...form } as any;
         // send empty string if default placeholder
         if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
-        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
         const headers: any = { "Content-Type": "application/json" };
         if (token) headers['Authorization'] = `Bearer ${token}`;
         const res = await fetch("/api/news", {

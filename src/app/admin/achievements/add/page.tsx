@@ -82,7 +82,7 @@ const AddAchievementPage = () => {
 
     console.log("Api call>>1")
     try {
-      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
       const headers: any = { "Content-Type": "application/json" };
       if (token) headers['Authorization'] = `Bearer ${token}`;
       const response = await fetch("/api/achievements", {

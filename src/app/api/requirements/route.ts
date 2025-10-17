@@ -23,6 +23,7 @@ async function ensureRequirementsTable(db: any) {
       department VARCHAR(255) NOT NULL,
       deadline DATE NOT NULL,
       file TEXT,
+      notification_file TEXT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
@@ -57,7 +58,7 @@ export async function POST(request: Request) {
   }
   try {
     const body = await (request as any).json();
-    const { title = '', department = '', deadline = '', file = '' } = body;
+    const { title = '', department = '', deadline = '', file = '', notification_file = '' } = body;
     const errors: any = {};
     if (isEmpty(title)) errors.title = 'Title is required.';
     if (isEmpty(department)) errors.department = 'Department is required.';
@@ -68,8 +69,8 @@ export async function POST(request: Request) {
     const db = await connectDB();
     await ensureRequirementsTable(db);
     const [result] = (await db.execute(
-      'INSERT INTO requirements (title, department, deadline, file) VALUES (?,?,?,?)',
-      [title, department, deadline, file]
+      'INSERT INTO requirements (title, department, deadline, file, notification_file) VALUES (?,?,?,?,?)',
+      [title, department, deadline, file, notification_file]
     )) as any;
     await db.end();
     return Response.json({ success: true, id: result.insertId, message: 'Requirement created' }, { status: 201 });
@@ -89,7 +90,7 @@ export async function PUT(request: Request) {
     if (!id) return Response.json({ success: false, message: 'id is required' }, { status: 400 });
     const fields: string[] = [];
     const params: any[] = [];
-    ['title', 'department', 'deadline', 'file'].forEach(f => {
+    ['title', 'department', 'deadline', 'file', 'notification_file'].forEach(f => {
       if (Object.prototype.hasOwnProperty.call(body, f)) {
         fields.push(`${f} = ?`);
         params.push(body[f]);

@@ -112,7 +112,7 @@ const EditNewsContent = () => {
         const payload: any = { ...form };
         if (payload.imageUrl === "/assets/Noimage.jpg") payload.imageUrl = "";
         payload.id = id;
-        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
         const headers: any = { "Content-Type": "application/json" };
         if (token) headers['Authorization'] = `Bearer ${token}`;
         const res = await fetch("/api/news", {

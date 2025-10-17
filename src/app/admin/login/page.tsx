@@ -55,8 +55,14 @@ const Loginpage = () => {
 
       const data = await res.json().catch(() => ({}));
 
-      if (!res.ok) {
-    showToast({ type: "error", title: "Login failed", message: data.message || "Login failed" });
+      if (!res.ok || !data.success) {
+        showToast({ type: "error", title: "Login failed", message: data.message || "Invalid username or password" });
+        setIsLoading(false);
+        return;
+      }
+
+      if (!data.token) {
+        showToast({ type: "error", title: "Login failed", message: "Authentication token not received" });
         setIsLoading(false);
         return;
       }
@@ -88,9 +94,9 @@ const Loginpage = () => {
       }
 
       showToast({ type: "success", title: "Signed in", message: "Login successful — redirecting…" });
-      router.push("/admin/dashboard");
+      await router.push("/admin/dashboard");
+      router.refresh();
       setIsLoading(false);
-     
     } catch (err) {
       console.error(err);
   showToast({ type: "error", title: "Network error", message: "Network error — please try again" });
