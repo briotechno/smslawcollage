@@ -71,7 +71,7 @@ const FacultyEditContent = () => {
       try {
         const payload: any = { ...form, id };
         if (payload.image === '/assets/Noimage.jpg') payload.image = '';
-        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
         const headers: any = { 'Content-Type': 'application/json' };
         if (token) headers['Authorization'] = `Bearer ${token}`;
   const res = await import('@/lib/adminFetch').then(m => m.default('/api/faculty', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }));

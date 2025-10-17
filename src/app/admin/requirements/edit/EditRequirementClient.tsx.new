@@ -31,7 +31,7 @@ interface FileUploadResponse {
 const EditRequirementClient = () => {
   const router = useRouter();
   const params = useSearchParams();
-  const requirementId:any = params.get("id");
+  const requirementId = params.get("id");
   const { showToast } = useToast();
 
   const [form, setForm] = useState<RequirementData>({
@@ -169,7 +169,6 @@ const EditRequirementClient = () => {
       setIsSubmitting(true);
       const payload = {
         ...form,
-        id: requirementId,
         file: uploadedFileUrl || undefined,
         notification_file: notificationFileUrl || undefined,
       };
@@ -177,7 +176,7 @@ const EditRequirementClient = () => {
       const res = await adminFetch("/api/requirements/edit", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ id: requirementId, ...payload }),
       });
 
       const data = await res.json();
