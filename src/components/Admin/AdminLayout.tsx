@@ -249,7 +249,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
     { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
     { name: "Achievements", icon: <FaUser />, href: "/admin/achievements" },
     { name: "Admission", icon: <FaCog />, href: "#" },
-    { name: "Calendar", icon: <FaTachometerAlt />, href: "#" },
+    { name: "Calendar", icon: <FaTachometerAlt />, href: "/admin/Calendar" },
     { name: "News & Announcements", icon: <FaUser />, href: "/admin/news" },
     { name: "Faculty", icon: <FaCog />, href: "/admin/faculty" },
     { name: "Moot Court", icon: <FaCog />, href: "#" },
