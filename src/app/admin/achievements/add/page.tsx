@@ -64,6 +64,7 @@ const AddAchievementPage = () => {
   };
 
   const handleAddAchievement = async () => {
+    setIsSubmitting(true);
     if (
       !formData.title ||
       !formData.description ||
@@ -75,11 +76,11 @@ const AddAchievementPage = () => {
         title: "Validation Error",
         message: "Please fill in all required fields"
       });
+      setIsSubmitting(false);
       return;
     }
 
     console.log("Api call>>1")
-    setIsSubmitting(true);
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
       const headers: any = { "Content-Type": "application/json" };
@@ -448,12 +449,25 @@ const AddAchievementPage = () => {
             >
               Cancel
             </button>
+
             <button
               onClick={handleAddAchievement}
-              className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2"
+              disabled={isSubmitting}
+              className={`px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
             >
-              <Check className="w-4 h-4" />
-              Save Achievement
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                  </svg>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" /> Save Achievement
+                </>
+              )}
             </button>
           </div>
         </div>

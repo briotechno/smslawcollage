@@ -66,6 +66,7 @@ const LegalAidAdminPage = () => {
   const [showDelete, setShowDelete] = useState(false);
   const [deleting, setDeleting] = useState<LegalAidActivity | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Initialize with seed data
   useEffect(() => setList(seed), []);
@@ -118,7 +119,7 @@ const LegalAidAdminPage = () => {
   const confirmDelete = async () => {
     if (!deleting) return;
 
-    setLoading(true);
+    setIsDeleting(true);
 
     try {
   const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
@@ -203,7 +204,33 @@ const LegalAidAdminPage = () => {
           </h3>
         </div>
 
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-16">
+            <div className="inline-flex items-center gap-3 p-6 rounded-lg">
+              <svg
+                className="animate-spin h-8 w-8 text-purple-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+              {/* <p className="text-gray-600 font-medium">Loading activity...</p> */}
+            </div>
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-12">
             <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No activities found</h3>
@@ -310,11 +337,11 @@ const LegalAidAdminPage = () => {
 
               <button
                 onClick={confirmDelete}
-                disabled={loading} // use your loading state here
+                disabled={isDeleting} // use your loading state here
                 className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center justify-center ${loading ? "opacity-70 cursor-wait" : ""
                   }`}
               >
-                {loading ? (
+                {isDeleting ? (
                   <>
                     <svg
                       className="animate-spin h-4 w-4 mr-2 text-white"

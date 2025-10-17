@@ -26,37 +26,40 @@ const LegalAidAddPage = () => {
   });
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const preview = URL.createObjectURL(file);
-      setForm((p) => ({ ...p, image: preview }));
-      setIsUploadingImage(true);
-      try {
-        const fd = new FormData();
-        fd.append('image', file, file.name);
-        const res = await import('@/lib/adminFetch').then(m => m.default('/api/upload', { method: 'POST', body: fd }));
-        const data = await res.json();
-        if (res.ok && data.success && data.url) {
-          setForm((p) => ({ ...p, image: data.url }));
-          showToast({ type: 'success', title: 'Uploaded', message: 'Image uploaded successfully' });
-        } else {
-          showToast({ type: 'error', title: 'Upload failed', message: data?.message || 'Failed to upload image' });
-        }
-      } catch (err) {
-        console.error(err);
-        showToast({ type: 'error', title: 'Upload error', message: 'Unable to upload image' });
-      } finally {
-        setIsUploadingImage(false);
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const preview = URL.createObjectURL(file);
+    setForm((p) => ({ ...p, image: preview }));
+    setIsUploadingImage(true);
+    try {
+      const fd = new FormData();
+      fd.append('image', file, file.name);
+      const res = await import('@/lib/adminFetch').then(m => m.default('/api/upload', { method: 'POST', body: fd }));
+      const data = await res.json();
+      if (res.ok && data.success && data.url) {
+        setForm((p) => ({ ...p, image: data.url }));
+        showToast({ type: 'success', title: 'Uploaded', message: 'Image uploaded successfully' });
+      } else {
+        showToast({ type: 'error', title: 'Upload failed', message: data?.message || 'Failed to upload image' });
       }
-    };
+    } catch (err) {
+      console.error(err);
+      showToast({ type: 'error', title: 'Upload error', message: 'Unable to upload image' });
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
 
-  const submit = () => {
+  const submit = async () => {
+    setIsSubmitting(true);
+
     if (!form.title || !form.excerpt || !form.date) {
       showToast({
         type: "error",
         title: "Validation Error",
         message: "Please fill in all required fields"
       });
+      setIsSubmitting(false);
       return;
     }
     (async () => {
@@ -192,12 +195,28 @@ const LegalAidAddPage = () => {
           >
             Cancel
           </button>
+
           <button
             onClick={submit}
-            className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2"
+            disabled={isSubmitting}
+            className={`px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
           >
-            <Check className="w-4 h-4" /> Save Activity
+            {isSubmitting ? (
+              <>
+                <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                </svg>
+                Saving...
+              </>
+            ) : (
+              <>
+                <Check className="w-4 h-4" /> Save Activity
+              </>
+            )}
           </button>
+
+
         </div>
       </div>
     </AdminLayout>

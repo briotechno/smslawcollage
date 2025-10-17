@@ -10,7 +10,7 @@ interface LegalAidActivityForm {
   date: string;
   title: string;
   excerpt: string;
-  image: string; // URL or base64
+  image: string;
 }
 
 const LegalAidEditContent = () => {
@@ -20,6 +20,7 @@ const LegalAidEditContent = () => {
   const id = params.get("id");
   const [form, setForm] = useState<LegalAidActivityForm | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Fetch activity by ID
   const fetchById = async (id: string): Promise<LegalAidActivityForm | null> => {
@@ -43,7 +44,7 @@ const LegalAidEditContent = () => {
       if (data) {
         setForm(data);
       } else {
-        // Fallback default structure if no API data
+        // fallback in case of empty API
         setForm({
           date: "",
           title: "",
@@ -51,6 +52,7 @@ const LegalAidEditContent = () => {
           image: "/assets/Noimage.jpg",
         });
       }
+      setLoading(false); 
     })();
   }, [id]);
 
@@ -130,42 +132,64 @@ const LegalAidEditContent = () => {
     );
   }
 
-  if (!form) {
+  if (loading || !form) {
     return (
       <AdminLayout title="Edit Legal Aid Activity" subtitle="Update legal aid clinic activity">
-        <div className="text-center py-12">
-          <div className="text-gray-500">Loading...</div>
+        <div className="flex items-center justify-center min-h-[70vh]">
+          <div className="flex flex-col items-center justify-center text-center">
+            <svg className="animate-spin h-6 w-6 text-purple-600 mx-auto mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+            </svg>
+          </div>
+          {/* <div className="text-gray-500">Loading activity details...</div> */}
         </div>
       </AdminLayout>
     );
   }
 
   return (
-    <AdminLayout
-      title="Edit Legal Aid Activity"
-      subtitle="Update legal aid clinic activity"
-    >
+    <AdminLayout title="Edit Legal Aid Activity" subtitle="Update legal aid clinic activity">
       <div className="flex items-center justify-between mb-6">
-        <button onClick={() => router.push("/admin/legal-aid")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
+        <button
+          onClick={() => router.push("/admin/legal-aid")}
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+        >
           <ArrowLeft className="w-5 h-5" /> Back to Legal Aid Activities
         </button>
-        <div />
       </div>
 
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-black">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Title <span className="text-red-500">*</span></label>
-            <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter activity title" />
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Title <span className="text-red-500">*</span>
+            </label>
+            <input
+              value={form.title}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter activity title"
+            />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Date <span className="text-red-500">*</span></label>
-            <input type="text" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="e.g., 03 DEC, 2019" />
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Date <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              value={form.date}
+              onChange={(e) => setForm({ ...form, date: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="e.g., 03 DEC, 2019"
+            />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Activity Image</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Activity Image
+            </label>
             <div className="flex items-center gap-4">
               <div className="relative w-24 h-24 rounded-md overflow-hidden border border-gray-200 bg-gray-50">
                 <img src={form.image} alt="Activity Preview" className="object-cover w-full h-full" />
@@ -179,16 +203,32 @@ const LegalAidEditContent = () => {
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Excerpt <span className="text-red-500">*</span></label>
-            <textarea value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} rows={6} className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter detailed description of the activity" />
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Excerpt <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              value={form.excerpt}
+              onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
+              rows={6}
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter detailed description of the activity"
+            />
           </div>
         </div>
 
         <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
-          <button onClick={() => router.push("/admin/legal-aid")} className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">Cancel</button>
-          <button onClick={handleSubmit}
+          <button
+            onClick={() => router.push("/admin/legal-aid")}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+          >
+            Cancel
+          </button>
+
+          <button
+            onClick={handleSubmit}
             disabled={isSubmitting}
-            className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2">
+            className={`px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2 ${isSubmitting ? "opacity-70 cursor-wait" : ""}`}
+          >
             {isSubmitting ? (
               <>
                 <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -209,18 +249,19 @@ const LegalAidEditContent = () => {
   );
 };
 
-const LegalAidEditPage = () => {
-  return (
-    <Suspense fallback={
+const LegalAidEditPage = () => (
+  <Suspense
+    fallback={
       <AdminLayout title="Edit Legal Aid Activity" subtitle="Update legal aid clinic activity">
         <div className="text-center py-12">
-          <div className="text-gray-500">Loading...</div>
+          <div className="animate-spin h-6 w-6 mx-auto text-purple-600 mb-3 border-4 border-purple-400 border-t-transparent rounded-full"></div>
+          <p className="text-gray-500">Loading...</p>
         </div>
       </AdminLayout>
-    }>
-      <LegalAidEditContent />
-    </Suspense>
-  );
-};
+    }
+  >
+    <LegalAidEditContent />
+  </Suspense>
+);
 
 export default LegalAidEditPage;
