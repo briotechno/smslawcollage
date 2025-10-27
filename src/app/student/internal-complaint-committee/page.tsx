@@ -152,13 +152,13 @@ const InternalComplaintCommittee = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
+      <section className="relative w-full h-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection7.jpeg"
             alt="Internal Complaint Committee"
             fill
-            style={{ objectFit: "cover" }}
+            // style={{ objectFit: "cover" }}
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />

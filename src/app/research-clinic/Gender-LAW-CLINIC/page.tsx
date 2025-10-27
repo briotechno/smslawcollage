@@ -9,12 +9,12 @@ const GenderLAWCLINICpage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* HERO SECTION */}
-      <header className="relative h-[60vh] md:h-[64vh] lg:h-[72vh] w-full overflow-hidden">
+      <header className="relativeh-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] w-full overflow-hidden">
         <Image
           src="/assets/HeroSection/HeroSection6.jpeg"
           alt="Environmental Law Clinic"
           fill
-          style={{ objectFit: "cover" }}
+          // style={{ objectFit: "cover" }}
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />

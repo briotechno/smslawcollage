@@ -128,7 +128,7 @@ export default function Footer() {
             >
               <div className="flex items-center mb-6">
                 <Image
-                  src="/assets/Logo.png"
+                  src="/assets/Logonew.png"
                   alt="SMS Law College Logo"
                   width={50}
                   height={50}
