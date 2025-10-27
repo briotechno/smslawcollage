@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Users,
@@ -16,7 +16,20 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+interface Participation {
+  title: string;
+  description: string;
+  year: string;
+  category: string;
+  award: string;
+  prize: string;
+  participants: string[];
+}
+
 const ParticipationPage = () => {
+  const [Participation, setParticipation] = useState<Participation[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -102,10 +115,43 @@ const ParticipationPage = () => {
     { number: "100%", label: "Qualification Rate", icon: TrendingUp },
   ];
 
+  useEffect(() => {
+    const fetchParticipation = async () => {
+      try {
+        const token =
+          typeof window !== "undefined"
+            ? localStorage.getItem("token") || sessionStorage.getItem("token")
+            : null;
+
+        const headers: any = {};
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        const res = await fetch("/api/achievements?type=Participation", { headers });
+        const data = await res.json();
+        console.log("Data1>>", data)
+
+        if (res.ok && data?.data) {
+          setParticipation(data.data);
+        } else {
+          setParticipation([]);
+        }
+        console.log("Data2>>", data)
+      } catch (err) {
+        console.error("Failed to fetch Participation", err);
+        setParticipation([]);
+      } finally {
+        setLoading(false);
+      }
+      console.log("Data show>>")
+    };
+
+    fetchParticipation();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[60vh] overflow-hidden">
+      <section className="relative w-full h-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection4.jpeg"
@@ -127,7 +173,7 @@ const ParticipationPage = () => {
                 className="mb-6"
               >
                 <span className="inline-block px-4 py-2 bg-purple-600/90 text-white text-sm font-semibold rounded-full mb-4">
-                  Active Participation
+                  Active Participat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ion
                 </span>
               </motion.div>
 
@@ -283,74 +329,92 @@ const ParticipationPage = () => {
           </motion.div>
 
           <div className="space-y-8">
-            {participationRecords.map((record, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-100"
-              >
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center">
-                        <Users className="w-6 h-6 text-purple-600" />
-                      </div>
+            {loading ? (
+              <div className="flex justify-center py-20">
+                <svg
+                  className="animate-spin h-10 w-10 text-purple-600"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+              </div>
+            ) : Participation.length === 0 ? (
+              <p className="text-center text-gray-600 py-20">
+                No academic Participation achievements available.
+              </p>
+            ) : (
+              <div className="space-y-8 max-w-7xl mx-auto">
+                {Participation.map((item, i) => (
+                  <div
+                    key={i}
+                    className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300"
+                  >
+                    <div className="flex flex-col md:flex-row md:justify-between gap-6">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                          {record.title}
-                        </h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {record.year}
-                          </span>
-                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs font-medium">
-                            {record.category}
-                          </span>
-                          <span className="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs font-medium">
-                            {record.level}
-                          </span>
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <Trophy className="w-6 h-6 text-purple-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-xl font-semibold text-gray-900">
+                              {item.title}
+                            </h3>
+                            <div className="text-sm text-gray-500 flex gap-3">
+                              <span className="flex items-center gap-1">
+                                <Calendar className="w-4 h-4" /> {item.year}
+                              </span>
+                              <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs font-medium">
+                                {item.category}
+                              </span>
+                            </div>
+                          </div>
                         </div>
+
+                        <p className="text-gray-600 mb-3">{item.description}</p>
+
+                        {item.participants?.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {item.participants.map((p: any, idx) => (
+                              <span
+                                key={idx}
+                                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                              >
+                                {p}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                    </div>
-                    <p className="text-gray-600 leading-relaxed mb-4">
-                      {record.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {record.participants.map((participant, participantIndex) => (
-                        <span
-                          key={participantIndex}
-                          className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
-                        >
-                          {participant}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      <strong>Organizer:</strong> {record.organizer}
-                    </div>
-                  </div>
-                  <div className="lg:w-48 flex-shrink-0">
-                    <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-6 rounded-xl">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-purple-600 mb-2">
-                          {record.level}
+
+                      <div className="md:w-48 bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-4 text-center">
+                        <div className="text-2xl font-bold text-purple-600 mb-1">
+                          {item.award || "—"}
                         </div>
-                        <div className="text-sm text-gray-600 mb-2">Level</div>
+                        <div className="text-sm text-gray-600 mb-2">Award</div>
                         <div className="text-lg font-semibold text-gray-900">
-                          {record.category}
+                          {item.prize || "—"}
                         </div>
-                        <div className="text-xs text-gray-500">Category</div>
+                        <div className="text-xs text-gray-500">Prize</div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>

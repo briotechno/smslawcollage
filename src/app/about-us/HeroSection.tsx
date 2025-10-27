@@ -72,12 +72,12 @@ const HeroSection = () => {
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index}>
-            <div className="relative w-full h-[100vh]">
+            <div className="relative w-full h-[130vh]">
               <Image
                 src={src}
                 alt={`SMS Law College ${index + 1}`}
                 fill
-                // style={{ objectFit: "cov er" }}
+                style={{ objectFit: "cover" }}
                 priority={index === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
