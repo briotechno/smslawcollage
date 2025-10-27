@@ -100,3 +100,12 @@ a[download],
 .download-link {
   cursor: pointer;
 }
+::selection {
+  background-color: #7e22ce40; /* Purple with 40% opacity */
+  color: #7e22ce; /* Purple */
+}
+
+::-moz-selection {
+  background-color: #7e22ce40;
+  color: #7e22ce;
+}
