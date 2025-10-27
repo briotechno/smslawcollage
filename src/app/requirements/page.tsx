@@ -151,7 +151,7 @@ export default function RequirementsPage() {
                         <Link
                           href={req.file}
                           target="_blank"
-                          className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
+                          className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700 download-link transition-all duration-200"
                         >
                           <Download className="w-4 h-4" /> Download Form
                         </Link>
@@ -160,7 +160,7 @@ export default function RequirementsPage() {
                         <Link
                           href={req.notification_file}
                           target="_blank"
-                          className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
+                          className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700 download-link transition-all duration-200"
                         >
                           <Download className="w-4 h-4" /> Download Notification
                         </Link>

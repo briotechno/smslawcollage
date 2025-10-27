@@ -22,8 +22,81 @@
   }
 }
 
+/* Custom Cursor Styles */
+* {
+  cursor: default;
+}
+
+/* Default body cursor */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  cursor: default;
+}
+
+/* Links and interactive elements */
+a, 
+button,
+[role="button"],
+select,
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  cursor: pointer;
+}
+
+/* Text inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea {
+  cursor: text;
+}
+
+/* Hover states for cards and interactive containers */
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
+}
+
+/* Loading states */
+.animate-spin,
+.loading {
+  cursor: wait;
+}
+
+/* Disabled elements */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+.disabled {
+  cursor: not-allowed !important;
+}
+
+/* Resizable elements */
+textarea,
+.resize {
+  cursor: auto;
+}
+
+/* Draggable elements */
+[draggable="true"] {
+  cursor: move;
+}
+
+/* Help cursor for tooltip elements */
+[data-tooltip],
+.tooltip {
+  cursor: help;
+}
+
+/* Custom style for download links */
+a[download],
+.download-link {
+  cursor: pointer;
 }
