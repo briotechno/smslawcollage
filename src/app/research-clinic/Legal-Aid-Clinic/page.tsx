@@ -104,7 +104,7 @@ const LegalAidClinicpage = () => {
       {/* HERO SECTION */}
       <header className="relative h-[60vh] md:h-[64vh] lg:h-[72vh] w-full overflow-hidden">
         <Image
-          src="/assets/Slider1.jpg"
+          src="/assets/HeroSection/HeroSection7.jpeg"
           alt="Environmental Law Clinic"
           fill
           style={{ objectFit: "cover" }}

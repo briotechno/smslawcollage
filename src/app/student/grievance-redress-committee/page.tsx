@@ -10,7 +10,6 @@ import {
   Mail,
   Clock,
   CheckCircle,
-  AlertTriangle,
   Scale,
   Heart,
 } from "lucide-react";
@@ -127,7 +126,7 @@ const GrievanceRedressCommittee = () => {
       <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider1.jpg"
+            src="/assets/HeroSection/HeroSection6.jpeg"
             alt="Grievance Redress Committee"
             fill
             style={{ objectFit: "cover" }}

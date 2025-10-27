@@ -11,7 +11,7 @@ const IntellectualPropertyLawClinicpage = () => {
       {/* HERO SECTION */}
       <header className="relative h-[60vh] md:h-[64vh] lg:h-[72vh] w-full overflow-hidden">
         <Image
-          src="/assets/Slider4.jpg"
+          src="/assets/HeroSection/HeroSection2.jpeg"
           alt="Environmental Law Clinic"
           fill
           style={{ objectFit: "cover" }}
@@ -143,7 +143,7 @@ const IntellectualPropertyLawClinicpage = () => {
               <p className="mb-2">Email: ipclinic@smslawcollege.edu.in</p>
               <p className="mb-2">Phone: +91-98765-43211</p>
               <p className="mb-4">Office Hours: Mon-Fri, 10am - 4pm</p>
-             
+
             </div>
           </section>
         </div>

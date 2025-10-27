@@ -91,7 +91,7 @@ const Debate = () => {
       <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider1.jpg"
+            src="/assets/HeroSection/HeroSection4.jpeg"
             alt="Debate Skills Development"
             fill
             style={{ objectFit: "cover" }}

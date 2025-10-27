@@ -80,7 +80,7 @@ const LegalEducation = () => {
       <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider2.jpg"
+            src="/assets/HeroSection/HeroSection6.jpeg"
             alt="Legal Education in India"
             fill
             style={{ objectFit: "cover" }}

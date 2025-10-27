@@ -130,7 +130,7 @@ const AboutClg = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/assets/Slider1.jpg"
+                src="/assets/HeroSection/HeroSection2.jpeg"
                 alt="SMS Law College Campus"
                 width={600}
                 height={400}

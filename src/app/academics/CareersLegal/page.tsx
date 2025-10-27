@@ -92,7 +92,7 @@ const CareersLegal = () => {
       <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider3.jpg"
+            src="/assets/HeroSection/HeroSection5.jpeg"
             alt="Careers in Legal Field"
             fill
             style={{ objectFit: "cover" }}

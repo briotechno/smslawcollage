@@ -5,11 +5,9 @@ import { motion } from "framer-motion";
 import {
   Trophy,
   Award,
-  Medal,
   Users,
   Calendar,
   Star,
-  ExternalLink,
   Target,
   TrendingUp,
   Music,
@@ -118,7 +116,7 @@ const CulturalAchievementsPage = () => {
       <section className="relative w-full h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider1.jpg"
+            src="/assets/HeroSection/HeroSection3.jpeg"
             alt="Cultural Achievements"
             fill
             style={{ objectFit: "cover" }}

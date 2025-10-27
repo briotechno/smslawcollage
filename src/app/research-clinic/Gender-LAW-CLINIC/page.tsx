@@ -11,7 +11,7 @@ const GenderLAWCLINICpage = () => {
       {/* HERO SECTION */}
       <header className="relative h-[60vh] md:h-[64vh] lg:h-[72vh] w-full overflow-hidden">
         <Image
-          src="/assets/Slider3.jpg"
+          src="/assets/HeroSection/HeroSection6.jpeg"
           alt="Environmental Law Clinic"
           fill
           style={{ objectFit: "cover" }}
@@ -113,7 +113,7 @@ const GenderLAWCLINICpage = () => {
               </div>
             </div>
 
-          
+
 
             {/* Contact Section */}
             <div className="bg-gradient-to-r from-purple-600 to-purple-400 p-8 rounded-lg text-white text-center">

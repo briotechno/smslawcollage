@@ -32,7 +32,7 @@ export default function RequirementsPage() {
             </p>
           </div>
         </div>
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-[url('/assets/Slider2.jpg')] bg-cover bg-right opacity-30 hidden lg:block" />
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-[url('/assets/HeroSection/HeroSection1.jpeg')] bg-cover bg-right opacity-30 hidden lg:block" />
       </div>
 
       <div className="bg-white w-full">
@@ -42,7 +42,7 @@ export default function RequirementsPage() {
           <section id="vacancies" className="mb-12">
             <div className="flex items-center gap-4 mb-6">
               <Briefcase className="w-8 h-8 text-purple-700" />
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold text-purple-700">
                 Current Vacancies
               </h2>
             </div>
@@ -112,7 +112,7 @@ export default function RequirementsPage() {
 
           {/* Important Notes / Contact */}
           <section className="mb-12">
-            <h3 className="text-xl font-semibold mb-4">Important Notes</h3>
+            <h3 className="text-xl font-semibold text-purple-700 mb-4">Important Notes</h3>
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
               <li>Shortlisted candidates will be contacted via email/phone.</li>
               <li>

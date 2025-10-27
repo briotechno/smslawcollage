@@ -71,7 +71,7 @@ const EnvironmentalLawClinicPage = () => {
       {/* HERO SECTION */}
       <header className="relative h-[60vh] md:h-[64vh] lg:h-[72vh] w-full overflow-hidden">
         <Image
-          src="/assets/Slider2.jpg"
+          src="/assets/HeroSection/HeroSection3.jpeg"
           alt="Environmental Law Clinic"
           fill
           style={{ objectFit: "cover" }}
@@ -225,7 +225,7 @@ const EnvironmentalLawClinicPage = () => {
                         src={act.image}
                         alt={act.title}
                         fill
-                        // style={{ objectFit: "cover" }}
+                      // style={{ objectFit: "cover" }}
                       />
                     </div>
 

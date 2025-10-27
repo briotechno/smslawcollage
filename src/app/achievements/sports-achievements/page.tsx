@@ -8,12 +8,8 @@ import {
   Medal,
   Users,
   Calendar,
-  Star,
-  ExternalLink,
   Target,
-  TrendingUp,
   Activity,
-  Zap,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -96,7 +92,7 @@ const SportsAchievementsPage = () => {
       <section className="relative w-full h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider3.jpg"
+            src="/assets/HeroSection/HeroSection2.jpeg"
             alt="Sports Achievements"
             fill
             style={{ objectFit: "cover" }}

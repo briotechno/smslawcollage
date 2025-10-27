@@ -108,7 +108,7 @@ const ParticipationPage = () => {
       <section className="relative w-full h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider2.jpg"
+            src="/assets/HeroSection/HeroSection4.jpeg"
             alt="Student Participation"
             fill
             style={{ objectFit: "cover" }}

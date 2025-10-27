@@ -16,7 +16,6 @@ import {
   Star,
   Award,
   Clock,
-  Globe,
   Target,
   ArrowRight,
 } from "lucide-react";
@@ -179,7 +178,7 @@ const AdmissionPage = () => {
       <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider1.jpg"
+            src="/assets/HeroSection/HeroSection7.jpeg"
             alt="SMS Law College Admissions"
             fill
             style={{ objectFit: "cover" }}
@@ -291,7 +290,7 @@ const AdmissionPage = () => {
                   <p className="text-gray-600 leading-relaxed mb-6">
                     {program.description}
                   </p>
-                  
+
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center gap-2 text-sm text-gray-600">
                       <CheckCircle className="w-4 h-4 text-purple-600" />
@@ -435,11 +434,10 @@ const AdmissionPage = () => {
                   <h3 className="text-lg font-semibold text-gray-900">
                     {date.event}
                   </h3>
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    date.status === 'Open' ? 'bg-green-100 text-green-600' :
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${date.status === 'Open' ? 'bg-green-100 text-green-600' :
                     date.status === 'Upcoming' ? 'bg-blue-100 text-blue-600' :
-                    'bg-purple-100 text-purple-600'
-                  }`}>
+                      'bg-purple-100 text-purple-600'
+                    }`}>
                     {date.status}
                   </span>
                 </div>
@@ -534,7 +532,17 @@ const AdmissionPage = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <MapPin className="w-5 h-5 text-purple-600" />
-                  <span className="text-gray-700">SMS Law College Campus, Mehasana - 380006</span>
+                  {/* <span className="text-gray-700">SMS Law College Campus, Mehasana - 380006</span> */}
+                  <p className="text-gray-700 text-sm">
+                    Shri S M Shah Law Collage
+                    <br />
+                    Avani Seeda Vidhya Sankul,
+                    Nagalpur High way
+                    <br />
+                    Mehsana 384002
+                    <br />
+                    Gujarat, India
+                  </p>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-purple-600" />
@@ -543,6 +551,11 @@ const AdmissionPage = () => {
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-purple-600" />
                   <span className="text-gray-700">admission@smslawcollege.edu</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-purple-600" />
+                  <span className="text-gray-700">smslcmeh@gmail.com
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-purple-600" />

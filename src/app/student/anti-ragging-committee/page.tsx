@@ -153,7 +153,7 @@ const AntiRaggingCommittee = () => {
 
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider2.jpg"
+            src="/assets/HeroSection/HeroSection1.jpeg"
             alt="Anti-Ragging Committee"
             fill
             style={{ objectFit: "cover" }}

@@ -5,21 +5,15 @@ import { motion } from "framer-motion";
 import {
   BookOpen,
   Trophy,
-  Award,
   Medal,
   Users,
   Calendar,
-  Star,
-  ExternalLink,
-  GraduationCap,
-  Target,
-  TrendingUp,
 } from "lucide-react";
 import Image from "next/image";
 
 const AcademicAchievementsPage = () => {
-  const [activities, setActivities] = React.useState<any[]>([]);
-const [loading, setLoading] = React.useState(true);
+  // const [activities, setActivities] = React.useState<any[]>([]);
+  // const [loading, setLoading] = React.useState(true);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
@@ -132,7 +126,7 @@ const [loading, setLoading] = React.useState(true);
       <section className="relative w-full h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider2.jpg"
+            src="/assets/HeroSection/HeroSection1.jpeg"
             alt="Academic Achievements"
             fill
             style={{ objectFit: "cover" }}
