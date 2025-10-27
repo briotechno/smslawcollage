@@ -1,22 +1,55 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-// LayoutShell is applied by the root layout; do not wrap pages with it to avoid duplicate header/footer
-import { Download, Briefcase } from "lucide-react";
+import { Download, Briefcase, Loader2 } from "lucide-react";
 
-const vacancies = [
-  {
-    id: "r1",
-    title: "Head Clerk",
-    department: "Clerk Law College",
-    deadline: "",
-    file: "/assets/હેડ કલાર્ક નું અરજી ફોર્મ PDF.pdf",
-    notification: "/assets/NOC CLARK LAW COLLEGE.pdf",
-  },
-];
+interface Requirement {
+  id: number;
+  title: string;
+  department: string;
+  deadline: string;
+  file: string;
+  notification_file: string;
+}
 
 export default function RequirementsPage() {
+  const [requirements, setRequirements] = useState<Requirement[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchRequirements = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetch("/api/requirements");
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch requirements: ${response.statusText}`
+          );
+        }
+
+        const data = await response.json();
+        if (!data.success) {
+          throw new Error(data.error || "Failed to fetch requirements");
+        }
+
+        setRequirements(data.data);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "An error occurred while fetching requirements"
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRequirements();
+  }, []);
   return (
     <>
       {/* Hero */}
@@ -48,43 +81,94 @@ export default function RequirementsPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {vacancies.map((v) => (
-                <div
-                  key={v.id}
-                  className="bg-white rounded-lg shadow-xl hover:shadow-2xl p-6 flex flex-col"
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900">
-                        {v.title}
-                      </h3>
-                      <div className="text-sm text-gray-500">
-                        Department: {v.department}
+              {isLoading ? (
+                <div className="flex flex-row items-center  p-8  gap-4 justify-center">
+                  <svg
+                    className="animate-spin h-8 w- text-purple-600 "
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  <span className="text-lg font-medium text-purple-600">
+                    Loading requirements, please wait...
+                  </span>
+                </div>
+              ) : error ? (
+                <div className="col-span-2 bg-red-50 border border-red-200 rounded-lg p-4">
+                  <p className="text-red-600 text-center">{error}</p>
+                </div>
+              ) : requirements.length === 0 ? (
+                <div className="col-span-2 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                  <p className="text-gray-600 text-center">
+                    No requirements available at the moment.
+                  </p>
+                </div>
+              ) : (
+                requirements.map((req) => (
+                  <div
+                    key={req.id}
+                    className="bg-white rounded-lg shadow-xl hover:shadow-2xl p-6 flex flex-col"
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900">
+                          {req.title}
+                        </h3>
+                        <div className="text-sm text-gray-500">
+                          Department: {req.department}
+                        </div>
+                        {/* {req.deadline && (
+                          <div className="text-sm text-gray-600 mt-1">
+                            Last date:{" "}
+                            <span className="font-medium">
+                              {new Date(req.deadline).toLocaleDateString('en-IN', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                              })}
+                            </span>
+                          </div>
+                        )} */}
                       </div>
                     </div>
-                    {/* <div className="text-sm text-gray-600">
-                    Last date: <span className="font-medium">{v.deadline}</span>
-                  </div> */}
-                  </div>
 
-                  <div className="mt-4 flex items-center gap-4">
-                    <Link
-                      href={v.file}
-                      target="_blank"
-                      className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
-                    >
-                      <Download className="w-4 h-4" /> Download Form
-                    </Link>
-                    <Link
-                      href={v.notification}
-                      target="_blank"
-                      className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
-                    >
-                      <Download className="w-4 h-4" /> Download Notification
-                    </Link>
+                    <div className="mt-4 flex items-center gap-4 flex-wrap">
+                      {req.file && (
+                        <Link
+                          href={req.file}
+                          target="_blank"
+                          className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
+                        >
+                          <Download className="w-4 h-4" /> Download Form
+                        </Link>
+                      )}
+                      {req.notification_file && (
+                        <Link
+                          href={req.notification_file}
+                          target="_blank"
+                          className="px-4 py-2 bg-purple-600 text-white rounded-md inline-flex items-center gap-2 hover:bg-purple-700"
+                        >
+                          <Download className="w-4 h-4" /> Download Notification
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </section>
 
@@ -112,7 +196,9 @@ export default function RequirementsPage() {
 
           {/* Important Notes / Contact */}
           <section className="mb-12">
-            <h3 className="text-xl font-semibold text-purple-700 mb-4">Important Notes</h3>
+            <h3 className="text-xl font-semibold text-purple-700 mb-4">
+              Important Notes
+            </h3>
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
               <li>Shortlisted candidates will be contacted via email/phone.</li>
               <li>
