@@ -9,7 +9,7 @@ const GenderLAWCLINICpage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* HERO SECTION */}
-      <header className="relativeh-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] w-full overflow-hidden">
+      <header className="relativew-full h-[110vh] sm:h-[120vh] md:h-[130vh] lg:h-[130vh] overflow-hidden">
         <Image
           src="/assets/HeroSection/HeroSection6.jpeg"
           alt="Environmental Law Clinic"

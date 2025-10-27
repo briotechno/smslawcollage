@@ -5,13 +5,13 @@ const CourtExercises = () => {
         <div id="Intra-Moot-Court-Exercises" className="bg-gray-50 py-40">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
-                    Intra Moot <span className="text-purple-600"> Court Exercises:
+                    Intra Moot <span className="text-purple-600"> Court Exercises
                     </span>
                 </h1>
                 <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
                 <div className="space-y-8">
                     <p className="text-lg text-gray-700 leading-relaxed text-center">
-                        Our Intra Moot Court Exercises provide students with practical courtroom experience in a controlled learning environment. 
+                        Our Intra Moot Court Exercises provide students with practical courtroom experience in a controlled learning environment.
                         These exercises are designed to bridge the gap between theoretical knowledge and practical advocacy skills.
                     </p>
 
@@ -43,19 +43,19 @@ const CourtExercises = () => {
                         <h3 className="text-xl font-semibold text-purple-600 mb-4">Program Objectives</h3>
                         <ul className="grid md:grid-cols-2 gap-4">
                             <li className="bg-white p-4 rounded shadow">
-                                <span className="font-semibold block mb-2">Career Development</span>
+                                <span className="font-semibold text-purple-600 block mb-2">Career Development</span>
                                 <p className="text-sm text-gray-600">Provide essential practical experience for developing legal careers and professional strategies.</p>
                             </li>
                             <li className="bg-white p-4 rounded shadow">
-                                <span className="font-semibold block mb-2">Practical Application</span>
+                                <span className="font-semibold text-purple-600 block mb-2">Practical Application</span>
                                 <p className="text-sm text-gray-600">Apply classroom knowledge to real-world scenarios through hands-on case work.</p>
                             </li>
                             <li className="bg-white p-4 rounded shadow">
-                                <span className="font-semibold block mb-2">Legal Reality Exposure</span>
+                                <span className="font-semibold text-purple-600 block mb-2">Legal Reality Exposure</span>
                                 <p className="text-sm text-gray-600">Experience the socio-legal reality through simulated court proceedings.</p>
                             </li>
                             <li className="bg-white p-4 rounded shadow">
-                                <span className="font-semibold block mb-2">Skill Enhancement</span>
+                                <span className="font-semibold text-purple-600 block mb-2">Skill Enhancement</span>
                                 <p className="text-sm text-gray-600">Develop crucial advocacy and litigation skills through regular practice.</p>
                             </li>
                         </ul>
@@ -90,17 +90,17 @@ const CourtExercises = () => {
                         <div className="grid md:grid-cols-3 gap-4">
                             <div className="bg-white p-4 rounded-lg shadow-sm border border-purple-100">
                                 <div className="text-purple-600 font-semibold mb-2">October 20, 2025</div>
-                                <h4 className="font-medium mb-1">Constitutional Law</h4>
+                                <h4 className="font-medium text-purple-600 mb-1">Constitutional Law</h4>
                                 <p className="text-sm text-gray-600">Fundamental Rights Case Study</p>
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm border border-purple-100">
                                 <div className="text-purple-600 font-semibold mb-2">October 25, 2025</div>
-                                <h4 className="font-medium mb-1">Criminal Law</h4>
+                                <h4 className="font-medium text-purple-600 mb-1">Criminal Law</h4>
                                 <p className="text-sm text-gray-600">Mock Trial Session</p>
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm border border-purple-100">
                                 <div className="text-purple-600 font-semibold mb-2">October 30, 2025</div>
-                                <h4 className="font-medium mb-1">Corporate Law</h4>
+                                <h4 className="font-medium text-purple-600 mb-1">Corporate Law</h4>
                                 <p className="text-sm text-gray-600">Merger & Acquisition Case</p>
                             </div>
                         </div>
@@ -117,7 +117,7 @@ const CourtExercises = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold mb-1">National Moot Court Champions 2024</h4>
+                                    <h4 className="font-semibold text-purple-600 mb-1">National Moot Court Champions 2024</h4>
                                     <p className="text-gray-600 text-sm">Our students won the prestigious National Law School Moot Court Competition</p>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@ const CourtExercises = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold mb-1">International Recognition</h4>
+                                    <h4 className="font-semibold text-purple-600 mb-1">International Recognition</h4>
                                     <p className="text-gray-600 text-sm">Selected to represent India in the International Law School Mooting Championship</p>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@ const CourtExercises = () => {
                     <div className="text-center mt-8 bg-gradient-to-r from-purple-600 to-purple-700 p-8 rounded-lg text-white">
                         <p className="font-semibold text-xl mb-3">Ready to Participate?</p>
                         <p className="mb-4">
-                            All students are required to participate in at least two moot court exercises per semester. 
+                            All students are required to participate in at least two moot court exercises per semester.
                             Register now to secure your spot in upcoming sessions.
                         </p>
                         <div className="inline-block bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-colors">

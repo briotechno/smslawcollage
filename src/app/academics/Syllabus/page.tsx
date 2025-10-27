@@ -9,7 +9,7 @@ const Syllabus = () => {
         </h1>
         <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
       </div>
-      <div className="overflow-x-auto max-w-7xl mx-auto">
+      <div className="overflow-x-auto max-w-7xl mx-auto px-5 sm:px-1">
         <table className="min-w-full border border-gray-200 text-gray-700">
           <thead className="bg-purple-600 text-white">
             <tr>

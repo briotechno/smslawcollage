@@ -152,7 +152,7 @@ const InternalComplaintCommittee = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] overflow-hidden">
+      <section className="relative w-full h-[130vh] sm:h-[120vh] md:h-[130vh] lg:h-[130vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection7.jpeg"
@@ -230,20 +230,20 @@ const InternalComplaintCommittee = () => {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-justify text-gray-700 leading-relaxed">
                 The <strong className="text-purple-600">Internal Complaints Committee (ICC)</strong> is
                 constituted as per UGC Regulations, 2015, and the Sexual Harassment of Women at
                 Workplace Act, 2013, to deal with complaints of sexual harassment at the
                 educational institution.
               </p>
 
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-justify text-gray-700 leading-relaxed">
                 Our committee is committed to providing a safe, respectful, and inclusive
                 environment for all members of the college community. We ensure that every
                 complaint is handled with sensitivity, confidentiality, and fairness.
               </p>
 
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-justify text-gray-700 leading-relaxed">
                 The committee comprises experienced faculty members, external experts, and
                 student representatives to ensure a balanced and comprehensive approach to
                 complaint resolution.

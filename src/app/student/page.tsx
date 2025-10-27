@@ -163,10 +163,10 @@ const StudentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[70vh] sm:h-[80vh] lg:h-[130vh] overflow-hidden">
+      <section className="relative w-full h-[110vh] sm:h-[120vh] md:h-[130vh] lg:h-[130vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/Slider2.jpg"
+            src="/assets/HeroSection/HeroSection6.jpeg"
             alt="SMS Law College Students"
             fill
             style={{ objectFit: "cover" }}
@@ -229,8 +229,8 @@ const StudentPage = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="relative w-full bg-white/95 backdrop-blur-sm z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {studentStats.map((stat, index) => (
                 <motion.div

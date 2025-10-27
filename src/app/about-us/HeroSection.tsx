@@ -3,15 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Play,
-  Award,
-  Users,
-  BookOpen,
-  X,
-} from "lucide-react";
+import { Award, Users, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -31,7 +23,6 @@ const HeroSection = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    // Open popup automatically when page loads
     const timer = setTimeout(() => setShowPopup(true), 800);
     return () => clearTimeout(timer);
   }, []);
@@ -46,12 +37,6 @@ const HeroSection = () => {
     autoplay: true,
     autoplaySpeed: 4000,
     beforeChange: (_: number, newIndex: number) => setCurrentSlide(newIndex),
-    customPaging: (i: number) => (
-      <div
-        className={`w-3 h-3 rounded-full transition-all duration-300 ${i === currentSlide ? "bg-white scale-125" : "bg-white/50"
-          }`}
-      />
-    ),
   };
 
   const stats = [
@@ -67,49 +52,40 @@ const HeroSection = () => {
   ];
 
   return (
-    <div className="relative w-full h-[130vh] lg:h-[130vh]  overflow-hidden">
-      {/* Slider */}
+    <div className="relative w-full min-h-[90vh] sm:min-h-[100vh] md:min-h-[120vh]
+     lg:min-h-[130vh] overflow-hidden">
+      {/* ======= SLIDER ======= */}
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index}>
-            <div className="relative w-full h-[130vh]">
+            <div className="relative w-full min-h-[110vh] sm:min-h-[130vh] md:min-h-[130vh]lg:min-h-[130vh]">
               <Image
                 src={src}
                 alt={`SMS Law College ${index + 1}`}
                 fill
-                style={{ objectFit: "cover" }}
+                // className="object-cover"
                 priority={index === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
               <div className="absolute inset-0 flex items-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                   <div className="max-w-2xl xl:max-w-3xl">
-                    <span className="inline-block px-4 py-2 bg-purple-600/90 text-white text-sm font-semibold rounded-full mb-4">
+                    <span className="inline-block px-4 py-2 bg-purple-600/90 text-white text-xs sm:text-sm md:text-base font-semibold rounded-full mb-4">
                       About SMS Law College
                     </span>
 
-                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                      Excellence in
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+                      Excellence in{" "}
                       <span className="block text-purple-300">
                         Legal Education
                       </span>
                     </h1>
 
-                    <p className="text-lg text-gray-200 mb-8 leading-relaxed max-w-xl">
+                    <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-xl">
                       Empowering future legal professionals with comprehensive
-                      education, practical training, and ethical values that
-                      shape tomorrow's justice system.
+                      education, practical training, and ethical values that shape
+                      tomorrow's justice system.
                     </p>
-
-                    {/* <div className="flex flex-col sm:flex-row gap-4">
-                      <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2">
-                        <Play className="w-5 h-5" />
-                        Watch Our Story
-                      </button>
-                      <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105">
-                        Explore Programs
-                      </button>
-                    </div> */}
                   </div>
                 </div>
               </div>
@@ -118,31 +94,32 @@ const HeroSection = () => {
         ))}
       </Slider>
 
-      {/* Stats Section */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      {/* ======= STATS SECTION ======= */}
+      <div className="relative w-full bg-white/95 backdrop-blur-sm z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-600/10 rounded-full mb-4 group-hover:bg-purple-600/20 transition">
-                  <stat.icon className="w-8 h-8 text-purple-600" />
+                <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-purple-600/10 rounded-full mb-3 sm:mb-4 group-hover:bg-purple-600/20 transition">
+                  <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">
+                <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">
                   {stat.number}
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-sm sm:text-base text-gray-600 font-medium">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* ====== Announcement Popup ====== */}
-
+      {/* ======= POPUP ======= */}
       {showPopup && (
         <AnimatePresence>
           <motion.div
-            className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+            className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 p-4 sm:p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -194,7 +171,6 @@ const HeroSection = () => {
           </motion.div>
         </AnimatePresence>
       )}
-
     </div>
   );
 };

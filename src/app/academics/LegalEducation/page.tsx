@@ -4,16 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import {
   BookOpen,
-  GraduationCap,
-  Users,
-  Award,
-  Calendar,
-  Globe,
   Target,
-  CheckCircle,
-  Star,
   ExternalLink,
-  ArrowRight,
   Scale,
   Gavel,
   Shield,
@@ -77,7 +69,7 @@ const LegalEducation = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] overflow-hidden">
+      <section className="relative w-full h-[110vh] sm:h-[120vh] md:h-[130vh] lg:h-[130vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection6.jpeg"
@@ -98,7 +90,7 @@ const LegalEducation = () => {
                 transition={{ duration: 0.8 }}
                 className="mb-4 sm:mb-6"
               >
-                <span className="inline-block px-3 sm:px-4 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
+                <span className="inline-block px-3 py-2 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
                   Legal Education
                 </span>
               </motion.div>
@@ -244,7 +236,7 @@ const LegalEducation = () => {
             <p className="text-xl text-purple-100 mb-8 leading-relaxed">
               Join SMS Law College and begin your path to becoming a successful legal professional.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/admission" passHref>
                 <button className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2">
                   <ExternalLink className="w-5 h-5" />

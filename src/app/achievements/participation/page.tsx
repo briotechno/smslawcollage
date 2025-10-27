@@ -151,7 +151,7 @@ const ParticipationPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] overflow-hidden">
+      <section className="relative w-full h-[120vh] sm:h-[120vh] md:h-[130vh] lg:h-[130vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection4.jpeg"
@@ -377,7 +377,7 @@ const ParticipationPage = () => {
                               <span className="flex items-center gap-1">
                                 <Calendar className="w-4 h-4" /> {item.year}
                               </span>
-                              <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs font-medium">
+                              <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs font-medium text-center">
                                 {item.category}
                               </span>
                             </div>

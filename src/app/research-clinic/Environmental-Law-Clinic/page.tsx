@@ -69,7 +69,7 @@ const EnvironmentalLawClinicPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* HERO SECTION */}
-      <header className="relative h-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] w-full overflow-hidden">
+      <header className="relative w-full h-[110vh] sm:h-[120vh] md:h-[130vh] lg:h-[130vh] overflow-hidden">
         <Image
           src="/assets/HeroSection/HeroSection3.jpeg"
           alt="Environmental Law Clinic"

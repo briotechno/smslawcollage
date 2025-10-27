@@ -100,7 +100,7 @@ const ElocutionPublicSpeaking = () => {
                     </div>
 
                     {/* Testimonials */}
-                    <div className="bg-gray-50 p-8 rounded-lg mt-8">
+                    <div className="bg-gray-50 py-8 rounded-lg mt-8">
                         <h3 className="text-xl font-semibold text-purple-600 mb-6 text-center">Student Testimonials</h3>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="bg-white p-6 rounded-lg shadow-sm">

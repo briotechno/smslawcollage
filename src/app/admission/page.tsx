@@ -175,7 +175,7 @@ const AdmissionPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative w-full h-[90vh] sm:h-[60vh] md:h-[100vh] lg:h-[130vh] overflow-hidden">
+      <section className="relative w-full h-[130vh] sm:h-[130vh] md:h-[140vh] lg:h-[140vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection7.jpeg"
