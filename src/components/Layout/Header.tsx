@@ -83,15 +83,36 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null);
-        setMobileMenuOpen(false);
+    const handleClickAnywhere = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+
+      // Ignore clicks on dropdown toggles or hamburger icon
+      if (
+        target.closest(".dropdown-toggle") ||
+        target.closest(".mobile-toggle")
+      ) {
+        return;
       }
+
+      // Ignore clicks on Next.js links so navigation still works properly
+      if (target.closest("a")) {
+        // Close menu after short delay (so Link can trigger navigation)
+        setTimeout(() => {
+          setActiveDropdown(null);
+          setActiveMobileDropdown(null);
+          setMobileMenuOpen(false);
+        }, 150);
+        return;
+      }
+
+      // Close everything for any other click (inside or outside)
+      setActiveDropdown(null);
+      setActiveMobileDropdown(null);
+      setMobileMenuOpen(false);
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickAnywhere);
+    return () => document.removeEventListener("mousedown", handleClickAnywhere);
   }, []);
 
   return (
@@ -132,9 +153,10 @@ export default function Header() {
                   <span>{item.name}</span>
                   {item.hasDropdown && (
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
+                      className={`w-4 h-4 dropdown-toggle transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
                         }`}
                     />
+
                   )}
                 </Link>
                 {/* {item.name === 'Requirements' && (
@@ -177,10 +199,11 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="xl:hidden relative w-8 h-8 flex flex-col justify-center items-center"
+            className="xl:hidden relative w-8 h-8 flex flex-col justify-center items-center mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
+
             <span
               className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "rotate-45" : "-translate-y-1"
                 }`}

@@ -267,8 +267,8 @@ const SportsAchievementsPage = () => {
                 className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden border border-gray-100"
               >
                 <div className={`h-2 bg-gradient-to-r ${category.color}`}></div>
-                <div className="p-6">
-                  <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-6 flex flex-col items-start">
+                  <div className="flex items-center justify-start gap-4">
                     <div
                       className={`w-12 h-12 bg-gradient-to-r ${category.color} rounded-xl flex items-center justify-center`}
                     >
@@ -278,14 +278,15 @@ const SportsAchievementsPage = () => {
                       {category.name}
                     </h3>
                   </div>
-                  <div className="text-2xl font-bold text-purple-600 mb-2">
-                    {/* {category.count} */}
-                  </div>
+                  {/* <div className="text-2xl font-bold text-purple-600 mb-2">
+                    // {category.count}
+                  </div> */}
                   {/* <div className="text-gray-600 font-medium">Achievements</div> */}
                 </div>
               </motion.div>
             ))}
           </div>
+
         </div>
       </section>
 
