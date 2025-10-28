@@ -14,6 +14,10 @@ import {
   ExternalLink,
   ArrowRight
 } from "lucide-react";
+// import { ArrowLeftCircle, ArrowRightCircle } from "lucide-react";
+import { MoveLeft, MoveRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -254,7 +258,7 @@ const Resource = () => {
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50" id="Knowledge-Resource-page">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-       
+
         {/* Calendar + News Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -276,17 +280,25 @@ const Resource = () => {
                 <div className="flex items-center justify-between mb-6">
                   <button
                     onClick={prevMonth}
-                    className="px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold"
+                    className="flex items-center gap-2 px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold"
                   >
-                    &lt; Prev
+                    <ChevronLeft className="w-5 h-5" />
+                    <span>Prev</span>
                   </button>
-                  <h2 className="text-xl font-bold text-gray-800">{months[currentMonth]} {currentYear}</h2>
+
+                  <h2 className="text-xl font-bold text-gray-800">
+                    {months[currentMonth]} {currentYear}
+                  </h2>
+
                   <button
                     onClick={nextMonth}
-                    className="px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold"
+                    className="flex items-center gap-2 px-4 py-1.5 rounded-md bg-white shadow hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition font-semibold"
                   >
-                    Next &gt;
+                    <span>Next</span>
+                    <ChevronRight className="w-5 h-5" />
                   </button>
+
+
                 </div>
 
                 {/* Weekdays */}
@@ -427,9 +439,9 @@ const Resource = () => {
                     className="w-full h-[350px] object-cover"
                   />
                   <div className="inset-0 flex flex-col justify-end p-6">
-                   <h2 className="text-2xl font-bold text-gray-900 mb-2">{firstNews.title}</h2>
-<p className="text-lg font-medium text-gray-700 mb-2">{firstNews.summary}</p>
-<p className="text-base text-gray-600 mb-8 leading-relaxed">{firstNews.content}</p>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">{firstNews.title}</h2>
+                    <p className="text-lg font-medium text-gray-700 mb-2">{firstNews.summary}</p>
+                    <p className="text-base text-gray-600 mb-8 leading-relaxed">{firstNews.content}</p>
                     <h3 className="absolute top-3 left-3 bg-white/90 text-purple-700 text-sm font-semibold px-3 py-1 rounded-full shadow">
                       {firstNews.category}
                     </h3>

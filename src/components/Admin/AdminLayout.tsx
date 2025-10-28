@@ -173,7 +173,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
     try {
       const stored = localStorage.getItem("admin.sidebarCollapsed");
       if (stored === "true") setSidebarCollapsed(true);
-    } catch {}
+    } catch { }
   }, []);
 
   // client-side auth guard: use localStorage or sessionStorage token / isLoggedIn flag
@@ -247,40 +247,40 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
         "admin.sidebarCollapsed",
         sidebarCollapsed ? "true" : "false"
       );
-    } catch {}
+    } catch { }
   }, [sidebarCollapsed]);
 
   const menuItems = [
-   { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
-  { name: "Achievements", icon: <FaTrophy />, href: "/admin/achievements" },
-  //{ name: "Admission", icon: <FaUniversity />, href: "#" },
-  { name: "Calendar Events", icon: <FaCalendarAlt />, href: "/admin/Calendar" },
-  { name: "News & Announcements", icon: <FaNewspaper />, href: "/admin/news" },
-  { name: "Faculty", icon: <FaUserTie />, href: "/admin/faculty" },
-  //{ name: "Moot Court", icon: <FaBalanceScale />, href: "#" },
-  { name: "Legal Aid Clinic", icon: <FaHandsHelping />, href: "/admin/legal-aid" },
-  { name: "Requirements", icon: <FaClipboardList />, href: "/admin/requirements" },
+    { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
+    { name: "Achievements", icon: <FaTrophy />, href: "/admin/achievements" },
+    //{ name: "Admission", icon: <FaUniversity />, href: "#" },
+    { name: "Calendar Events", icon: <FaCalendarAlt />, href: "/admin/Calendar" },
+    { name: "News & Announcements", icon: <FaNewspaper />, href: "/admin/news" },
+    { name: "Faculty", icon: <FaUserTie />, href: "/admin/faculty" },
+    //{ name: "Moot Court", icon: <FaBalanceScale />, href: "#" },
+    { name: "Legal Aid Clinic", icon: <FaHandsHelping />, href: "/admin/legal-aid" },
+    { name: "Requirements", icon: <FaClipboardList />, href: "/admin/requirements" },
   ];
 
   const handleLogout = () => {
     try {
       localStorage.removeItem("isLoggedIn");
-    } catch {}
+    } catch { }
     try {
       localStorage.removeItem("token");
-    } catch {}
+    } catch { }
     try {
       localStorage.removeItem("user");
-    } catch {}
+    } catch { }
     try {
       sessionStorage.removeItem("isLoggedIn");
-    } catch {}
+    } catch { }
     try {
       sessionStorage.removeItem("token");
-    } catch {}
+    } catch { }
     try {
       sessionStorage.removeItem("user");
-    } catch {}
+    } catch { }
     setCurrentUser(null);
     window.location.href = "/admin/login";
   };
@@ -332,21 +332,18 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
       <aside
         className={`fixed md:sticky top-0 left-0 z-50 h-screen overflow-hidden bg-purple-600 text-white flex flex-col 
            transition-all duration-300 ease-in-out 
-           ${
-             sidebarOpen ? "translate-x-0" : "-translate-x-full"
-           } md:translate-x-0 
+           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0 
            ${sidebarCollapsed ? "md:w-16" : "md:w-64"} w-64`}
         aria-label="Sidebar"
       >
         <div
-          className={`flex items-center justify-between border-b ${
-            sidebarCollapsed ? "p-4" : "p-6"
-          }`}
+          className={`flex items-center justify-between border-b ${sidebarCollapsed ? "p-4" : "p-6"
+            }`}
         >
           <div
-            className={`text-2xl font-bold ${
-              sidebarCollapsed ? "opacity-0 md:opacity-0" : "opacity-100"
-            } transition-opacity`}
+            className={`text-2xl font-bold ${sidebarCollapsed ? "opacity-0 md:opacity-0" : "opacity-100"
+              } transition-opacity`}
           >
             Admin Panel
           </div>
@@ -381,23 +378,20 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
                 key={item.name}
                 href={item.href}
                 title={item.name}
-                className={`group flex items-center ${
-                  sidebarCollapsed ? "justify-center px-2" : "gap-3 px-3"
-                } py-2 rounded-md transition-all duration-200 
-                  ${
-                    active
-                      ? "bg-white text-purple-700 shadow-sm"
-                      : "hover:bg-white/10"
+                className={`group flex items-center ${sidebarCollapsed ? "justify-center px-2" : "gap-3 px-3"
+                  } py-2 rounded-md transition-all duration-200 
+                  ${active
+                    ? "bg-white text-purple-700 shadow-sm"
+                    : "hover:bg-white/10"
                   } 
                 `}
               >
                 <span className="text-lg shrink-0">{item.icon}</span>
                 <span
-                  className={`whitespace-nowrap transition-all duration-200 ${
-                    sidebarCollapsed
+                  className={`whitespace-nowrap transition-all duration-200 ${sidebarCollapsed
                       ? "opacity-0 md:opacity-0 pointer-events-none w-0 overflow-hidden"
                       : "opacity-100 w-auto"
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </span>
@@ -423,15 +417,13 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
 
         {/* Collapse toggle (desktop only) */}
         <div
-          className={`border-t ${
-            sidebarCollapsed ? "p-2" : "p-4"
-          } hidden md:block`}
+          className={`border-t ${sidebarCollapsed ? "p-2" : "p-4"
+            } hidden md:block`}
         >
           <button
             onClick={() => setSidebarCollapsed((v) => !v)}
-            className={`w-full bg-white/10 hover:bg-white/20 rounded-md transition-colors ${
-              sidebarCollapsed ? "px-2 py-2" : "px-3 py-2"
-            }`}
+            className={`w-full bg-white/10 hover:bg-white/20 rounded-md transition-colors ${sidebarCollapsed ? "px-2 py-2" : "px-3 py-2"
+              }`}
             aria-pressed={sidebarCollapsed}
             aria-label={
               sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
@@ -440,9 +432,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
           >
             <div className="flex items-center justify-center">
               <svg
-                className={`w-5 h-5 transition-transform duration-200 ${
-                  sidebarCollapsed ? "rotate-180" : ""
-                }`}
+                className={`w-5 h-5 transition-transform duration-200 ${sidebarCollapsed ? "rotate-180" : ""
+                  }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -473,7 +464,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
             {/* Hamburger for mobile */}
             <button
-              className="md:hidden inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-md hover:bg-gray-100 transition-colors"
+              className="md:hidden inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-md  text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-all"
               onClick={() => setSidebarOpen(true)}
               aria-label="Open sidebar"
             >
@@ -491,6 +482,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
                 />
               </svg>
             </button>
+
 
             <div className="min-w-0 flex-1">
               {title && (
@@ -535,9 +527,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
                     viewBox="0 0 24 24"
                     strokeWidth={2}
                     stroke="currentColor"
-                    className={`w-4 h-4 text-gray-600 transition-transform duration-200 ${
-                      dropdownOpen ? "rotate-180" : ""
-                    }`}
+                    className={`w-4 h-4 text-gray-600 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""
+                      }`}
                   >
                     <path
                       strokeLinecap="round"

@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Search, Filter, Plus, Edit, Trash2, Calendar, Tag } from "lucide-react";
 import AdminLayout from "@/components/Admin/AdminLayout";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useToast } from "@/components/Toast/ToastProvider";
+import { Search, Filter, Plus, Edit, Trash2, Calendar, Tag } from "lucide-react";
 
 type NewsStatus = "Draft" | "Published" | "Archived";
 
@@ -53,14 +54,15 @@ const NewsAdminPage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletingItem, setDeletingItem] = useState<NewsItem | null>(null);
 
+  // Fetch News
   useEffect(() => {
     const load = async () => {
       setLoading(true);
       try {
- const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
-  const headers: any = {};
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-  const res = await fetch("/api/news", { headers });
+        const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
+        const headers: any = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch("/api/news", { headers });
         const data = await res.json();
         if (res.ok && data?.success) {
           setNews(data.data || []);
@@ -86,16 +88,22 @@ const NewsAdminPage = () => {
     );
   });
 
+  // Add component
   const handleAdd = () => router.push("/admin/news/add");
+
+  //Edit component
   const handleEdit = (item: NewsItem) => {
     setItemLoadingId(item.id);
     // navigate away; spinner will be visible until navigation
     router.push(`/admin/news/edit?id=${item.id}`);
   };
+
+  //Delete component
   const openDelete = (item: NewsItem) => {
     setDeletingItem(item);
     setShowDeleteModal(true);
   };
+
   const handleDelete = async () => {
     if (!deletingItem) return;
     setIsDeleting(true);
@@ -122,18 +130,21 @@ const NewsAdminPage = () => {
 
   return (
     <AdminLayout
-      title="News & Announcements"
-      subtitle="Manage all public news posts and announcements"
+      title="News & Events"
+      subtitle="Manage all institutional news and announcements"
     >
-      {/* Add */}
-      <div className="mb-6 flex justify-end">
-        <button onClick={handleAdd} className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2">
-          <Plus className="w-5 h-5" />
-          Add News
+      {/* Header + Add Button */}
+      <div className="flex items-center justify-between mb-6">
+        <div></div>
+        <button
+          onClick={handleAdd}
+          className="w-full sm:w-auto bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2"
+        >
+          <Plus className="w-5 h-5" /> Add News
         </button>
       </div>
 
-      {/* Search & Filter */}
+      {/* Search + Filter */}
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
@@ -148,111 +159,228 @@ const NewsAdminPage = () => {
               />
             </div>
           </div>
-          <div className="flex gap-2">
-            <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center gap-2">
-              <Filter className="w-4 h-4" />
-              Filter
-            </button>
-          </div>
+          <button
+            className="w-full sm:w-auto px-4 py-2 border border-gray-300 text-gray-700 
+             rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+          >
+            <Filter className="w-4 h-4" /> Filter
+          </button>
+
         </div>
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">All News ({filtered.length})</h3>
+      {/* Table + Card Responsive Section */}
+      <div className="rounded-lg overflow-hidden">
+
+        <div className="bg-white px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
+            All News ({filtered.length})
+          </h3>
         </div>
+
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-flex items-center gap-3  p-6 rounded-lg ">
-              <svg className="animate-spin h-6 w-6 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-              </svg>
-             
-            </div>
+            <svg
+              className="animate-spin h-6 w-6 text-purple-600 mx-auto"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              />
+            </svg>
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-12">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No news found</h3>
-            <p className="text-gray-500 mb-4">{searchTerm ? "Try changing your search" : "Start by creating a news post"}</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              No news found
+            </h3>
+            <p className="text-gray-500 mb-4">
+              {searchTerm ? "Try changing your search" : "Start by creating a news post"}
+            </p>
             {!searchTerm && (
-              <button onClick={handleAdd} className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors">Add First News</button>
+              <button
+                onClick={handleAdd}
+                className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors"
+              >
+                Add First News
+              </button>
             )}
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filtered.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <img src={item.imageUrl==""?'/assets/Noimage.jpg':item.imageUrl} alt={item.title} className="w-10 h-10 rounded object-cover border" />
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-900">{item.title}</div>
-                      <div className="text-sm text-gray-500 truncate max-w-xl">{item.summary}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-gray-500" /> {item.date}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full inline-flex items-center gap-1">
-                        <Tag className="w-3 h-3" /> {item.category}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span
-                        className={
-                          item.status === "Published"
-                            ? "px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full"
-                            : item.status === "Draft"
-                              ? "px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full"
-                              : "px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full"
-                        }
-                      >
-                        {item.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex justify-end gap-2">
-                        <button onClick={() => handleEdit(item)} className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50" title="Edit" disabled={!!itemLoadingId}>
-                          {itemLoadingId === item.id ? (
-                            <svg className="animate-spin h-4 w-4 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-                            </svg>
-                          ) : (
-                            <Edit className="w-4 h-4" />
-                          )}
-                        </button>
-                        <button onClick={() => openDelete(item)} className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50" title="Delete" disabled={isDeleting && deletingItem?.id === item.id}>
-                          {isDeleting && deletingItem?.id === item.id ? (
-                            <svg className="animate-spin h-4 w-4 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-                            </svg>
-                          ) : (
-                            <Trash2 className="w-4 h-4" />
-                          )}
-                        </button>
-                      </div>
-                    </td>
+          <>
+            {/* Desktop Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-t border-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Image
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Description
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Date
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-right">
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {filtered.map((item) => (
+                    <tr key={item.id} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-3">
+                        <div className="relative w-16 h-16 rounded-md overflow-hidden border border-gray-200">
+                          <Image
+                            src={item.imageUrl || "/placeholder.png"}
+                            alt={item.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </td>
+                      <td className="px-6 py-3 text-gray-900 font-medium">
+                        {item.title}
+                      </td>
+                      <td className="px-6 py-3 text-gray-600 truncate max-w-xs">
+                        {item.summary}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-gray-500" /> {item.date}
+                      </td>
+                      <td className="px-6 py-3 text-right">
+                        <div className="flex justify-end gap-2">
+                          <button
+                            onClick={() => handleEdit(item)}
+                            className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50"
+                            disabled={!!itemLoadingId}
+                            title="Edit"
+                          >
+                            {itemLoadingId === item.id ? (
+                              <svg
+                                className="animate-spin h-4 w-4 text-blue-600"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                              >
+                                <circle
+                                  className="opacity-25"
+                                  cx="12"
+                                  cy="12"
+                                  r="10"
+                                  stroke="currentColor"
+                                  strokeWidth="4"
+                                />
+                                <path
+                                  className="opacity-75"
+                                  fill="currentColor"
+                                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                />
+                              </svg>
+                            ) : (
+                              <Edit className="w-4 h-4" />
+                            )}
+                          </button>
+                          <button
+                            onClick={() => openDelete(item)}
+                            className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
+                            disabled={isDeleting && deletingItem?.id === item.id}
+                            title="Delete"
+                          >
+                            {isDeleting && deletingItem?.id === item.id ? (
+                              <svg
+                                className="animate-spin h-4 w-4 text-red-600"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                              >
+                                <circle
+                                  className="opacity-25"
+                                  cx="12"
+                                  cy="12"
+                                  r="10"
+                                  stroke="currentColor"
+                                  strokeWidth="4"
+                                />
+                                <path
+                                  className="opacity-75"
+                                  fill="currentColor"
+                                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                />
+                              </svg>
+                            ) : (
+                              <Trash2 className="w-4 h-4" />
+                            )}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden flex flex-col gap-4 mt-4">
+              {filtered.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-lg shadow-sm border border-gray-100 p-4 flex flex-col gap-2 hover:shadow-md transition"
+                >
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-base font-semibold text-gray-900">{item.title}</h4>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleEdit(item)}
+                        className="text-blue-600 hover:text-blue-800 p-1 rounded transition-colors"
+                        title="Edit"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => openDelete(item)}
+                        className="text-red-600 hover:text-red-800 p-1 rounded transition-colors"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Summary */}
+                  <p className="text-sm text-gray-700">{item.summary}</p>
+
+                  {/* Date + Category */}
+                  <div className="flex items-center justify-between text-sm text-gray-500 mt-2">
+                    <div className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4 text-gray-400" />
+                      <span>{item.date}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Tag className="w-4 h-4 text-gray-400" />
+                      <span>{item.category}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
 
@@ -290,5 +418,3 @@ const NewsAdminPage = () => {
 };
 
 export default NewsAdminPage;
-
-

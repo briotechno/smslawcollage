@@ -43,7 +43,7 @@ const AdmissionPage = () => {
         "Research Projects"
       ],
       contact: {
-        phone: "9879144889, 9428105131",
+        phone: "98792 85000",
         email: "ba.llb@smslawcollege.edu"
       },
       color: "from-purple-500 to-purple-600",
@@ -63,7 +63,7 @@ const AdmissionPage = () => {
         "Industry Internships"
       ],
       contact: {
-        phone: "7984719633, 7573859299",
+        phone: "98792 85000",
         email: "bba.llb@smslawcollege.edu"
       },
       color: "from-blue-500 to-blue-600",
@@ -83,7 +83,7 @@ const AdmissionPage = () => {
         "Academic Research"
       ],
       contact: {
-        phone: "9712720888, 9099939491",
+        phone: "98792 85000",
         email: "llm@smslawcollege.edu"
       },
       color: "from-green-500 to-green-600",
@@ -228,10 +228,10 @@ const AdmissionPage = () => {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="flex flex-col sm:flex-row gap-3 sm:gap-4"
               >
-                <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base">
+                {/* <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base">
                   <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
                   Apply Now
-                </button>
+                </button> */}
                 <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base">
                   <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                   Download Brochure
@@ -362,37 +362,40 @@ const AdmissionPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-            {admissionProcess.map((step, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8">
-                  <div className="w-16 h-16 bg-purple-600/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <step.icon className="w-8 h-8 text-purple-600" />
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl w-full">
+              {admissionProcess.map((step, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeInUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8">
+                    <div className="w-16 h-16 bg-purple-600/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <step.icon className="w-8 h-8 text-purple-600" />
+                    </div>
+                    <div className="text-2xl font-bold text-purple-600 mb-2">
+                      Step {step.step}
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                      {step.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed mb-2">
+                      {step.description}
+                    </p>
+                    <div className="text-sm text-purple-600 font-medium">
+                      {step.duration}
+                    </div>
                   </div>
-                  <div className="text-2xl font-bold text-purple-600 mb-2">
-                    Step {step.step}
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed mb-2">
-                    {step.description}
-                  </p>
-                  <div className="text-sm text-purple-600 font-medium">
-                    {step.duration}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
+
         </div>
       </section>
 
@@ -595,7 +598,7 @@ const AdmissionPage = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600">
+      {/* <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -623,7 +626,7 @@ const AdmissionPage = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

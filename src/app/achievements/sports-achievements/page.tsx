@@ -186,7 +186,7 @@ const SportsAchievementsPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-white">
+      {/* <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -230,7 +230,7 @@ const SportsAchievementsPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Sports Categories Section */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
@@ -268,7 +268,7 @@ const SportsAchievementsPage = () => {
               >
                 <div className={`h-2 bg-gradient-to-r ${category.color}`}></div>
                 <div className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="flex items-center justify-center gap-4 mb-4">
                     <div
                       className={`w-12 h-12 bg-gradient-to-r ${category.color} rounded-xl flex items-center justify-center`}
                     >
@@ -279,9 +279,9 @@ const SportsAchievementsPage = () => {
                     </h3>
                   </div>
                   <div className="text-2xl font-bold text-purple-600 mb-2">
-                    {category.count}
+                    {/* {category.count} */}
                   </div>
-                  <div className="text-gray-600 font-medium">Achievements</div>
+                  {/* <div className="text-gray-600 font-medium">Achievements</div> */}
                 </div>
               </motion.div>
             ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Trophy,
@@ -19,6 +19,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const AchievementsPage = () => {
+  const [achievements, setAchievements] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -79,32 +82,76 @@ const AchievementsPage = () => {
     },
   ];
 
-  const recentHighlights = [
-    {
-      title: "National Moot Court Champions",
-      description: "Our students secured 1st position in the National Moot Court Competition with a cash prize of ₹1,00,000",
-      year: "2024",
-      category: "Academic",
-    },
-    {
-      title: "University Gold Medal",
-      description: "Student secured highest percentage in University Examination among all law streams",
-      year: "2024",
-      category: "Academic",
-    },
-    {
-      title: "Inter-University Sports Champions",
-      description: "Won multiple medals in badminton, karate, and other sports at university level",
-      year: "2024",
-      category: "Sports",
-    },
-    {
-      title: "Cultural Festival Winners",
-      description: "Secured 1st position in Garba and Skit competitions at Gujarat University Youth Festival",
-      year: "2024",
-      category: "Cultural",
-    },
-  ];
+  useEffect(() => {
+    const fetchAchievements = async () => {
+      try {
+        const token =
+          typeof window !== "undefined"
+            ? localStorage.getItem("token") || sessionStorage.getItem("token")
+            : null;
+
+        const headers: Record<string, string> = {};
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        const res = await fetch("/api/achievements", { headers });
+        const data = await res.json();
+        console.log("Raw API Response:", data);
+
+        if (res.ok) {
+          // ✅ Handle both possible response formats
+          const achievementsArray = Array.isArray(data)
+            ? data
+            : Array.isArray(data.data)
+              ? data.data
+              : [];
+
+          // ✅ Show only first 4
+          const firstFour = achievementsArray.slice(0, 4);
+          setAchievements(firstFour);
+
+          console.log("First 4 Achievements:", firstFour);
+        } else {
+          console.warn("API responded with error:", data);
+          setAchievements([]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch achievements:", err);
+        setAchievements([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAchievements();
+  }, []);
+
+
+  // const recentHighlights = [
+  //   {
+  //     title: "National Moot Court Champions",
+  //     description: "Our students secured 1st position in the National Moot Court Competition with a cash prize of ₹1,00,000",
+  //     year: "2024",
+  //     category: "Academic",
+  //   },
+  //   {
+  //     title: "University Gold Medal",
+  //     description: "Student secured highest percentage in University Examination among all law streams",
+  //     year: "2024",
+  //     category: "Academic",
+  //   },
+  //   {
+  //     title: "Inter-University Sports Champions",
+  //     description: "Won multiple medals in badminton, karate, and other sports at university level",
+  //     year: "2024",
+  //     category: "Sports",
+  //   },
+  //   {
+  //     title: "Cultural Festival Winners",
+  //     description: "Secured 1st position in Garba and Skit competitions at Gujarat University Youth Festival",
+  //     year: "2024",
+  //     category: "Cultural",
+  //   },
+  // ];
 
   const stats = [
     { number: "150+", label: "Total Achievements", icon: Trophy },
@@ -263,41 +310,64 @@ const AchievementsPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {recentHighlights.map((highlight, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 p-8"
+          {loading ? (
+            <div className="flex justify-center py-20">
+              <svg
+                className="animate-spin h-10 w-10 text-purple-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-purple-600/10 rounded-full flex items-center justify-center">
-                      <Trophy className="w-5 h-5 text-purple-600" />
-                    </div>
-                    <div>
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {achievements.map((item, index) => (
+                <motion.div
+                  key={item._id || index}
+                  variants={fadeInUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 p-8 border border-gray-100"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-purple-600/10 rounded-full flex items-center justify-center">
+                        <Trophy className="w-5 h-5 text-purple-600" />
+                      </div>
                       <span className="inline-block px-3 py-1 bg-purple-100 text-purple-600 text-sm font-medium rounded-full">
-                        {highlight.category}
+                        {item.category || "General"}
                       </span>
                     </div>
+                    <div className="text-sm text-gray-500 font-medium">
+                      {item.year || "—"}
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-500 font-medium">
-                    {highlight.year}
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  {highlight.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {highlight.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {item.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

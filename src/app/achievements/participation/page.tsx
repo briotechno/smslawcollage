@@ -202,7 +202,7 @@ const ParticipationPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-white">
+      {/* <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -246,7 +246,7 @@ const ParticipationPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Participation Categories Section */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
@@ -293,10 +293,10 @@ const ParticipationPage = () => {
                     <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-2">
                       {category.name}
                     </h3>
-                    <div className="text-2xl font-bold text-purple-600 mb-1">
+                    {/* <div className="text-2xl font-bold text-purple-600 mb-1">
                       {category.count}
-                    </div>
-                    <div className="text-gray-600 font-medium text-sm">Events</div>
+                    </div> */}
+                    {/* <div className="text-gray-600 font-medium text-sm">Events</div> */}
                   </div>
                 </div>
               </motion.div>

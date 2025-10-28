@@ -112,7 +112,7 @@ const AdminDashboard = () => {
             icon: Calendar,
             color: "from-indigo-400 to-indigo-600",
             bgColor: "bg-gradient-to-br from-indigo-50 to-blue-50",
-            route: "#",
+            route: "/admin/Calendar",
             description: "Upcoming events"
         },
         {
@@ -186,7 +186,7 @@ const AdminDashboard = () => {
             <div className="space-y-8">
                 {/* Stats Overview */}
                 <motion.div
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8"
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
@@ -296,8 +296,43 @@ const AdminDashboard = () => {
                         </div>
                     </motion.div>
 
-                    {/* Recent Activity */}
+                    {/* Performance Metrics */}
                     <motion.div
+                        className="bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 rounded-2xl p-8 text-white shadow-lg lg:col-span-2"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6, duration: 0.5 }}
+                    >
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-8">
+                            <div>
+                                <h3 className="text-2xl font-bold tracking-tight">Performance Overview</h3>
+                                <p className="text-purple-100 text-sm mt-1">Key metrics for this month</p>
+                            </div>
+                            <div className="bg-white/20 p-3 rounded-full">
+                                <TrendingUp className="w-8 h-8 text-white" />
+                            </div>
+                        </div>
+
+                        {/* Metrics */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div className="text-center bg-white/10 rounded-xl py-4 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+                                <div className="text-4xl font-extrabold mb-1">98%</div>
+                                <div className="text-purple-100 text-sm font-medium">Content Accuracy</div>
+                            </div>
+                            <div className="text-center bg-white/10 rounded-xl py-4 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+                                <div className="text-4xl font-extrabold mb-1">24/7</div>
+                                <div className="text-purple-100 text-sm font-medium">System Uptime</div>
+                            </div>
+                            <div className="text-center bg-white/10 rounded-xl py-4 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+                                <div className="text-4xl font-extrabold mb-1">A+</div>
+                                <div className="text-purple-100 text-sm font-medium">Performance Grade</div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Recent Activity */}
+                    {/* <motion.div
                         className="lg:col-span-2"
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -329,38 +364,10 @@ const AdminDashboard = () => {
                                 ))}
                             </div>
                         </div>
-                    </motion.div>
+                    </motion.div> */}
                 </div>
 
-                {/* Performance Metrics */}
-                <motion.div
-                    className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-8 text-white"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6, duration: 0.5 }}
-                >
-                    <div className="flex items-center justify-between mb-6">
-                        <div>
-                            <h3 className="text-2xl font-bold mb-2">Performance Overview</h3>
-                            <p className="text-purple-100">Key metrics for this month</p>
-                        </div>
-                        <TrendingUp className="w-12 h-12 text-purple-200" />
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <div className="text-center">
-                            <div className="text-3xl font-bold mb-1">98%</div>
-                            <div className="text-purple-200 text-sm">Content Accuracy</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-3xl font-bold mb-1">24/7</div>
-                            <div className="text-purple-200 text-sm">System Uptime</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-3xl font-bold mb-1">A+</div>
-                            <div className="text-purple-200 text-sm">Performance Grade</div>
-                        </div>
-                    </div>
-                </motion.div>
+
             </div>
         </AdminLayout>
     );

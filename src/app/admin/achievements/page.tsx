@@ -143,7 +143,7 @@ const AdminAchievementsPage = () => {
     const load = async () => {
       setLoading(true);
       try {
-  const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
+        const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
         const headers: any = {};
         if (token) headers["Authorization"] = `Bearer ${token}`;
 
@@ -172,7 +172,7 @@ const AdminAchievementsPage = () => {
     setIsDeleting(true); // only for delete button
 
     try {
-  const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
+      const token = typeof window !== "undefined" ? (localStorage.getItem("token") || sessionStorage.getItem("token")) : null;
       const headers: any = { "Content-Type": "application/json" };
       if (token) headers["Authorization"] = `Bearer ${token}`;
 
@@ -271,19 +271,23 @@ const AdminAchievementsPage = () => {
 
       {/* Search & Filter */}
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search achievements..."
+              placeholder="Search by title, description, date"
               className="w-full text-black pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
-          <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center gap-2">
+          <button
+            className="w-full sm:w-auto px-4 py-2 border border-gray-300 text-gray-700 
+                         rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+          >
             <Filter className="w-4 h-4" /> Filter
           </button>
+
         </div>
       </div>
 
@@ -375,7 +379,7 @@ const AdminAchievementsPage = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap gap-1">
-                          {achievement.participants.slice(0, 2).map((p:any, i) => (
+                          {achievement.participants.slice(0, 2).map((p: any, i) => (
                             <span
                               key={i}
                               className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"

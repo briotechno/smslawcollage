@@ -242,7 +242,7 @@ const LegalAidClinicpage = () => {
                         transition={{ duration: 0.6, delay: idx * 0.05 }}
                         className="bg-white rounded-lg shadow p-5 border border-gray-100 flex flex-col md:flex-row gap-4"
                       >
-                        <div className="md:w-40 h-28 relative rounded overflow-hidden flex-shrink-0">
+                        <div className="md:w-30 h-28 relative rounded overflow-hidden flex-shrink-0">
                           <Image
                             src={act.image || "/assets/Noimage.jpg"}
                             alt={act.title}
