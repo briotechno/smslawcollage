@@ -13,7 +13,7 @@ const ElocutionPublicSpeaking = () => {
                     {/* Hero Section */}
                     <div className="bg-gradient-to-r from-purple-900 to-purple-600 text-white p-8 rounded-xl mb-12">
                         <p className="text-xl md:text-2xl leading-relaxed text-center max-w-3xl mx-auto">
-                            Developing strong public speaking and advocacy skills is crucial for success in the legal profession. 
+                            Developing strong public speaking and advocacy skills is crucial for success in the legal profession.
                             Our comprehensive program helps students master these essential skills through structured training and practice.
                         </p>
                         <div className="flex flex-wrap justify-center gap-4 mt-6">
@@ -73,15 +73,15 @@ const ElocutionPublicSpeaking = () => {
                         <h3 className="text-xl font-semibold text-purple-600 mb-4">Skill Development Focus Areas</h3>
                         <div className="grid md:grid-cols-3 gap-4">
                             <div className="bg-white p-4 rounded shadow">
-                                <h4 className="font-semibold mb-2">Argumentative Skills</h4>
+                                <h4 className="font-semibold text-purple-600 mb-2">Argumentative Skills</h4>
                                 <p className="text-sm text-gray-600">Learn to construct compelling legal arguments and counter-arguments effectively.</p>
                             </div>
                             <div className="bg-white p-4 rounded shadow">
-                                <h4 className="font-semibold mb-2">Persuasive Speaking</h4>
+                                <h4 className="font-semibold text-purple-600 mb-2">Persuasive Speaking</h4>
                                 <p className="text-sm text-gray-600">Master the art of persuasion through structured speech and rhetoric.</p>
                             </div>
                             <div className="bg-white p-4 rounded shadow">
-                                <h4 className="font-semibold mb-2">Critical Analysis</h4>
+                                <h4 className="font-semibold text-purple-600 mb-2">Critical Analysis</h4>
                                 <p className="text-sm text-gray-600">Develop quick thinking and analytical skills for impromptu responses.</p>
                             </div>
                         </div>
@@ -109,7 +109,7 @@ const ElocutionPublicSpeaking = () => {
                                         <span className="text-purple-600 font-semibold">RK</span>
                                     </div>
                                     <div>
-                                        <div className="font-semibold">Rahul Kumar</div>
+                                        <div className="font-semibold text-purple-600">Rahul Kumar</div>
                                         <div className="text-sm text-gray-600">5th Year Student</div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@ const ElocutionPublicSpeaking = () => {
                                         <span className="text-purple-600 font-semibold">AP</span>
                                     </div>
                                     <div>
-                                        <div className="font-semibold">Ananya Patel</div>
+                                        <div className="font-semibold text-purple-600">Ananya Patel</div>
                                         <div className="text-sm text-gray-600">4th Year Student</div>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@ const ElocutionPublicSpeaking = () => {
                                     <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
-                    
+
                                     Voice Modulation Tips
                                 </li>
                             </ul>
@@ -193,7 +193,7 @@ const ElocutionPublicSpeaking = () => {
                     <div className="text-center mt-8 bg-gradient-to-r from-purple-600 to-purple-700 p-8 rounded-lg text-white">
                         <p className="font-semibold text-xl mb-3">Join Our Speaking Club</p>
                         <p className="mb-4">
-                            Participate in our weekly speaking club sessions to practice and improve your skills. 
+                            Participate in our weekly speaking club sessions to practice and improve your skills.
                             Open to all students. Sessions held every Wednesday at 4 PM in the Moot Court Hall.
                         </p>
                         <div className="inline-block bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-colors">

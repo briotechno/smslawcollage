@@ -96,7 +96,6 @@ export default function Header() {
 
       // Ignore clicks on Next.js links so navigation still works properly
       if (target.closest("a")) {
-        // Close menu after short delay (so Link can trigger navigation)
         setTimeout(() => {
           setActiveDropdown(null);
           setActiveMobileDropdown(null);
@@ -111,8 +110,16 @@ export default function Header() {
       setMobileMenuOpen(false);
     };
 
-    document.addEventListener("mousedown", handleClickAnywhere);
-    return () => document.removeEventListener("mousedown", handleClickAnywhere);
+    // Check screen size
+    const isDesktop = window.innerWidth >= 1280;
+
+    if (isDesktop) {
+      document.addEventListener("mousedown", handleClickAnywhere);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickAnywhere);
+    };
   }, []);
 
   return (
@@ -222,9 +229,12 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`xl:hidden bg-purple-800 border-t border-purple-700 transition-all duration-300 overflow-hidden ${mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        className={`xl:hidden bg-purple-800 border-t border-purple-700 transition-all duration-300 ${mobileMenuOpen
+            ? "max-h-screen opacity-100 overflow-y-auto"
+            : "max-h-0 opacity-0"
           }`}
       >
+
         <nav className="px-4 py-4 space-y-2">
           {menuItems.map((item) => (
             <div key={item.name}>
