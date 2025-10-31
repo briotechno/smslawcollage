@@ -126,7 +126,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
     ${scrolled
-          ? "bg-purple-900/95 backdrop-blur-md shadow-lg border-b border-purple-700"
+          ? "bg-purple-900/95 "
           : "bg-gradient-to-r from-purple-900 to-purple-800 shadow-sm"
         }
   `}
@@ -150,14 +150,14 @@ export default function Header() {
             {menuItems.map((item) => (
               <div
                 key={item.name}
-                className="relative"
+                className="relative cursor-pointer"
                 onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
               >
                 <Link
                   href={item.href}
-                  className="px-4 py-2 text-sm font-medium text-white hover:text-purple-200 flex items-center gap-1 transition-all duration-200 group relative"
+                  className="px-4 py-2 text-sm font-medium text-white hover:text-purple-200 flex items-center gap-1 transition-all duration-200 group relative cursor-pointer"
                 >
-                  <span>{item.name}</span>
+                  <span className="!cursor-pointer">{item.name}</span>
                   {item.hasDropdown && (
                     <ChevronDown
                       className={`w-4 h-4 dropdown-toggle transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
