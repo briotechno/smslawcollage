@@ -40,9 +40,9 @@ const HeroSection = () => {
   };
 
   const stats = [
-    { icon: Users, number: "500+", label: "Students" },
+    { icon: Users, number: "17,000+", label: "Students" },
     { icon: Award, number: "50+", label: "Awards" },
-    { icon: BookOpen, number: "15+", label: "Years Experience" },
+    { icon: BookOpen, number: "55+", label: "Years Experience" },
   ];
 
   const items = [

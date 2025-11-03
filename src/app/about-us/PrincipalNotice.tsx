@@ -26,7 +26,7 @@ const PrincipalNotice = () => {
                         <Megaphone className="w-10 h-10 text-purple-600" />
                     </div>
                     <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-                        Principal <span className="text-purple-600">Notice</span>
+                        Principal <span className="text-purple-600">Massage</span>
                     </h1>
                     <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
                 </motion.div>

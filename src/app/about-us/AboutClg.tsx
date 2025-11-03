@@ -103,7 +103,7 @@ const AboutClg = () => {
             <div className="grid grid-cols-2 gap-6 pt-8">
               <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <div className="text-3xl font-bold text-purple-600 mb-2">
-                  15+
+                  55+
                 </div>
                 <div className="text-gray-600 font-medium">
                   Years of Excellence
@@ -111,7 +111,7 @@ const AboutClg = () => {
               </div>
               <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <div className="text-3xl font-bold text-purple-600 mb-2">
-                  500+
+                  17,000+
                 </div>
                 <div className="text-gray-600 font-medium">
                   Successful Graduates
