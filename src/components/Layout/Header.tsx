@@ -156,7 +156,7 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="px-4 py-2 text-sm font-medium text-white hover:text-purple-200 flex items-center gap-1 transition-all duration-200 group relative cursor-pointer"
+                  className="px-2.5 py-2 text-sm font-medium text-white hover:text-purple-200 flex items-center gap-1 transition-all duration-200 group relative cursor-pointer"
                 >
                   <span className="!cursor-pointer">{item.name}</span>
                   {item.hasDropdown && (

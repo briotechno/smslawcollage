@@ -20,6 +20,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const AdmissionPage = () => {
   const fadeInUp = {
@@ -115,38 +116,27 @@ const AdmissionPage = () => {
   const admissionProcess = [
     {
       step: 1,
-      title: "Application Submission",
-      description: "Submit your application through our online portal or offline mode",
-      icon: BookOpen,
-      duration: "Ongoing",
+      title: "Form Filling",
+      description: "Left out students can fill new forms in programs",
+      date: "11-12 October",
     },
     {
       step: 2,
-      title: "Document Verification",
-      description: "Submit required documents for verification and eligibility check",
-      icon: CheckCircle,
-      duration: "7 Days",
+      title: "Verification",
+      description: "Those students who missed their verification can verify their application.",
+      date: "11-13 October",
     },
     {
       step: 3,
-      title: "Entrance Examination",
-      description: "Appear for the entrance test (if applicable) or merit-based selection",
-      icon: Target,
-      duration: "As Scheduled",
+      title: "Cancellation",
+      description: "Student can cancel their admissions during the allotted cancellation period.",
+      date: "11-12 October",
     },
     {
       step: 4,
-      title: "Interview & Counseling",
-      description: "Personal interview and academic counseling session",
-      icon: Users,
-      duration: "30 Minutes",
-    },
-    {
-      step: 5,
-      title: "Admission Confirmation",
-      description: "Complete admission formalities and fee payment",
-      icon: Award,
-      duration: "Same Day",
+      title: "Admissions",
+      description: "Common admission rounds take place for finalizing admissions.",
+      date: "15-16 October",
     },
   ];
 
@@ -350,10 +340,10 @@ const AdmissionPage = () => {
                     </div>
                   </div>
 
-                  <button className="w-full bg-gray-100 hover:bg-purple-600 text-gray-700 hover:text-white px-4 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2">
+                 <Link href="https://gcas.gujgov.edu.in/" target="_blank"> <button className="w-full bg-gray-100 hover:bg-purple-600 text-gray-700 hover:text-white px-4 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2">
                     Apply Now
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </button></Link>
                 </div>
               </motion.div>
             ))}
@@ -385,7 +375,7 @@ const AdmissionPage = () => {
           </motion.div>
 
           <div className="flex justify-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl w-full">
               {admissionProcess.map((step, index) => (
                 <motion.div
                   key={index}
@@ -394,24 +384,21 @@ const AdmissionPage = () => {
                   whileInView="show"
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="text-center"
                 >
-                  <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8">
-                    <div className="w-16 h-16 bg-purple-600/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <step.icon className="w-8 h-8 text-purple-600" />
+                  <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-full flex flex-col">
+                    <div className="flex items-start justify-between w-full mb-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-lg">
+                          {step.step}
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-900">{step.title}</h3>
+                      </div>
+                      
                     </div>
-                    <div className="text-2xl font-bold text-purple-600 mb-2">
-                      Step {step.step}
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                      {step.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed mb-2">
-                      {step.description}
-                    </p>
-                    <div className="text-sm text-purple-600 font-medium">
-                      {step.duration}
-                    </div>
+
+                    <p className="text-gray-600 flex-1">{step.description}</p>
+
+                    <div className="mt-4 text-sm text-gray-500">&nbsp;</div>
                   </div>
                 </motion.div>
               ))}
@@ -422,7 +409,7 @@ const AdmissionPage = () => {
       </section>
 
       {/* Important Dates Section */}
-      <section className="py-20 bg-white">
+      {/* <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -474,10 +461,10 @@ const AdmissionPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Required Documents Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+      {/* <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -500,7 +487,7 @@ const AdmissionPage = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {requiredDocuments.map((document, index) => (
+            {requiredDocuments.map((document:any, index:any) => (
               <motion.div
                 key={index}
                 variants={fadeInUp}
@@ -518,6 +505,106 @@ const AdmissionPage = () => {
                 </h3>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section> */}
+
+      {/* Eligibility & Rules Section */}
+      <section id="eligibility" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-600/10 rounded-full mb-4">
+              <BookOpen className="w-10 h-10 text-purple-600" />
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+              Eligibility & <span className="text-purple-600">Admission Rules</span>
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
+              Clear and concise eligibility criteria, registration rules and minimum qualifying marks for applicants.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left: Detailed Eligibility */}
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-purple-50 border border-purple-100 rounded-2xl p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Eligibility for admission</h3>
+                <div className="space-y-4 text-gray-700">
+                  <div>
+                    <h4 className="font-semibold">(a) Three Years’ Law Degree Course</h4>
+                    <p className="mt-2">
+                      An applicant who has obtained a Bachelor degree in any stream from a University or an equivalent institution recognized as deemed to be University or from a foreign University declared as equivalent to an Indian Degree by a competent authority, shall be eligible for admission to three years’ degree course in law. There is no minimum age requirement for admission to three years’ law degree course.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold">(b) Integrated Degree Program</h4>
+                    <p className="mt-2">
+                      An applicant who has successfully completed Senior Secondary School course (‘+2’) or equivalent (such as 11+1, ‘A’ level in Senior School Leaving certificate course) from a recognized University of India or abroad or from a Senior Secondary Board, Central or State or any qualification/certificate declared as equivalent by a competent authority such as Association of Indian Universities, shall be eligible for admission to the Integrated degree program.
+                    </p>
+                    <p className="mt-2">
+                      An applicant should have completed 21 years of age on the prescribed last date for filing application to the Integrated Degree Program. However, for the applicants belonging to SC/ST/OBC/PWD/EWS, it shall be 23 years.
+                    </p>
+                    <p className="mt-2">
+                      However, qualification obtained from any open university without any formal school education or from distance/correspondence education shall not be considered as equivalent to qualifying examination for admission.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Prohibition Card */}
+              <div className="bg-white border-l-4 border-purple-600 rounded-lg shadow-sm p-5">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 mt-1">
+                    <svg className="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900">Prohibition to register for two regular courses of study</h4>
+                    <p className="mt-2 text-gray-700">
+                      No student shall be allowed to simultaneously register for a law degree program with any other graduate or postgraduate or certificate course run by the same or any other University or an Institute for academic or professional learning excepting in the integrated degree program of the same institution. Provided that any short period part time certificate course on language, computer science or computer application of an Institute or any course run by a Center for Distance Learning of a University however, shall be excepted.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Minimum Marks Table */}
+            <aside className="space-y-6">
+              <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                <h4 className="text-lg font-semibold text-gray-900 mb-3">Minimum marks</h4>
+                <p className="text-sm text-gray-600 mb-4">Minimum percentage of marks in the qualifying or higher examination:</p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left table-auto border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="px-3 py-2 text-sm font-medium text-gray-600">Category</th>
+                        <th className="px-3 py-2 text-sm font-medium text-gray-600">Minimum Percentage</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-t">
+                        <td className="px-3 py-3 text-gray-800">General</td>
+                        <td className="px-3 py-3 font-semibold text-purple-600">45%</td>
+                      </tr>
+                      <tr className="border-t bg-gray-50">
+                        <td className="px-3 py-3 text-gray-800">OBC</td>
+                        <td className="px-3 py-3 font-semibold text-purple-600">42%</td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="px-3 py-3 text-gray-800">SC / ST</td>
+                        <td className="px-3 py-3 font-semibold text-purple-600">40%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="bg-purple-50 border border-purple-100 rounded-2xl p-4 text-sm text-gray-700">
+                <strong>Note:</strong> These minimum marks are for the qualifying or higher examination and will be used for eligibility screening. Specific programs may have additional criteria.
+              </div>
+            </aside>
           </div>
         </div>
       </section>
