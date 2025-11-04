@@ -29,10 +29,30 @@ const AdmissionPage = () => {
 
   const programs = [
     {
-      title: "B.A.LL.B (5 Years Integrated)",
+      title: "L.L.B (3 Years Integrated)",
+      description: "Comprehensive three-year integrated program combining Bachelor of Arts with Bachelor of Laws",
+      duration: "3 Years",
+      type: "Any Graduate",
+      eligibility: "10+2 with 45% marks",
+      intake: "10 Seats",
+      features: [
+        "Specialization Tracks",
+        "Research Thesis",
+        "International Law",
+        "Advanced Legal Practice",
+        "Academic Research"
+      ],
+      contact: {
+        phone: "98792 85000",
+        email: "smslcmeh@gmail.com"
+      },
+      color: "from-purple-500 to-purple-600",
+    },
+    {
+      title: "B.A.L.L.B (5 Years Integrated)",
       description: "Comprehensive five-year integrated program combining Bachelor of Arts with Bachelor of Laws",
       duration: "5 Years",
-      type: "Undergraduate",
+      type: "Under Graduate",
       eligibility: "10+2 with 45% marks",
       intake: "120 Seats",
       features: [
@@ -44,17 +64,39 @@ const AdmissionPage = () => {
       ],
       contact: {
         phone: "98792 85000",
-        email: "ba.llb@smslawcollege.edu"
+        email: "smslcmeh@gmail.com"
       },
-      color: "from-purple-500 to-purple-600",
+      // color: "from-purple-500 to-purple-600",
+      color: "from-blue-500 to-blue-600",
+
     },
+    // {
+    //   title: "B.B.A.LL.B (Honours) (5 Years Integrated)",
+    //   description: "Five-year integrated program combining Bachelor of Business Administration with Bachelor of Laws (Honours)",
+    //   duration: "5 Years",
+    //   type: "Undergraduate",
+    //   eligibility: "10+2 with 45% marks",
+    //   intake: "60 Seats",
+    //   features: [
+    //     "Business Law Focus",
+    //     "Corporate Legal Practice",
+    //     "Commercial Law",
+    //     "Moot Court Training",
+    //     "Industry Internships"
+    //   ],
+    //   contact: {
+    //     phone: "98792 85000",
+    //     email: "bba.llb@smslawcollege.edu"
+    //   },
+    //   color: "from-blue-500 to-blue-600",
+    // },
     {
-      title: "B.B.A.LL.B (Honours) (5 Years Integrated)",
-      description: "Five-year integrated program combining Bachelor of Business Administration with Bachelor of Laws (Honours)",
-      duration: "5 Years",
-      type: "Undergraduate",
-      eligibility: "10+2 with 45% marks",
-      intake: "60 Seats",
+      title: "L.L.M (2 Year)",
+      description: "Two-year Master of Laws program for advanced legal specialization",
+      duration: "2 Year",
+      type: "Post Graduate",
+      eligibility: "Criminal Group & Business Group",
+      intake: "20 Seats",
       features: [
         "Business Law Focus",
         "Corporate Legal Practice",
@@ -64,27 +106,7 @@ const AdmissionPage = () => {
       ],
       contact: {
         phone: "98792 85000",
-        email: "bba.llb@smslawcollege.edu"
-      },
-      color: "from-blue-500 to-blue-600",
-    },
-    {
-      title: "LL.M (1 Year)",
-      description: "One-year Master of Laws program for advanced legal specialization",
-      duration: "1 Year",
-      type: "Postgraduate",
-      eligibility: "LL.B with 50% marks",
-      intake: "30 Seats",
-      features: [
-        "Specialization Tracks",
-        "Research Thesis",
-        "International Law",
-        "Advanced Legal Practice",
-        "Academic Research"
-      ],
-      contact: {
-        phone: "98792 85000",
-        email: "llm@smslawcollege.edu"
+        email: "smslcmeh@gmail.com"
       },
       color: "from-green-500 to-green-600",
     },

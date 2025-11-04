@@ -62,13 +62,14 @@ const quickLinks = [
   { name: "Faculty", href: "/academics" },
   { name: "Research", href: "/research-clinic" },
   { name: "Contact", href: "/contact" },
+  { name: "Feedback", href: "/academics/Feedback" },
 ];
 
 const programs = [
-  { name: "LL.B Program", href: "/academics" },
-  { name: "LL.M (Criminology) Program", href: "/academics" },
-  { name: "LL.M ( Business) Program", href: "/academics" },
-  { name: "B.A LL.B (Intrigreted)", href: "/academics" },
+  { name: "L.L.B (3 Years Integrated)", href: "/admission" },
+  { name: "B.A.L.L.B (5 Years Integrated)", href: "/admission" },
+  { name: "L.L.M (2 Year)", href: "/admission" },
+  // { name: "B.A LL.B (Intrigreted)", href: "/admission" },
   // { name: "Skill Development", href: "/skill-development" },
   // { name: "Internship", href: "/academics" },
 ];
@@ -83,8 +84,8 @@ const programs = [
 // ];
 
 const stats = [
-  { icon: Users, number: "500+", label: "Students" },
-  { icon: GraduationCap, number: "15+", label: "Years Experience" },
+  { icon: Users, number: "17,000+", label: "Students" },
+  { icon: GraduationCap, number: "55+", label: "Years Experience" },
   { icon: Award, number: "50+", label: "Awards" },
   { icon: Scale, number: "95%", label: "Success Rate" },
 ];

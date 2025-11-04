@@ -66,6 +66,7 @@ const menuItems = [
   },
   { name: "Admission", href: "/admission" },
   { name: "Recruitment", href: "/requirements" },
+  { name: "Feedback", href: "/academics/Feedback" },
 ];
 
 export default function Header() {
@@ -195,10 +196,11 @@ export default function Header() {
           </nav>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center">
             <Link
               href="/admission"
-              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
+              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white
+               px-6 py-2.5 rounded-full text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
             >
               Apply Now
             </Link>
@@ -230,8 +232,8 @@ export default function Header() {
       {/* Mobile Menu */}
       <div
         className={`xl:hidden bg-purple-800 border-t border-purple-700 transition-all duration-300 ${mobileMenuOpen
-            ? "max-h-screen opacity-100 overflow-y-auto"
-            : "max-h-0 opacity-0"
+          ? "max-h-screen opacity-100 overflow-y-auto"
+          : "max-h-0 opacity-0"
           }`}
       >
 
