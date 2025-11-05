@@ -1,99 +1,105 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { FileIcon } from "lucide-react";
 
-const Syllabus = () => {
-  const [loading, setLoading] = useState(true);
-  const [blocked, setBlocked] = useState(false);
 
-  useEffect(() => {
-    // If iframe doesn't load within 8s, show a fallback (some sites block framing)
-    const t = setTimeout(() => {
-      if (loading) setBlocked(true);
-    }, 8000);
-    return () => clearTimeout(t);
-  }, [loading]);
-  return (
-    <div id="Syllabus" className="bg-gray-50 py-40">
-      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
-          <span className="text-purple-600">Syllabus</span>
-        </h1>
-        <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
-      </div>
-      <div className="overflow-x-auto max-w-7xl mx-auto px-5 sm:px-1">
-        <table className="min-w-full border border-gray-200 text-gray-700">
-          <thead className="bg-purple-600 text-white">
-            <tr>
-              <th className="px-4 py-3 text-left">Year</th>
-              <th className="px-4 py-3 text-left">Internship Area</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b">
-              <td className="px-4 py-3">First Year (Sem I & II)</td>
-              <td className="px-4 py-3">
-                Non-Government Organisation / Social Sector
-              </td>
-            </tr>
-            <tr className="border-b bg-gray-50">
-              <td className="px-4 py-3">Second Year (Sem III & IV)</td>
-              <td className="px-4 py-3">Trial Court (Criminal)</td>
-            </tr>
-            <tr className="border-b">
-              <td className="px-4 py-3">Third Year (Sem V & VI)</td>
-              <td className="px-4 py-3">Trial Court (Civil)</td>
-            </tr>
-            <tr className="border-b bg-gray-50">
-              <td className="px-4 py-3">Fourth Year (Sem VII & VIII)</td>
-              <td className="px-4 py-3">High Court / Supreme Court</td>
-            </tr>
-            <tr>
-              <td className="px-4 py-3">Fifth Year (Sem IX & X)</td>
-              <td className="px-4 py-3">Law Firms / Corporate Office</td>
-            </tr>
-          </tbody>
-        </table>
-      </div> */}
+const llbSyllabus = [
+  {
+    name: "LLB Semester 1 Syllabus",
+    file: "/assets/Syllabus/LLB/LLB SEM-1.pdf",
+  },
+  {
+    name: "LLB Semester 2 Syllabus",
+    file: "/assets/Syllabus/LLB/LLB SEM-2.pdf",
+  },
+  {
+    name: "LLB Semester 3 Syllabus",
+    file: "/assets/Syllabus/LLB/LLB SEM-3.pdf",
+  },
+  {
+    name: "LLB Semester 4 Syllabus",
+    file: "/assets/Syllabus/LLB/LLBSEM4_MODIFIED.pdf",
+  },
+  {
+    name: "LLB Semester 5 Syllabus",
+    file: "/assets/Syllabus/LLB/LLBSEM5_MODIFIED.pdf",
+  },
+  {
+    name: "LLB Semester 6 Syllabus",
+    file: "/assets/Syllabus/LLB/LLBSEM6_MODIFIED.pdf",
+  },
+];
 
-      {/* Embedded syllabus (NGU) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-        <div className="text-center mb-6">
-          <h3 className="text-2xl font-semibold text-gray-900">Full Syllabus</h3>
-          <p className="text-sm text-gray-600">Embedded from North Gujarat University — opens below. If embedding is blocked you can open the link directly.</p>
-        </div>
+const llmSyllabus = [
+  {
+    name: "LLM Semester 1 Syllabus",
+    file: "/assets/Syllabus/LLM/LLMSEM1_MODIFIED.pdf",
+  },
+  {
+    name: "LLM Semester 2 Syllabus",
+    file: "/assets/Syllabus/LLM/LLMSEM2_MODIFIED.pdf",
+  },
+  {
+    name: "LLM Semester 3 Syllabus",
+    file: "/assets/Syllabus/LLM/LLMSEM3_MODIFIED.pdf",
+  },
+  {
+    name: "LLM Semester 4 Syllabus",
+    file: "/assets/Syllabus/LLM/LLMSEM4_MODIFIED.pdf",
+  },
+];
 
-        <div className="relative bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
-          {loading && !blocked && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/70">
-              <div className="flex flex-col items-center">
-                <svg className="animate-spin h-12 w-12 text-purple-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                </svg>
-                <div className="text-purple-600 font-medium">Loading syllabus...</div>
-              </div>
-            </div>
-          )}
-
-          {!blocked ? (
-            <iframe
-              title="NGU Syllabus"
-              src="https://www.ngu.ac.in/Syllabus.aspx"
-              loading="lazy"
-              onLoad={() => setLoading(false)}
-              className="w-full h-[600px] md:h-[800px] lg:h-[900px] border-0"
-            />
-          ) : (
-            <div className="p-8 text-center">
-              <p className="text-gray-700 mb-4">We couldn't embed the external site — it may disallow framing. You can open it directly:</p>
-              <a href="https://www.ngu.ac.in/Syllabus.aspx" target="_blank" rel="noreferrer" className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full font-medium transition">Open Syllabus on NGU site</a>
-            </div>
-          )}
-        </div>
-      </div>
+const PdfCard = ({ name, file }: { name: string; file: string }) => (
+  <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 flex items-center gap-6 ">
+    <div className="flex-shrink-0 flex flex-col items-center justify-center">
+      <FileIcon className="w-14 h-14 text-red-600 mb-2" />
+      <span className="text-xs text-red-700 font-semibold">PDF</span>
     </div>
-  )
-};
+    <div className="flex-1">
+      <div className="font-semibold text-gray-900 text-lg mb-1 flex items-center">
+        <span className="mr-2">{name}</span>
+      </div>
+      <a href={file} download className="inline-flex items-center mt-2 text-purple-600 hover:text-purple-800 font-medium download-link">
+        <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M3 16a2 2 0 002 2h10a2 2 0 002-2v-4a1 1 0 10-2 0v4H5v-4a1 1 0 10-2 0v4z" />
+          <path d="M7 10V4a1 1 0 112 0v6h2a1 1 0 010 2h-2v2a1 1 0 11-2 0v-2H7a1 1 0 010-2h2z" />
+        </svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+);
+
+const Syllabus = () => (
+  <div id="Syllabus" className="bg-gray-50 py-32 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-5xl mx-auto">
+      <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
+        <span className="text-purple-600">Syllabus</span>
+      </h1>
+      <div className="w-24 h-1 bg-purple-600 mx-auto mb-12"></div>
+
+      {/* LLB Section */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">LLB Syllabus</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {llbSyllabus.map((pdf) => (
+            <PdfCard key={pdf.name} name={pdf.name} file={pdf.file} />
+          ))}
+        </div>
+      </section>
+
+      {/* LLM Section */}
+      <section>
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">LLM Syllabus</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {llmSyllabus.map((pdf) => (
+            <PdfCard key={pdf.name} name={pdf.name} file={pdf.file} />
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+);
 
 export default Syllabus;

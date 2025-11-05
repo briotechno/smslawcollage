@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { init, send } from "@emailjs/browser";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 const Feedback = () => {
   const [form, setForm] = useState({
@@ -11,25 +12,80 @@ const Feedback = () => {
     message: "",
   });
   const [loading, setLoading] = useState(false);
+  const { showToast } = useToast();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    
+    // Prevent non-numeric characters in phone field
+    if (name === 'phone' && value !== '' && !/^[+\d\s]*$/.test(value)) {
+      return;
+    }
+    
+    setForm({ ...form, [name]: value });
+  };
+
+  const validateForm = () => {
+    // Name validation: at least 3 characters, only letters and spaces
+    const nameRegex = /^[A-Za-z\s]{3,}$/;
+    if (!nameRegex.test(form.name.trim())) {
+      showToast({
+        type: "warning",
+        title: "Invalid Name",
+        message: "Please enter a valid name with at least 3 characters, using only letters and spaces.",
+      });
+      return false;
+    }
+
+    // Email validation
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(form.email)) {
+      showToast({
+        type: "warning",
+        title: "Invalid Email",
+        message: "Please enter a valid email address.",
+      });
+      return false;
+    }
+
+    // Phone validation: Indian phone number (10 digits, optional +91 prefix)
+    const phoneRegex = /^(?:\+91)?[6-9]\d{9}$/;
+    if (!phoneRegex.test(form.phone.replace(/\s/g, ""))) {
+      showToast({
+        type: "warning",
+        title: "Invalid Phone Number",
+        message: "Please enter a valid 10-digit Indian phone number.",
+      });
+      return false;
+    }
+
+    // Message validation: minimum 10 characters
+    if (form.message.trim().length < 10) {
+      showToast({
+        type: "warning",
+        title: "Message Too Short",
+        message: "Please write a message with at least 10 characters.",
+      });
+      return false;
+    }
+
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.phone || !form.message) {
-      alert("Please fill all fields.");
+    
+    if (!validateForm()) {
       return;
     }
 
     setLoading(true);
     // EmailJS SDK credentials (dummy values) - replace with real IDs or env vars
-    const SERVICE_ID = "service_dummy";
-    const TEMPLATE_ID = "template_dummy";
-    const USER_ID = "user_dummy";
+    const SERVICE_ID = "service_rewmnvn";
+    const TEMPLATE_ID = "template_a3fkrrr";
+    const USER_ID = "p8hpaHux6lPBkME77";
 
     const sendEmail = async (payload: { name: string; email: string; phone: string; message: string; }) => {
       try {
@@ -54,29 +110,29 @@ const Feedback = () => {
     try {
       const emailOk = await sendEmail(form as any);
 
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (res.ok) {
-        if (emailOk) {
-          alert("Feedback submitted and email sent successfully!");
+      if (emailOk) {
+          showToast({
+            type: "success",
+            title: "Thank You!",
+            message: "Your feedback has been submitted.",
+          });
         } else {
-          alert("Feedback submitted but email could not be sent.");
+          showToast({
+            type: "error",
+            title: "Oops!",
+            message: "Something went wrong. Please confirm your details and try again",
+          });
         }
         setForm({ name: "", email: "", phone: "", message: "" });
-      } else {
-        if (emailOk) {
-          alert("Email sent but saving feedback failed on server.");
-        } else {
-          alert("Something went wrong while submitting feedback.");
-        }
-      }
+     
+      
     } catch (err) {
       console.error(err);
-      alert("An error occurred while submitting feedback.");
+      showToast({
+        type: "error",
+        title: "Submission Failed",
+        message: "We couldn't submit your feedback. Please try again later.",
+      });
     } finally {
       setLoading(false);
     }
@@ -114,8 +170,10 @@ const Feedback = () => {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                placeholder="Enter your full name"
-                className="w-full border border-gray-300 focus:ring-2 focus:ring-[#007BAA] focus:border-transparent rounded-md p-3 text-gray-800"
+                placeholder="Enter your full name (min. 3 characters)"
+                className="w-full border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:border-transparent rounded-md p-3 text-gray-800"
+                pattern="[A-Za-z\s]{3,}"
+                title="Name must contain at least 3 letters (no numbers or special characters)"
                 required
               />
             </div>
@@ -131,7 +189,9 @@ const Feedback = () => {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="Enter your email address"
-                className="w-full border border-gray-300 focus:ring-2 focus:ring-[#007BAA] focus:border-transparent rounded-md p-3 text-gray-800"
+                className="w-full border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:border-transparent rounded-md p-3 text-gray-800"
+                pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                title="Please enter a valid email address"
                 required
               />
             </div>
@@ -142,12 +202,15 @@ const Feedback = () => {
                 Phone Number
               </label>
               <input
-                type="text"
+                type="tel"
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
-                placeholder="Enter your phone number"
-                className="w-full border border-gray-300 focus:ring-2 focus:ring-[#007BAA] focus:border-transparent rounded-md p-3 text-gray-800"
+                placeholder="Enter 10-digit mobile number"
+                className="w-full border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:border-transparent rounded-md p-3 text-gray-800"
+                pattern="(?:\+91)?[6-9]\d{9}"
+                title="Please enter a valid 10-digit Indian mobile number"
+                maxLength={13}
                 required
               />
             </div>
@@ -161,9 +224,10 @@ const Feedback = () => {
                 name="message"
                 value={form.message}
                 onChange={handleChange}
-                placeholder="Write your message..."
+                placeholder="Write your message (min. 10 characters)..."
                 rows={5}
-                className="w-full border border-gray-300 focus:ring-2 focus:ring-[#007BAA] focus:border-transparent rounded-md p-3 text-gray-800"
+                className="w-full border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:border-transparent rounded-md p-3 text-gray-800"
+                minLength={10}
                 required
               />
             </div>
