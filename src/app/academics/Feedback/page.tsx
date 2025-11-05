@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { init, send } from "@emailjs/browser";
 
 const Feedback = () => {
   const [form, setForm] = useState({
@@ -25,20 +26,57 @@ const Feedback = () => {
     }
 
     setLoading(true);
+    // EmailJS SDK credentials (dummy values) - replace with real IDs or env vars
+    const SERVICE_ID = "service_dummy";
+    const TEMPLATE_ID = "template_dummy";
+    const USER_ID = "user_dummy";
+
+    const sendEmail = async (payload: { name: string; email: string; phone: string; message: string; }) => {
+      try {
+        // initialize EmailJS (safe to call client-side for public user ID)
+        try { init(USER_ID); } catch (e) { /* ignore init errors */ }
+
+        const template_params = {
+          name: payload.name,
+          email: payload.email,
+          phone: payload.phone,
+          message: payload.message,
+        };
+
+        await send(SERVICE_ID, TEMPLATE_ID, template_params);
+        return true;
+      } catch (e) {
+        console.error("EmailJS SDK send error", e);
+        return false;
+      }
+    };
+
     try {
+      const emailOk = await sendEmail(form as any);
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+
       if (res.ok) {
-        alert("Mail sent successfully!");
+        if (emailOk) {
+          alert("Feedback submitted and email sent successfully!");
+        } else {
+          alert("Feedback submitted but email could not be sent.");
+        }
         setForm({ name: "", email: "", phone: "", message: "" });
       } else {
-        alert("Something went wrong!");
+        if (emailOk) {
+          alert("Email sent but saving feedback failed on server.");
+        } else {
+          alert("Something went wrong while submitting feedback.");
+        }
       }
     } catch (err) {
       console.error(err);
+      alert("An error occurred while submitting feedback.");
     } finally {
       setLoading(false);
     }
