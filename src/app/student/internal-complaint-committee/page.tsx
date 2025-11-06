@@ -25,46 +25,53 @@ const InternalComplaintCommittee = () => {
 
   const committeeMembers = [
     {
-      name: "Dr. Mayuri H. Pandya",
-      designation: "Dean, Faculty of Law",
+      name: "Dr. Mahesh Patel",
+      designation: "Princioal in Charge Faculty of Law",
       position: "Chairperson",
-      email: "dean@smslawcollege.edu",
+      email: "smslcmeh@gmail.com",
       phone: "+91-98792 85000",
     },
     {
-      name: "Ms. Vidhi Shah",
+      name: "Dr. Bhargavi Rao",
       designation: "Assistant Professor",
       position: "Member Secretary",
-      email: "vidhi.shah@smslawcollege.edu",
-      phone: "+91-98792 85000",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-94298 06033",
     },
     {
-      name: "Ms. Payal Mehta",
-      designation: "Assistant Professor (Non-Law)",
+      name: "Dr. Daxa Paramar",
+      designation: "Assistant Professor",
       position: "Member",
-      email: "payal.mehta@smslawcollege.edu",
-      phone: "+91-98792 85000",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-94298 06033",
     },
     {
-      name: "Ms. Suja Nair",
-      designation: "Assistant Professor (Law)",
+      name: "Dr. Kaushalraj Upadhyaya",
+      designation: "Assistant Professor",
       position: "Member",
-      email: "suja.nair@smslawcollege.edu",
-      phone: "+91-98792 85000",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-94298 06033",
     },
     {
-      name: "Dr. Prachi Motiyani",
-      designation: "Assistant Professor, Gujarat University",
+      name: "Dr. Parima Raval ",
+      designation: "Assistant Professor, HNG University, Patan",
       position: "Third Party Member",
-      email: "prachi.motiyani@gujaratuniversity.edu",
-      phone: "+91-98792 85000",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-94274 59570",
     },
     {
-      name: "Ms. Urvashi Sharma",
-      designation: "Student Representative (Semester I, 2021-26 Batch)",
+      name: "Ms. Nidhi Acharya",
+      designation: "Student Representative (LL.M Sem -1  Batch- 2025-26)",
       position: "Student Member",
-      email: "urvashi.sharma@student.smslawcollege.edu",
-      phone: "+91-98792 85000",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-70162 76379",
+    },
+    {
+      name: "Ms. Ekta Shukla",
+      designation: "Student Representative (LL.M Sem -1 Batch- 2025-26)",
+      position: "Student Member",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-84693 26222",
     },
   ];
 
@@ -329,7 +336,7 @@ const InternalComplaintCommittee = () => {
                   </p>
                   <p className="text-sm text-gray-600 mb-4">{member.designation}</p>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 flex flex-col items-center">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Mail className="w-4 h-4 text-purple-600" />
                     <span className="truncate">{member.email}</span>

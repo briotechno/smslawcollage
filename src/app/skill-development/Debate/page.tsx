@@ -17,6 +17,7 @@ import {
   Trophy,
   MessageSquare,
   Brain,
+  BookMarked,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -141,6 +142,35 @@ const Debate = () => {
       {/* Skills Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-600/10 rounded-full mb-6">
+              <BookMarked className="w-10 h-10 text-purple-600" />
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+               <span className="text-purple-600">Debate</span>
+            </h2>
+            <div className="w-24 h-1 bg-purple-600 mx-auto"></div>
+          </motion.div >
+
+          <div className="rounded-xl p-8 bg-white shadow-xl mb-10">
+            <p className="text-lg text-gray-700 text-justify mb-6">
+              Debate in law faculty is a cornerstone of legal education, serving as a dynamic arena where future lawyers hone the critical skills necessary for a successful career in law. It is far more than a mere academic exercise; it is a simulated courtroom or legislative chamber designed to cultivate rigorous analytical thinking, persuasive argumentation, and a deep understanding of complex legal principles. At its core, legal debate demands meticulous preparation. Students must thoroughly research case law, statutes, and legal theories to build a robust argument. This process teaches them not only how to find relevant legal sources but also how to synthesize and apply them to specific factual scenarios, much like preparing for a real trial or crafting a legal brief.
+            </p>
+            <p className="text-lg text-gray-700 text-justify mb-6">
+              The actual debate itself is an exercise in intellectual agility. Participants learn to articulate their positions with clarity and precision, anticipating counterarguments and responding effectively under pressure. They develop the art of persuasion, mastering how to structure an argument logically, use evidence compellingly, and appeal to reason and principle. These skills are vital for courtroom advocacy, client negotiations, and legal writing. Furthermore, legal debate fosters critical listening skills. To counter an opponent's argument effectively, one must first fully comprehend it, a skill essential for cross-examination and negotiation. This constant exchange of ideas also encourages students to view legal issues from multiple perspectives, challenging their assumptions and promoting a more nuanced understanding of justice and the law's inherent complexities.
+            </p>
+            <p className="text-lg text-gray-700 text-justify mb-6">
+              Ultimately, debate in law faculty bridges the gap between legal theory and practice. It equips students with the confidence and competence to advocate effectively, think on their feet, and navigate the adversarial nature of the legal system. It is an invaluable training ground that prepares students to become articulate, thoughtful, and effective legal professionals.
+            </p>
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

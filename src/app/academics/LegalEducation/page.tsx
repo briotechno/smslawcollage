@@ -10,6 +10,7 @@ import {
   Gavel,
   Shield,
   Building,
+  Scale3D,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -122,6 +123,165 @@ const LegalEducation = () => {
       {/* Features Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-600/10 rounded-full mb-6">
+              <Gavel className="w-10 h-10 text-purple-600" />
+            </div>
+            <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900">
+              Legal <span className="text-purple-600"> Education In India
+              </span>
+            </h1>
+            <div className="w-24 h-1 bg-purple-600 mx-auto"></div>
+          </motion.div >
+          <div className="rounded-xl p-8 bg-white shadow-xl mb-10">
+            <p className="text-lg text-gray-700 text-justify mb-6">
+              Legal education in India is crucial for creating a just society by equipping students with legal knowledge and fostering law-abiding citizens. Its objectives have evolved from solely training lawyers for courts to preparing graduates for diverse roles like policymakers and administrators, with a growing emphasis on social responsibility and practical skills. Indian legal education has roots in the British system but is adapting to modern global challenges by expanding its curriculum, promoting critical thinking, and integrating theoretical and practical learning to meet the demands of the legal profession and a complex society. </p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-600/10 rounded-full mb-6">
+              <Scale className="w-10 h-10 text-purple-600" />
+            </div>
+            <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900">
+              Careers In <span className="text-purple-600"> After Legal Area
+              </span>
+            </h1>
+            <div className="w-24 h-1 bg-purple-600 mx-auto"></div>
+          </motion.div >
+          <p className="text-lg text-gray-700 text-justify mb-6">
+            Careers in the legal field are diverse and include traditional roles like <span className="text-purple-600 font-bold">attorney, judge, and prosecutor</span>, as well as non-lawyer positions such as <span className="text-purple-600 font-bold">paralegal, court reporter, and legal assistant</span>. Specializations range from corporate and environmental law to <span className="text-purple-600 font-bold">intellectual property and criminal law</span>, while some roles, like <span className="text-purple-600 font-bold">legal journalism or legal tech consulting</span> blend legal skills with other fields.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-10">
+
+            {/* Lawyer roles */}
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h4 className="text-xl font-semibold text-purple-600 mb-4">
+                Lawyer roles</h4>
+
+              <ul className="list-disc mt-2 pl-6 space-y-3 text-gray-700">
+                <li><span className="font-bold">
+                  Corporate Lawyer:</span>
+                  Advises companies on legal matters, contracts, and compliance.</li>
+
+                <li><span className="font-bold">
+                  Litigation Lawyer:</span>
+                  Represents clients in court proceedings.</li>
+
+                <li><span className="font-bold">
+                  Public Prosecutor: </span>
+                  Represents the state in criminal trials.</li>
+
+                <li><span className="font-bold">
+                  Judge or Magistrate:</span>
+                  Works in the judiciary to administer justice.</li>
+
+                <li><span className="font-bold">
+                  Intellectual Property Lawyer:</span>
+                  Focuses on patents, copyrights, and trademarks.</li>
+
+                <li><span className="font-bold">
+                  Environmental Lawyer:</span>
+                  Handles cases related to pollution, natural resources, and ecological issues.</li>
+
+                <li><span className="font-bold">
+                  Human Rights Lawyer:</span>
+                  Advocates for individuals whose rights have been violated.</li>
+
+                <li><span className="font-bold">
+                  Legal Advisor:</span>
+                  Provides legal counsel to individuals, corporations, or organizations. </li>
+              </ul>
+            </div>
+
+            {/* Judicial Services Officer */}
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h4 className="text-xl font-semibold text-purple-600 mb-4">Judicial Services Officer</h4>
+
+              <p className="text-gray-700">This prestigious career involves becoming a judge or magistrate by clearing the Judicial Services Examination.</p>
+
+              <ul className="list-disc mt-2 pl-6 space-y-3 text-gray-700">
+                <li><span className="font-bold">
+                  Responsibilities:</span>
+                  Adjudicate cases, interpret laws, and deliver judgments.</li>
+
+                <li><span className="font-bold">
+                  Salary:</span>
+                  Generally, offers higher starting salaries and includes opportunities for advancement. </li>
+              </ul>
+            </div>
+
+            {/* Public Prosecutor */}
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h4 className="text-xl font-semibold text-purple-600 mb-4">Public Prosecutor</h4>
+
+              <p className="text-gray-700">Working for the government, a public prosecutor represents the state in criminal proceedings. </p>
+
+              <ul className="list-disc mt-2 pl-6 space-y-3 text-gray-700">
+                <li><span className="font-bold">
+                  Responsibilities:</span>
+                  Present evidence, question witnesses, and work closely with law enforcement agencies.</li>
+              </ul>
+            </div>
+
+            {/*  */}
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h4 className="text-xl font-semibold text-purple-600 mb-4">
+                Non-lawyer and specialized roles</h4>
+
+              <ul className="list-disc mt-2 pl-6 space-y-3 text-gray-700">
+                <li><span className="font-bold">
+                  Paralegal:</span>
+                  Supports lawyers with research, document preparation, and administrative tasks.</li>
+
+                <li><span className="font-bold">
+                  Court Reporter:</span>
+                  Creates official transcripts of legal proceedings.</li>
+
+                <li><span className="font-bold">
+                  Legal Journalist::</span>
+                  Reports on and interprets legal cases and issues for the public.</li>
+
+                <li><span className="font-bold">
+                  Legal Consultant:</span>
+                  Offers expert advice on legal matters without representing clients in court.</li>
+
+                <li><span className="font-bold">
+                  Compliance Officer:</span>
+                  Ensures that a company adheres to legal and regulatory standards.</li>
+
+                <li><span className="font-bold">
+                  Legal Tech Consultant:</span>
+                  Helps legal firms implement technology for better efficiency.</li>
+
+                <li><span className="font-bold">
+                  Mediator:</span>
+                  Helps parties resolve disputes outside of court.</li>
+
+                <li><span className="font-bold">
+                  Legal Assistant:</span>
+                  Provides administrative and legal support in a law office</li>
+
+                <li><span className="font-bold">
+                  Legal Researcher:</span>
+                  Conducts in-depth legal research for law firms, corporations, or government bodies</li>
+              </ul>
+            </div>
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -1,18 +1,64 @@
+"use client";
+
 import React from 'react'
+import { Megaphone } from 'lucide-react'
+import { motion } from "framer-motion";
 
 const ElocutionPublicSpeaking = () => {
     return (
         <div id="Elocution-Public-Speaking" className="bg-gray-50 py-40">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
-                    Elocution <span className="text-purple-600"> & Public Speaking
-                    </span>
-                </h1>
-                <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="text-center mb-16"
+                >
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-600/10 rounded-full mb-6">
+                        <Megaphone className="w-10 h-10 text-purple-600" />
+                    </div>
+                    <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
+                        Elocution <span className="text-purple-600"> & Public Speaking
+                        </span>
+                    </h1>
+                    <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
+                </motion.div >
+
+                <div className="rounded-xl p-8 bg-white shadow-xl mb-10">
+                    <p className="text-lg text-gray-700 text-justify mb-6">
+                        A law faculty, elocution and public speaking are not merely desirable skills but fundamental tools for professional success. Elocution, the art of clear and expressive speech, provides the technical foundation, while public speaking is the broader, tactical application of oratory in various legal settings. Together, they equip future lawyers with the capacity to communicate complex arguments persuasively and confidently.
+                    </p>
+                    <div className="bg-white p-6 rounded-lg shadow-md">
+                        <p className='text-gray-700'>Law schools are instrumental in developing these competencies. Through simulated courtroom settings, oratory skills are continuously refined via:</p>
+
+                        <ul className="list-disc mt-2 pl-6 space-y-3 text-gray-700">
+                            <li><span className="font-bold">
+                                Moot Courts:</span>
+                                Students present mock appellate arguments, learning to structure logical presentations and respond to intense questioning from judges.</li>
+
+                            <li><span className="font-bold">
+                                Debate and Discussion:</span>
+                                Classroom participation and dedicated debate clubs sharpen a student’s ability to think on their feet and articulate ideas clearly.</li>
+
+                            <li><span className="font-bold">
+                                Client Interactions: </span>
+                                Law school curricula often include role-playing exercises that teach students to communicate intricate legal matters to lay clients.</li>
+                        </ul>
+                    </div>
+                    <p className="text-lg text-gray-700 text-justify my-6">
+                        These practical applications reinforce the skills of effective delivery. Mastering vocal techniques such as tone, pace, and projection is crucial for capturing and holding an audience's attention. A lawyer's non-verbal communication—including eye contact, posture, and gestures—also plays a significant role in projecting authority and conviction.
+                    </p>
+                    <p className="text-lg text-gray-700 text-justify mb-6">
+                        The benefits extend far beyond the campus. Strong public speaking skills are essential for courtroom advocacy, where a clear, confident, and well-structured argument can sway judges and juries. Furthermore, these skills are vital in negotiations, client counselling, and professional networking. Ultimately, proficiency in elocution and public speaking enhances a lawyer's credibility, influence, and overall career trajectory.
+                    </p>
+                </div>
+
                 <div className="space-y-8">
                     {/* Hero Section */}
                     <div className="bg-gradient-to-r from-purple-900 to-purple-600 text-white p-8 rounded-xl mb-12">
-                        <p className="text-xl md:text-2xl leading-relaxed text-center max-w-3xl mx-auto">
+                        <p className="text-xl md:text-2xl leading-relaxed text-center max-w-7xl mx-auto">
                             Developing strong public speaking and advocacy skills is crucial for success in the legal profession.
                             Our comprehensive program helps students master these essential skills through structured training and practice.
                         </p>

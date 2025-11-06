@@ -57,7 +57,7 @@ const IntellectualPropertyLawClinicpage = () => {
               <span className="text-purple-600"> Property Law Clinic</span>
             </h3>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
-            <div className="rounded-xl p-8 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 shadow-xl mb-10">
+            <div className="rounded-xl p-8 bg-white shadow-xl mb-10">
               <p className="text-lg text-gray-700 text-justify mb-6">
                 The Intellectual Property Law Clinic is committed to fostering innovation, protecting creative works, and promoting legal literacy in intellectual property (IP) rights. We offer free legal aid, conduct research, and organize outreach programs to support inventors, artists, entrepreneurs, and students.
               </p>

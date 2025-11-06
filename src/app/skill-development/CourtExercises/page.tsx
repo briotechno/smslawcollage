@@ -1,19 +1,44 @@
+"use client";
+
 import React from 'react'
+import { Gavel } from 'lucide-react'
+import { motion } from "framer-motion";
 
 const CourtExercises = () => {
     return (
         <div id="Intra-Moot-Court-Exercises" className="bg-gray-50 py-40">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
-                    Intra Moot <span className="text-purple-600"> Court Exercises
-                    </span>
-                </h1>
-                <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="text-center mb-16"
+                >
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-600/10 rounded-full mb-6">
+                        <Gavel className="w-10 h-10 text-purple-600" />
+                    </div>
+                    <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
+                        Intra Moot <span className="text-purple-600"> Court Exercises
+                        </span>
+                    </h1>
+                    <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
+                </motion.div >
+
+
                 <div className="space-y-8">
-                    <p className="text-lg text-gray-700 leading-relaxed text-center">
-                        Our Intra Moot Court Exercises provide students with practical courtroom experience in a controlled learning environment.
-                        These exercises are designed to bridge the gap between theoretical knowledge and practical advocacy skills.
-                    </p>
+                    <div className="rounded-xl p-8 bg-white shadow-xl mb-10">
+                        <p className="text-lg text-gray-700 text-justify mb-6">
+                            Intra Moot Court exercises serve as foundational, simulated courtroom experiences within a law school, crucial for bridging the gap between legal theory and practical application. These internal competitions provide a safe, structured environment for students to develop essential legal skills before facing the pressures of external competitions or real courtrooms. The primary goal is to train students in legal research, argument construction, and oral advocacy. Participants receive a hypothetical case problem and are tasked with researching relevant statutes and precedents, drafting persuasive written submissions (memorials or briefs) for both the appellant and respondent sides, and presenting their arguments orally before a bench of judges (usually professors, senior students, or practicing attorneys). This process demystifies courtroom procedure and protocol, from proper attire to addressing the bench respectfully.
+                        </p>
+                        <p className="text-lg text-gray-700 text-justify mb-6">
+                            A significant benefit is the development of critical thinking and analytical abilities. Students must anticipate counterarguments and respond effectively to spontaneous questions from the judges. This adversarial process enhances confidence, communication skills, and the ability to think on one's feet—traits vital for any successful legal professional. The feedback received from the judges is invaluable, highlighting areas for improvement in research depth, rhetorical clarity, and overall presentation.
+                        </p>
+                        <p className="text-lg text-gray-700 text-justify mb-6">
+                            Beyond core legal skills, moot courts foster teamwork and collaboration when working with a partner or team. They also provide networking opportunities and can significantly boost a student's resume, demonstrating practical experience to potential employers. Ultimately, intra moot court exercises are an indispensable component of legal education, providing a holistic and practical training ground that prepares students for the complexities of a legal career.
+                        </p>
+                    </div>
 
                     <div className="grid md:grid-cols-2 gap-8 mt-8">
                         <div className="bg-white p-6 rounded-lg shadow-md">

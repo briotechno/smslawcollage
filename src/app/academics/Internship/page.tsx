@@ -17,102 +17,64 @@ const Internship = () => {
           doing them.” – Aristotle
         </p>
 
+        <div className="rounded-xl p-8 bg-white shadow-xl mb-10">
+          <p className="text-lg text-gray-700 text-justify mb-6">
+            The internship program is a cornerstone of modern legal education, serving as the crucial link between academic theory and professional practice. It moves beyond traditional classroom learning to provide law students with a vital opportunity to gain hands-on experience, develop essential legal skills, and prepare for the realities of a dynamic legal profession.
+          </p>
+        </div>
+
         {/* Section 1: Introduction */}
         <div className="bg-white shadow-md rounded-xl p-6 md:p-10 mb-12">
           <h2 className="text-xl font-semibold text-purple-600 mb-4">
-            Significance of Internship in the Field of Law
+            Bridging the Gap Between Theory and Practice
           </h2>
           <p className="text-gray-700 leading-relaxed mb-6 text-justify">
-            The purpose of the internship program is to gain practical
-            knowledge in the field of law. While interning, the students will be
-            able to apply the practical aspect of the theories of academic
-            learning in the professional setting under the guidance and
-            supervision of both a professional staff member and a university
-            faculty advisor. At the basis of the Internship, the students will
-            be evaluated on their work attributes and contributions in the
-            assigned work or community setting. The students will have various
-            experiential learning opportunities during the internship program.
-          </p>
-          <p className="text-gray-700 leading-relaxed text-justify">
-            Clinical Legal Education is the essence of Modern Legal Education
-            and thus to give emphasis on the same, SMS Law College has designed
-            the Internship Programme for the students following BCI guidelines.
+            While law school provides a strong foundation in legal principles and doctrines, it cannot fully replicate the complexities of real-world legal scenarios. Internships bridge this gap by exposing students to live cases, actual client interactions, and courtroom procedures under the supervision of experienced legal professionals. This practical application reinforces theoretical knowledge and helps students understand how laws function in society, which is difficult to achieve through textbooks alone.
           </p>
         </div>
 
         {/* Section 2: Skills */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-12">
-          {/* Text Section */}
-          <div className="space-y-6 order-2 md:order-1">
-            <h3 className="text-2xl sm:text-3xl font-bold text-purple-600 text-center md:text-left">
-              Practical Legal Skills Required
-            </h3>
+        <div className="grid md:grid-cols-1 gap-8 mb-10">
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h4 className="text-xl font-semibold text-purple-600 mb-4">Development of Core Legal Skills</h4>
 
-            <div className="space-y-4 text-gray-700 text-justify text-sm sm:text-base leading-relaxed">
-              <p>
-                <span className="font-semibold text-purple-600">Analytical Skills:</span>{" "}
-                Knowledge of substantive and legal procedure, identifying issues,
-                designing strategies for resolution, motivating and coordinating action
-                from multiple parties.
-              </p>
-              <p>
-                <span className="font-semibold text-purple-600">Research and Writing Skills:</span>{" "}
-                Conducting legal research, drafting contracts, letters, and documents,
-                and citing to legal authority.
-              </p>
-              <p>
-                <span className="font-semibold text-purple-600">Communication Skills:</span>{" "}
-                Oral communication, client counselling, listening skills, and persuasive
-                writing.
-              </p>
-              <p>
-                All practical legal skills are rooted in “tacit knowledge” – the type of
-                knowledge that is difficult to transfer by writing down or verbalizing.
-                It is much more essential to experience the practice of law in order to
-                acquire these skills.
-              </p>
-            </div>
-          </div>
+            <p className="text-gray-700">A primary objective of legal internships is the development of critical professional skills. Interns are actively involved in tasks such as:</p>
 
-          {/* Image Section */}
-          <div className="flex justify-center order-1 md:order-2">
-            <Image
-              src="/assets/Noimage.jpg"
-              alt="Internship Visual"
-              width={400}
-              height={300}
-              className="w-full max-w-[350px] sm:max-w-[400px] rounded-lg shadow-md object-contain"
-            />
+            <ul className="list-disc mt-2 pl-6 space-y-3 text-gray-700">
+              <li><span className="font-bold">
+                Legal Research and Analysis:</span>
+                 Conducting in-depth research using legal databases and preparing research notes and memos for their supervisors.</li>
+
+              <li><span className="font-bold">
+                Drafting and Writing:</span>
+                 Preparing various legal documents, including contracts, agreements, petitions, affidavits, and legal opinions, which hones their ability to write in an organized, concise, and persuasive manner.</li>
+
+              <li><span className="font-bold">
+                Client Interaction </span>
+                 Observing and eventually participating in client meetings and interviews, which helps them develop communication skills, empathy, and an understanding of client confidentiality and ethical considerations.</li>
+
+              <li><span className="font-bold">
+                Courtroom Exposure:</span>
+                 Attending court hearings, arbitrations, and legal proceedings, providing insight into courtroom dynamics, advocacy skills, and professional etiquette.</li>
+            </ul>
           </div>
         </div>
 
         {/* Section 3: Objectives */}
         <div className="bg-white shadow-md rounded-xl p-6 md:p-10 mb-12">
-          <h3 className="text-2xl font-semibold text-purple-600 mb-4">
-            Objectives of Internship Programme
-          </h3>
-          <ul className="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed text-justify">
-            <li>
-              To provide students with the necessary information for developing
-              their careers and for defining professional strategies in future.
-            </li>
-            <li>
-              To apply the knowledge and skills learned in the classroom to
-              practical life and to develop new skills by being involved in
-              actual cases and projects.
-            </li>
-            <li>
-              To showcase the socio-legal reality by practical experiences.
-            </li>
-            <li>
-              To empower students for effective participation in law school
-              classes.
-            </li>
-          </ul>
+          <h2 className="text-xl font-semibold text-purple-600 mb-4">
+            Career Orientation and Professional Growth
+          </h2>
+          <p className="text-gray-700 leading-relaxed mb-6 text-justify">
+            Internships offer invaluable exposure to the diverse areas of law, such as corporate law, litigation, human rights, and intellectual property. This exposure allows students to explore different specializations and identify their true interests, guiding their career objectives and helping them make informed decisions about their future paths.
+          </p>
+          <p className="text-gray-700 leading-relaxed mb-6 text-justify">
+            Furthermore, internships are a prime opportunity for professional networking. Working alongside experienced lawyers and judges allows students to build valuable connections that can lead to mentorship and future job opportunities. A strong internship record also significantly enhances a student's resume, demonstrating practical experience and a commitment to the profession, which gives them a competitive edge in the job market.
+          </p>
         </div>
 
         {/* Section 4: Table */}
-        <div className="bg-white shadow-md rounded-xl p-6 md:p-10">
+        {/* <div className="bg-white shadow-md rounded-xl p-6 md:p-10">
           <h3 className="text-2xl font-semibold text-purple-600 mb-6">
             Classification of Internship at SMS Law College
           </h3>
@@ -157,7 +119,7 @@ const Internship = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -4,25 +4,14 @@ import React from "react";
 
 const mentors = [
   {
-    name: "Hon’ble Mr. Justice Ashokkumar Laxminarayan Dave",
-    title: "Former Judge of Gujarat High Court",
-    image: "/assets/Noimage.jpg",
+    name: "Hon'ble Mr. Justice V. P. Patel",
+    title: "Former Judge, High Court of Gujarat ",
+    image: "/assets/V. P. Patel.jpg",
   },
-  {
-    name: "Hon’ble Mr. Justice Babulal Chandulal Patel",
-    title:
-      "Former Chief Justice of Jammu & Kashmir High Court and Delhi High Court",
-    image: "/assets/Noimage.jpg",
-  },
-  {
-    name: "Hon’ble Ms. Justice Rekha Manharlal Doshit",
-    title: "Former Judge of Gujarat High Court",
-    image: "/assets/Noimage.jpg",
-  },
-  {
-    name: "Hon’ble Mr. Justice Ravikumar Rameshwardayal Tripathi",
-    title: "Former Judge of Gujarat High Court",
-    image: "/assets/Noimage.jpg",
+{
+    name: "Hon'ble Dr. Justice Ashokkumar C. Joshi",
+    title: "Former Judge, High Court of Gujarat ",
+    image: "/assets/Ashokkumar C. Joshi.jpg",
   },
 ];
 
@@ -35,6 +24,12 @@ const Mentors = () => {
           Mentors <span className="text-purple-600">On Campus</span>
         </h1>
         <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
+
+        <div className="bg-white shadow-md rounded-xl p-6 md:p-10 mb-12">
+          <p className="text-gray-700 leading-relaxed mb-6 text-justify">
+            A mentor in legal education is crucial for bridging the gap between academic study and professional practice. They offer invaluable practical insights, ethical guidance, and real-world wisdom that textbooks often miss. A mentor helps shape a student's professional identity, offering a safe space for discussing career aspirations and navigating the complexities of the legal field. Through personalized feedback and encouragement, they build confidence, refine critical thinking skills, and model professional integrity. Ultimately, the mentor’s role is about holistic development, ensuring students are not just knowledgeable, but also ethical, competent, and ready to thrive as future legal professionals.
+          </p>
+        </div>
 
         {/* Mentors List */}
         <div className="space-y-12">

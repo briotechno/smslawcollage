@@ -41,15 +41,15 @@ const PrincipalNotice = () => {
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <div className="relative rounded-2xl overflow-hidden">
                             <Image
-                                src="/assets/HeroSection/HeroSection6.jpeg"
+                                src="/assets/HeroSection/PrincipalImage.png"
                                 alt="SMS Law College Campus"
                                 width={600}
                                 height={400}
-                                className="w-full h-[400px] object-cover"
+                                className="w-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                            <div className="absolute inset-0 "></div>
                         </div>
                     </motion.div>
 
@@ -63,12 +63,8 @@ const PrincipalNotice = () => {
                     >
                         <div className="space-y-6">
                             <p className="text-lg text-gray-700 leading-relaxed">
-                                <strong className="text-purple-600">SMS Law College</strong>{" "}
-                                stands as a beacon of excellence in legal education, committed
-                                to nurturing the next generation of legal professionals. Our
-                                institution combines traditional legal wisdom with modern
-                                pedagogical approaches to create a comprehensive learning
-                                environment.
+                                <strong className="text-purple-600">Welcome to our SMS Law College</strong>{" "}
+                                We are committed to providing you with a rigorous and enriching legal education that will prepare you to make a meaningful impact on society. Law is a powerful instrument for social change, and it is our shared responsibility to uphold the ideals of justice and the constitution. We believe that quality education results from hard work and dedication, and our faculty is here to guide you. We encourage you to embrace the theoretical knowledge and practical experiences offered through our curriculum, from moot court competitions to internships. Step out of your comfort zone, engage in extracurricular activities, and become the compassionate and responsible legal professionals our society needs. Together, we will strive for academic excellence and equip you with the skills and values to uphold justice and serve the community. 
                             </p>
 
                             <p className="text-lg text-gray-700 leading-relaxed">

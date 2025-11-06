@@ -26,45 +26,60 @@ const AntiRaggingCommittee = () => {
 
   const committeeMembers = [
     {
-      name: "Dr. Mayuri H. Pandya",
-      designation: "Dean, Faculty of Law",
+      name: "Dr. Mahesh Patel",
+      designation: "Principal In charge",
       position: "Chairperson",
-      email: "dean@smslawcollege.edu",
+      email: "smslcmeh@gmail.com",
       phone: "+91-98792 85000",
     },
     {
-      name: "Ms. Vidhi Shah",
+      name: "Dr. Daxa Paramar",
       designation: "Assistant Professor",
-      position: "Member Secretary",
-      email: "vidhi.shah@smslawcollege.edu",
-      phone: "+91-98792 85000",
-    },
-    {
-      name: "Ms. Payal Mehta",
-      designation: "Assistant Professor (Non-Law)",
       position: "Member",
-      email: "payal.mehta@smslawcollege.edu",
-      phone: "+91-98792 85000",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-94298 06033",
     },
     {
-      name: "Ms. Suja Nair",
-      designation: "Assistant Professor (Law)",
+      name: "Dr. Bhargavi Rao",
+      designation: "Assistant Professor",
       position: "Member",
-      email: "suja.nair@smslawcollege.edu",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-94298 06033",
+    },
+    {
+      name: "Manish Mistri",
+      designation: "Reporter, TV-9 Gujarati",
+      position: "Member",
+      email: "smslcmeh@gmail.com",
       phone: "+91-98792 85000",
     },
     {
-      name: "Dr. Prachi Motiyani",
-      designation: "Assistant Professor, Gujarat University",
-      position: "Third Party Member",
-      email: "prachi.motiyani@gujaratuniversity.edu",
+      name: "Shri Amrutbhai Patel",
+      designation: "NGO Member",
+      position: "Member",
+      email: "smslcmeh@gmail.com",
       phone: "+91-98792 85000",
     },
     {
-      name: "Ms. Urvashi Sharma",
-      designation: "Student Representative (Semester I, 2021-26 Batch)",
-      position: "Student Member",
-      email: "urvashi.sharma@student.smslawcollege.edu",
+      name: "Mr. Maheshbhai Acharya",
+      designation: "Representative of Parents",
+      position: "Member",
+       email: "smslcmeh@gmail.com",
+      phone: "+91-98792 85000",
+    },
+
+     {
+      name: "Mr. Vishal Patel",
+      designation: "Student",
+      position: "Member",
+      email: "smslcmeh@gmail.com",
+      phone: "+91-98792 85000",
+    },
+    {
+      name: "Mr. Yuvaraj Darbar",
+      designation: "Student",
+      position: "Member",
+      email: "smslcmeh@gmail.com",
       phone: "+91-98792 85000",
     },
   ];
@@ -320,7 +335,7 @@ const AntiRaggingCommittee = () => {
                   </p>
                   <p className="text-sm text-gray-600 mb-4">{member.designation}</p>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 flex flex-col items-center">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Mail className="w-4 h-4 text-purple-600" />
                     <span className="truncate">{member.email}</span>
