@@ -125,11 +125,11 @@ export default function Header() {
     >
       {/* Top banner strip: responsive for both mobile and desktop */}
       <div className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 lg:pt-1">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 py-0 lg:px-10 lg:pt-1">
           <div className="flex flex-col md:flex-row items-center justify-between py-2 md:h-20">
             {/* Left: College logo and info - responsive */}
             <div className="flex items-center w-full md:w-auto">
-              <div className="h-28 w-28 relative flex-shrink-0">
+              <div className="h-20 w-20 lg:h-28 lg:w-28 relative flex-shrink-0">
                 <Image src="/assets/logo2.png" alt="College logo" fill className="object-contain" />
               </div>
               <div className="flex-1 text-center md:text-left ml-[-15px]">
