@@ -244,7 +244,13 @@ export default function Header() {
                 <Link
                   href={item.href}
                   className="flex-1 px-4 py-3 text-white font-medium hover:bg-purple-700 rounded-lg transition-all duration-200"
-                  onClick={() => !item.hasDropdown && setMobileMenuOpen(false)}
+                  onClick={() => {
+                    // Always close the mobile menu after navigating
+                    setMobileMenuOpen(false);
+
+                    // Also close any open dropdowns
+                    setActiveMobileDropdown(null);
+                  }}
                 >
                   <span className="flex items-center gap-2 relative">
                     <span>{item.name}</span>
