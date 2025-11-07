@@ -6,7 +6,7 @@ const mentors = [
   {
     name: "Hon'ble Mr. Justice V. P. Patel",
     title: "Former Judge, High Court of Gujarat ",
-    image: "/assets/Mentors/V. P. Patel.jpg",
+    image: "/assets/Mentors/V. P. Patel.png",
   },
   {
     name: "Hon'ble Dr. Justice Ashokkumar C. Joshi",

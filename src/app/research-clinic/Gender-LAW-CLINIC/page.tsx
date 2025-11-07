@@ -115,8 +115,9 @@ const GenderLAWCLINICpage = () => {
                     Partnering with pro-bono lawyers, activists, NGOs, and government bodies to ensure holistic support for clients, which may include connecting them with shelters, job training, or medical services.</li>
                 </ul>
               </div>
+            </div>
 
-              {/*  */}
+            {/*  */}
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h4 className="text-xl font-semibold text-purple-600 mb-4">
                   Impact on Legal Education and Social Justice</h4>
@@ -141,8 +142,6 @@ const GenderLAWCLINICpage = () => {
                     Through their case work and research, clinics strengthen existing literature on gender studies and produce valuable resources, such as handbooks and advocacy manuals, that can be used by activists and other legal professionals globally.</li>
                 </ul>
               </div>
-
-            </div>
 
             <div className="rounded-xl p-8 bg-white shadow-xl mb-10">
               <h4 className="text-xl font-semibold text-purple-600 mb-4">
