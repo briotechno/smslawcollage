@@ -141,7 +141,7 @@ export default function Header() {
             {/* Right: Partner logos - hidden on mobile, shown on md+ */}
             <div className="hidden md:flex items-center gap-4 justify-end mt-2 md:mt-0">
               <div className="h-32 w-32  relative">
-                <Image src="/assets/headerImage/g20.png" alt="G20" fill className="object-contain" />
+                <Image src="/assets/headerImage/G20.png" alt="G20" fill className="object-contain" />
               </div>
               <div className="h-16 w-16 relative">
                 <Image src="/assets/headerImage/mhrd.png" alt="MHRD" fill className="object-contain" />
