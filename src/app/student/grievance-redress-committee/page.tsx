@@ -225,11 +225,11 @@ const GrievanceRedressCommittee = () => {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-purple-600" />
-                    <span className="text-gray-700">+91 98792 85000</span>
+                    <span className="text-gray-700">+91-98792 85000</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-purple-600" />
-                    <span className="text-gray-700">grievance@smslawcollege.edu</span>
+                    <span className="text-gray-700">smslcmeh@gmail.com</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Clock className="w-5 h-5 text-purple-600" />

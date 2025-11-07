@@ -18,7 +18,7 @@ const Internship = () => {
         </p>
 
         <div className="rounded-xl p-8 bg-white shadow-xl mb-10">
-          <p className="text-lg text-gray-700 text-justify mb-6">
+          <p className="text-lg text-gray-700 text-justify">
             The internship program is a cornerstone of modern legal education, serving as the crucial link between academic theory and professional practice. It moves beyond traditional classroom learning to provide law students with a vital opportunity to gain hands-on experience, develop essential legal skills, and prepare for the realities of a dynamic legal profession.
           </p>
         </div>

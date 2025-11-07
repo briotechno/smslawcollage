@@ -110,7 +110,7 @@ const CourtExercises = () => {
                     </div>
 
                     {/* Upcoming Moot Court Sessions */}
-                    <div className="bg-gradient-to-r from-purple-100 to-purple-50 p-6 rounded-lg mt-8">
+                    {/* <div className="bg-gradient-to-r from-purple-100 to-purple-50 p-6 rounded-lg mt-8">
                         <h3 className="text-xl font-semibold text-purple-600 mb-4">Upcoming Moot Court Sessions</h3>
                         <div className="grid md:grid-cols-3 gap-4">
                             <div className="bg-white p-4 rounded-lg shadow-sm border border-purple-100">
@@ -129,10 +129,10 @@ const CourtExercises = () => {
                                 <p className="text-sm text-gray-600">Merger & Acquisition Case</p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Success Stories */}
-                    <div className="bg-gray-50 p-6 rounded-lg mt-8">
+                    {/* <div className="bg-gray-50 p-6 rounded-lg mt-8">
                         <h3 className="text-xl font-semibold text-purple-600 mb-6">Success Stories</h3>
                         <div className="space-y-4">
                             <div className="flex gap-4 items-start">
@@ -158,10 +158,10 @@ const CourtExercises = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Resources Section */}
-                    <div className="grid md:grid-cols-2 gap-6 mt-8">
+                    {/* <div className="grid md:grid-cols-2 gap-6 mt-8">
                         <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                             <h3 className="text-xl font-semibold text-purple-600 mb-4">Digital Resources</h3>
                             <ul className="space-y-3">
@@ -212,9 +212,9 @@ const CourtExercises = () => {
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="text-center mt-8 bg-gradient-to-r from-purple-600 to-purple-700 p-8 rounded-lg text-white">
+                    {/* <div className="text-center mt-8 bg-gradient-to-r from-purple-600 to-purple-700 p-8 rounded-lg text-white">
                         <p className="font-semibold text-xl mb-3">Ready to Participate?</p>
                         <p className="mb-4">
                             All students are required to participate in at least two moot court exercises per semester.
@@ -223,7 +223,7 @@ const CourtExercises = () => {
                         <div className="inline-block bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-colors">
                             Visit Moot Court Committee
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

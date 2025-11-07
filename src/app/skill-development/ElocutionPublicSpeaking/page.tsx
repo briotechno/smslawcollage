@@ -55,9 +55,9 @@ const ElocutionPublicSpeaking = () => {
                     </p>
                 </div>
 
-                <div className="space-y-8">
+                {/* <div className="space-y-8"> */}
                     {/* Hero Section */}
-                    <div className="bg-gradient-to-r from-purple-900 to-purple-600 text-white p-8 rounded-xl mb-12">
+                    {/* <div className="bg-gradient-to-r from-purple-900 to-purple-600 text-white p-8 rounded-xl mb-12">
                         <p className="text-xl md:text-2xl leading-relaxed text-center max-w-7xl mx-auto">
                             Developing strong public speaking and advocacy skills is crucial for success in the legal profession.
                             Our comprehensive program helps students master these essential skills through structured training and practice.
@@ -76,10 +76,10 @@ const ElocutionPublicSpeaking = () => {
                                 <div className="text-sm">Annual Events</div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Featured Achievement */}
-                    <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-lg mb-8">
+                    {/* <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-lg mb-8">
                         <div className="flex items-center gap-3 mb-3">
                             <svg className="w-8 h-8 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.616a1 1 0 01.894-1.79l1.599.8L9 4.323V3a1 1 0 011-1zm-5 8.274l-.818 2.552c.25.112.526.174.818.174.292 0 .569-.062.818-.174L5 10.274zm10 0l-.818 2.552c.25.112.526.174.818.174.292 0 .569-.062.818-.174L15 10.274z" clipRule="evenodd" />
@@ -89,9 +89,9 @@ const ElocutionPublicSpeaking = () => {
                         <p className="text-yellow-800">
                             Our students won the National Law School Debate Championship 2025, competing against 50+ premier law institutions across the country.
                         </p>
-                    </div>
+                    </div> */}
 
-                    <div className="grid md:grid-cols-2 gap-8 mt-8">
+                    {/* <div className="grid md:grid-cols-2 gap-8 mt-8">
                         <div className="bg-white p-6 rounded-lg shadow-md">
                             <h3 className="text-xl font-semibold text-purple-600 mb-4">Regular Training Sessions</h3>
                             <ul className="list-disc pl-6 space-y-3 text-gray-700">
@@ -113,9 +113,9 @@ const ElocutionPublicSpeaking = () => {
                                 <li>Client counseling competitions</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="bg-purple-50 p-6 rounded-lg mt-8">
+                    {/* <div className="bg-purple-50 p-6 rounded-lg mt-8">
                         <h3 className="text-xl font-semibold text-purple-600 mb-4">Skill Development Focus Areas</h3>
                         <div className="grid md:grid-cols-3 gap-4">
                             <div className="bg-white p-4 rounded shadow">
@@ -131,9 +131,9 @@ const ElocutionPublicSpeaking = () => {
                                 <p className="text-sm text-gray-600">Develop quick thinking and analytical skills for impromptu responses.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="mt-8">
+                    {/* <div className="mt-8">
                         <h3 className="text-xl font-semibold text-purple-600 mb-4">Practice Opportunities</h3>
                         <div className="bg-white p-6 rounded-lg shadow-md">
                             <ul className="list-disc pl-6 space-y-3 text-gray-700">
@@ -143,10 +143,10 @@ const ElocutionPublicSpeaking = () => {
                                 <li><span className="font-semibold">Mock Presentations:</span> Simulated court scenarios and client meetings</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Testimonials */}
-                    <div className="bg-gray-50 py-8 rounded-lg mt-8">
+                    {/* <div className="bg-gray-50 py-8 rounded-lg mt-8">
                         <h3 className="text-xl font-semibold text-purple-600 mb-6 text-center">Student Testimonials</h3>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -178,10 +178,10 @@ const ElocutionPublicSpeaking = () => {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Resources Section */}
-                    <div className="grid md:grid-cols-3 gap-6 mt-8">
+                    {/* <div className="grid md:grid-cols-3 gap-6 mt-8">
                         <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                             <h3 className="font-semibold text-purple-600 mb-4">Learning Materials</h3>
                             <ul className="space-y-2 text-gray-700">
@@ -234,9 +234,9 @@ const ElocutionPublicSpeaking = () => {
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="text-center mt-8 bg-gradient-to-r from-purple-600 to-purple-700 p-8 rounded-lg text-white">
+                    {/* <div className="text-center mt-8 bg-gradient-to-r from-purple-600 to-purple-700 p-8 rounded-lg text-white">
                         <p className="font-semibold text-xl mb-3">Join Our Speaking Club</p>
                         <p className="mb-4">
                             Participate in our weekly speaking club sessions to practice and improve your skills.
@@ -245,8 +245,8 @@ const ElocutionPublicSpeaking = () => {
                         <div className="inline-block bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-colors">
                             Register for Next Session
                         </div>
-                    </div>
-                </div>
+                    </div> */}
+                {/* </div> */}
             </div>
         </div>
     )

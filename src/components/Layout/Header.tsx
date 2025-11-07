@@ -40,7 +40,7 @@ const menuItems = [
       { name: "Environmental Law Clinic", href: "/research-clinic/Environmental-Law-Clinic" },
       { name: "Legal Aid Clinic", href: "/research-clinic/Legal-Aid-Clinic" },
       { name: "Gender Law Clinic", href: "/research-clinic/Gender-LAW-CLINIC" },
-      { name: "Internal Complaint Committee", href: "/research-clinic/Intellectual-Property-Law-Clinic" },
+      { name: "Intellectual Property Law Clinic", href: "/research-clinic/Intellectual-Property-Law-Clinic" },
     ],
   },
   {
