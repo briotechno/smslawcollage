@@ -125,14 +125,14 @@ export default function Header() {
     >
       {/* Top banner strip: responsive for both mobile and desktop */}
       <div className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 lg:pt-1">
           <div className="flex flex-col md:flex-row items-center justify-between py-2 md:h-20">
             {/* Left: College logo and info - responsive */}
             <div className="flex items-center w-full md:w-auto">
-              <div className="h-16 w-16 md:h-20 md:w-20 relative flex-shrink-0">
-                <Image src="/assets/Logonew.png" alt="College logo" fill className="object-contain" />
+              <div className="h-28 w-28 relative flex-shrink-0">
+                <Image src="/assets/logo2.png" alt="College logo" fill className="object-contain" />
               </div>
-              <div className="flex-1 text-center md:text-left px-2">
+              <div className="flex-1 text-center md:text-left ml-[-15px]">
                 <div className="text-base md:text-lg font-semibold text-gray-800">Shri S.M Shah Law Callege</div>
                 <div className="text-xs md:text-sm font-medium text-gray-600 mt-0.5">Avni Seeds Vidhya Sankul Nagalpur Highway Mahesana-384002</div>
               </div>
@@ -140,10 +140,10 @@ export default function Header() {
 
             {/* Right: Partner logos - hidden on mobile, shown on md+ */}
             <div className="hidden md:flex items-center gap-4 justify-end mt-2 md:mt-0">
-              <div className="h-24 w-24  relative">
+              <div className="h-32 w-32  relative">
                 <Image src="/assets/headerImage/g20.png" alt="G20" fill className="object-contain" />
               </div>
-              <div className="h-12 w-12 md:h-14 md:w-14 relative">
+              <div className="h-16 w-16 relative">
                 <Image src="/assets/headerImage/mhrd.png" alt="MHRD" fill className="object-contain" />
               </div>
             </div>

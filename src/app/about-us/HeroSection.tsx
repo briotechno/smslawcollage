@@ -34,8 +34,8 @@ const HeroSection = () => {
     speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 4000,
+    autoplay: true,
+    autoplaySpeed: 2000,
     beforeChange: (_: number, newIndex: number) => setCurrentSlide(newIndex),
   };
 
