@@ -15,6 +15,26 @@ interface Mentor {
 const Faculty = () => {
   const [mentors, setMentors] = useState<Mentor[]>([]);
   const [loading, setLoading] = useState(true);
+  const AdministrativeStaff = [
+    {
+      name: "Mr. Manish Patel ",
+      title: "M.Com, B.Ed, PGDCA, Ph.D (Pursuing)",
+      post: "Jr. Clark",
+      image: "",
+    },
+     {
+      name: "Mr. Vijay Bhil",
+      title: "",
+      post: "Peon  ",
+      image: "",
+    },
+     {
+      name: "Ms. Jyostanaben K Makavana ",
+      title: "",
+      post: "Swiper",
+      image: "",
+    },
+  ];
 
   useEffect(() => {
     const fetchMentors = async () => {
@@ -85,53 +105,108 @@ const Faculty = () => {
         </p>
       ) : (
         <div className="space-y-12 max-w-7xl mx-auto">
-          {mentors.map((mentor: any, index) => (
-            <div
-              key={index}
-              className={`flex flex-col md:flex-row items-center justify-between bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition-all duration-300 ${index % 2 === 1 ? "md:flex-row-reverse" : ""
+          {mentors
+            ?.sort((a: any, b: any) => a.id - b.id)
+            ?.map((mentor: any, index) => (
+              <div
+                key={index}
+                className={`flex flex-col md:flex-row items-center justify-between bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition-all duration-300 ${
+                  index % 2 === 1 ? "md:flex-row-reverse" : ""
                 }`}
-            >
-              {/* Image */}
-              <div className="flex-shrink-0 mb-6 md:mb-0 md:w-1/3 flex align-items-center justify-center">
-                <Image
-                  src={mentor.image || "/assets/Noimage.jpg"}
-                  alt={mentor.name}
-                  width={180}
-                  height={180}
-                  className="rounded-lg object-cover shadow-md"
-                />
-              </div>
+              >
+                {/* Image */}
+                <div className="flex-shrink-0 mb-6 md:mb-0 md:w-1/3 flex align-items-center justify-center">
+                  <Image
+                    src={mentor.image || "/assets/Noimage.jpg"}
+                    alt={mentor.name}
+                    width={180}
+                    height={180}
+                    className="rounded-lg object-cover shadow-md"
+                  />
+                </div>
 
-              {/* Details */}
-              <div className="md:w-2/3 text-center md:text-left space-y-3">
-                <h3 className="text-xl font-semibold text-purple-600">
-                  {mentor.name}
-                </h3>
-                <p className="text-gray-700 font-medium">{mentor.title}</p>
+                {/* Details */}
+                <div className="md:w-2/3 text-center md:text-left space-y-3">
+                  <h3 className="text-xl font-semibold text-purple-600">
+                    {mentor.name}
+                  </h3>
+                  <p className="text-gray-700 font-medium">{mentor.title}</p>
 
-                <div className="text-gray-600 space-y-1">
-                  <p>
-                    <span className="font-semibold text-gray-800">Post:</span>{" "}
-                    {mentor.post}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-gray-800">
-                      Experience:
-                    </span>{" "}
-                    {mentor.experience}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-gray-800">
-                      Expertise:
-                    </span>{" "}
-                    {mentor.expertise}
-                  </p>
+                  <div className="text-gray-600 space-y-1">
+                    <p>
+                      <span className="font-semibold text-gray-800">Post:</span>{" "}
+                      {mentor.post}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-800">
+                        Experience:
+                      </span>{" "}
+                      {mentor.experience}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-800">
+                        Expertise:
+                      </span>{" "}
+                      {mentor.expertise}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       )}
+      <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6 mt-20">
+        Administrative <span className="text-purple-600">Staff</span>
+      </h1>
+      <div className="w-24 h-1 bg-purple-600 mx-auto mb-12"></div>
+      <div className="space-y-12 max-w-7xl mx-auto">
+          {AdministrativeStaff?.map((mentor: any, index) => (
+              <div
+                key={index}
+                className={`flex flex-col md:flex-row items-center justify-between bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition-all duration-300 ${
+                  index % 2 === 1 ? "md:flex-row-reverse" : ""
+                }`}
+              >
+                {/* Image */}
+                <div className="flex-shrink-0 mb-6 md:mb-0 md:w-1/3 flex align-items-center justify-center">
+                  <Image
+                    src={mentor.image || "/assets/Noimage.jpg"}
+                    alt={mentor.name}
+                    width={180}
+                    height={180}
+                    className="rounded-lg object-cover shadow-md"
+                  />
+                </div>
+
+                {/* Details */}
+                <div className="md:w-2/3 text-center md:text-left space-y-3">
+                  <h3 className="text-xl font-semibold text-purple-600">
+                    {mentor.name}
+                  </h3>
+                  <p className="text-gray-700 font-medium">{mentor.title}</p>
+
+                  <div className="text-gray-600 space-y-1">
+                    <p>
+                      <span className="font-semibold text-gray-800">Post:</span>{" "}
+                      {mentor.post}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-800">
+                        Experience:
+                      </span>{" "}
+                      {mentor.experience}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-800">
+                        Expertise:
+                      </span>{" "}
+                      {mentor.expertise}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+        </div>
     </div>
   );
 };

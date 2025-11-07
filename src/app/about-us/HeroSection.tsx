@@ -34,7 +34,7 @@ const HeroSection = () => {
     speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     beforeChange: (_: number, newIndex: number) => setCurrentSlide(newIndex),
   };
@@ -53,42 +53,21 @@ const HeroSection = () => {
 
   return (
     <div className="relative w-full min-h-[90vh] sm:min-h-[100vh] md:min-h-[120vh]
-     lg:min-h-[130vh] overflow-hidden">
+     lg:min-h-[55vh] overflow-hidden mt-32">
       {/* ======= SLIDER ======= */}
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index}>
-            <div className="relative w-full min-h-[110vh] sm:min-h-[130vh] md:min-h-[130vh]lg:min-h-[130vh]">
+            <div className="relative w-full min-h-[110vh] sm:min-h-[130vh] md:min-h-[130vh] lg:min-h-[60vh]">
               <Image
                 src={src}
                 alt={`SMS Law College ${index + 1}`}
                 fill
-                // className="object-cover"
+                
                 priority={index === 0}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-              <div className="absolute inset-0 flex items-center">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                  <div className="max-w-2xl xl:max-w-3xl">
-                    <span className="inline-block px-4 py-2 bg-purple-600/90 text-white text-xs sm:text-sm md:text-base font-semibold rounded-full mb-4">
-                      About SMS Law College
-                    </span>
-
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                      Excellence in{" "}
-                      <span className="block text-purple-300">
-                        Legal Education
-                      </span>
-                    </h1>
-
-                    <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-xl">
-                      Empowering future legal professionals with comprehensive
-                      education, practical training, and ethical values that shape
-                      tomorrow's justice system.
-                    </p>
-                  </div>
-                </div>
-              </div>
+             
+             
             </div>
           </div>
         ))}

@@ -125,26 +125,45 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
-    ${scrolled
-          ? "bg-purple-900/95 "
-          : "bg-gradient-to-r from-purple-900 to-purple-800 shadow-sm"
-        }
-  `}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300`}
     >
+      {/* Top banner strip: left logo, center text, right partner logos (visible on md+) */}
+      <div className="hidden md:block bg-white ">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-20 flex items-center justify-between">
+            {/* Left: College logo */}
+            <div className="flex items-center ">
+              <div className="h-20 w-20 relative">
+                <Image src="/assets/Logonew.png" alt="College logo" fill className="object-contain" />
+              </div>
+              <div className="flex-1 text-left px-1">
+              <div className="text-lg font-semibold text-gray-800">Shri S.M Shah Law Callege</div>
+              <div className="text-sm font-medium text-gray-600">Avni Seeds Vidhya Sankul Nagalpur Highway Mahesana-384002</div>
+             
+            </div>
+            </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Center: Title and tagline */}
+            
+
+            {/* Right: Partner logos (G20 / MHRD / Emblem) */}
+            <div className="flex items-center gap-4 justify-end">
+              <div className="h-30 w-30 relative">
+                <Image src="/assets/headerImage/g20.png" alt="G20" fill className="object-contain" />
+              </div>
+              <div className="h-18 w-18 relative">
+                <Image src="/assets/headerImage/mhrd.png" alt="MHRD" fill className="object-contain" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-gradient-to-r from-purple-900 to-purple-800 p-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-full flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center my-1 group">
-            <Image
-              src="/assets/Logonew.png"
-              alt="SMS Law College Logo"
-              width={scrolled ? 60 : 70}
-              height={scrolled ? 60 : 70}
-              className="object-contain transition-all duration-300 group-hover:scale-105"
-            />
-          </Link>
+          
 
           {/* Desktop Menu */}
           <nav className="hidden xl:flex items-center space-x-1">
@@ -156,7 +175,7 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="px-2.5 py-2 text-sm font-medium text-white hover:text-purple-200 flex items-center gap-1 transition-all duration-200 group relative cursor-pointer"
+                  className="px-2.5 py-2 text-sm font-medium text-white hover:text-orange-100 flex items-center gap-1 transition-all duration-200 group relative cursor-pointer"
                 >
                   <span className="!cursor-pointer">{item.name}</span>
                   {item.hasDropdown && (
@@ -199,8 +218,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center">
             <Link
               href="/admission"
-              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white
-               px-6 py-2.5 rounded-full text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
+              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
             >
               Apply Now
             </Link>
@@ -228,10 +246,11 @@ export default function Header() {
           </button>
         </div>
       </div>
+      </div>
 
       {/* Mobile Menu */}
       <div
-        className={`xl:hidden bg-purple-800 border-t border-purple-700 transition-all duration-300 ${mobileMenuOpen
+        className={`xl:hidden bg-orange-600 border-t border-orange-500 transition-all duration-300 ${mobileMenuOpen
           ? "max-h-screen opacity-100 overflow-y-auto"
           : "max-h-0 opacity-0"
           }`}
@@ -243,7 +262,7 @@ export default function Header() {
               <div className="flex items-center">
                 <Link
                   href={item.href}
-                  className="flex-1 px-4 py-3 text-white font-medium hover:bg-purple-700 rounded-lg transition-all duration-200"
+                  className="flex-1 px-4 py-3 text-white font-medium hover:bg-orange-500 rounded-lg transition-all duration-200"
                   onClick={() => {
                     // Always close the mobile menu after navigating
                     setMobileMenuOpen(false);
@@ -263,7 +282,7 @@ export default function Header() {
                 </Link>
                 {item.hasDropdown && (
                   <button
-                    className="p-3 text-white hover:bg-purple-700 rounded-lg transition-all duration-200"
+                    className="p-3 text-white hover:bg-orange-500 rounded-lg transition-all duration-200"
                     onClick={() => setActiveMobileDropdown(
                       activeMobileDropdown === item.name ? null : item.name
                     )}
@@ -273,16 +292,17 @@ export default function Header() {
                         }`}
                     />
                   </button>
-                )}</div>
+          )}
+        </div>
 
               {/* Mobile Dropdown Items */}
               {item.hasDropdown && activeMobileDropdown === item.name && (
-                <div className="pl-6 bg-purple-700/40 rounded-md overflow-hidden transition-all">
+                <div className="pl-6 bg-orange-500/20 rounded-md overflow-hidden transition-all">
                   {item.dropdownItems?.map((dropdownItem) => (
                     <Link
                       key={dropdownItem.name}
                       href={dropdownItem.href}
-                      className="block px-4 py-2 text-sm text-purple-100 hover:text-white hover:bg-purple-600 rounded-md transition-all"
+                      className="block px-4 py-2 text-sm text-white hover:text-white hover:bg-orange-500 rounded-md transition-all"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {dropdownItem.name}
