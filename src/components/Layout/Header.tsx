@@ -166,6 +166,7 @@ export default function Header() {
                 key={item.name}
                 className="relative cursor-pointer"
                 onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
+                onMouseLeave={() => item.hasDropdown && setActiveDropdown(null)}
               >
                 <Link
                   href={item.href}
@@ -188,9 +189,9 @@ export default function Header() {
                 {/* Dropdown */}
                 {item.hasDropdown && activeDropdown === item.name && (
                   <div
-                    className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
-                    onMouseEnter={() => setActiveDropdown(item.name)} // keep open
-                    onMouseLeave={() => setActiveDropdown(null)} // close only if leave dropdown area
+                    className="absolute top-full left-0 mt-[0.8px] w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                    onMouseEnter={() => setActiveDropdown(item.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
                   >
                     {item.dropdownItems?.map((dropdownItem) => (
                       <Link
