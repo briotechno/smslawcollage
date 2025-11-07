@@ -72,7 +72,7 @@ const PdfCard = ({ name, file }: { name: string; file: string }) => (
 );
 
 const Syllabus = () => (
-  <div id="Syllabus" className="bg-gray-50 py-32 px-4 sm:px-6 lg:px-8">
+  <div id="Syllabus" className="bg-gray-50 py-32 px-4 sm:px-6 lg:px-8 mt-12">
     <div className="max-w-5xl mx-auto">
       <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
         <span className="text-purple-600">Syllabus</span>

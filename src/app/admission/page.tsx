@@ -185,9 +185,9 @@ const AdmissionPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
-      <section className="relative w-full h-[130vh] sm:h-[130vh] md:h-[140vh] lg:h-[140vh] overflow-hidden">
+      <section className="relative w-full min-h-[130vh] sm:min-h-[130vh] md:min-h-[140vh] lg:min-h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection7.jpeg"
@@ -196,62 +196,10 @@ const AdmissionPage = () => {
             // style={{ objectFit: "cover" }}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+          
         </div>
 
-        <div className="relative z-10 flex items-center h-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-2xl xl:max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="mb-4 sm:mb-6"
-              >
-                <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
-                  Academic Year 2024-25
-                </span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
-              >
-                Admissions
-                <span className="block text-purple-300">Open</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-xl"
-              >
-                Join SMS Law College and embark on your journey to legal excellence.
-                Apply now for our comprehensive law programs designed to shape
-                tomorrow's legal professionals.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4"
-              >
-                {/* <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base">
-                  <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Apply Now
-                </button> */}
-                <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base">
-                  <Download className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Download Brochure
-                </button>
-              </motion.div>
-            </div>
-          </div>
-        </div>
+       
       </section>
 
       {/* Programs Section */}

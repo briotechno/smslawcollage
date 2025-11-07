@@ -149,9 +149,9 @@ const ParticipationPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
-      <section className="relative w-full h-[120vh] sm:h-[120vh] md:h-[130vh] lg:h-[130vh] overflow-hidden">
+      <section className="relative w-full min-h-[120vh] sm:min-h-[120vh] md:min-h-[130vh] lg:min-h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection4.jpeg"
@@ -160,45 +160,10 @@ const ParticipationPage = () => {
             style={{ objectFit: "cover" }}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+          
         </div>
 
-        <div className="relative z-10 flex items-center h-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="mb-6"
-              >
-                <span className="inline-block px-4 py-2 bg-purple-600/90 text-white text-sm font-semibold rounded-full mb-4">
-                  Active Participat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ion
-                </span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
-              >
-                Student
-                <span className="block text-purple-300">Participation</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed"
-              >
-                Showcasing our students' active participation in national and
-                international competitions, conferences, and academic events.
-              </motion.p>
-            </div>
-          </div>
-        </div>
+       
       </section>
 
       {/* Stats Section */}

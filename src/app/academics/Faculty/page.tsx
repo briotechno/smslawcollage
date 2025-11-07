@@ -2,38 +2,34 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Mentor {
+  id?: number;
   name: string;
-  title: string;
-  post: string;
-  experience: string;
-  expertise: string;
-  image: string;
+  title?: string;
+  post?: string;
+  experience?: string;
+  expertise?: string;
+  image?: string;
+  email?: string;
+  phone?: string;
 }
 
 const Faculty = () => {
   const [mentors, setMentors] = useState<Mentor[]>([]);
   const [loading, setLoading] = useState(true);
-  const AdministrativeStaff = [
+
+  // Small sample administrative staff fallback
+  const AdministrativeStaff: Mentor[] = [
     {
-      name: "Mr. Manish Patel ",
+      name: "Mr. Manish Patel",
       title: "M.Com, B.Ed, PGDCA, Ph.D (Pursuing)",
-      post: "Jr. Clark",
+      post: "Jr. Clerk",
       image: "",
     },
-     {
-      name: "Mr. Vijay Bhil",
-      title: "",
-      post: "Peon  ",
-      image: "",
-    },
-     {
-      name: "Ms. Jyostanaben K Makavana ",
-      title: "",
-      post: "Swiper",
-      image: "",
-    },
+    { name: "Mr. Vijay Bhil", post: "Peon", image: "" },
+    { name: "Ms. Jyostanaben K Makavana", post: "Sweeper", image: "" },
   ];
 
   useEffect(() => {
@@ -66,148 +62,115 @@ const Faculty = () => {
     fetchMentors();
   }, []);
 
-  return (
-    <div id="Faculty" className="bg-gray-50 py-40 px-4 sm:px-6 lg:px-8">
-      {/* Section Title */}
-      <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6">
-        Faculty <span className="text-purple-600">Profile</span>
-      </h1>
-      <div className="w-24 h-1 bg-purple-600 mx-auto mb-12"></div>
+  const formatExperience = (exp?: string) => {
+    if (!exp) return "Not specified";
+    return exp;
+  };
 
-      {/* Loader / Empty / Data */}
-      {loading ? (
-        <div className="flex flex-col items-center justify-center py-20">
-          <svg
-            className="animate-spin h-10 w-10 text-purple-600 mb-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-            />
-          </svg>
-          {/* <p className="text-gray-600 text-lg">Loading faculty profiles...</p> */}
+  const Card: React.FC<{ person: Mentor }> = ({ person }) => (
+    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden">
+        <div className="p-6 flex flex-col items-center text-center">
+        <div className="w-28 h-28 mb-4 relative rounded-full overflow-hidden shadow-sm flex items-center justify-center">
+          <Image
+            src={person.image || "/assets/Noimage.jpg"}
+            alt={person.name}
+            fill
+            sizes="112px"
+            className="object-contain"
+          />
         </div>
-      ) : mentors.length === 0 ? (
-        <p className="text-center text-gray-600 py-20">
-          No faculty profiles available.
+        <h3 className="text-lg font-semibold text-purple-600">{person.name}</h3>
+        {person.title && <p className="text-sm text-gray-600">{person.title}</p>}
+        <p className="mt-2 text-sm text-gray-700">
+          <span className="font-medium text-gray-800">Post:</span> {person.post || "-"}
         </p>
-      ) : (
-        <div className="space-y-12 max-w-7xl mx-auto">
-          {mentors
-            ?.sort((a: any, b: any) => a.id - b.id)
-            ?.map((mentor: any, index) => (
-              <div
-                key={index}
-                className={`flex flex-col md:flex-row items-center justify-between bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition-all duration-300 ${
-                  index % 2 === 1 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Image */}
-                <div className="flex-shrink-0 mb-6 md:mb-0 md:w-1/3 flex align-items-center justify-center">
-                  <Image
-                    src={mentor.image || "/assets/Noimage.jpg"}
-                    alt={mentor.name}
-                    width={180}
-                    height={180}
-                    className="rounded-lg object-cover shadow-md"
-                  />
-                </div>
 
-                {/* Details */}
-                <div className="md:w-2/3 text-center md:text-left space-y-3">
-                  <h3 className="text-xl font-semibold text-purple-600">
-                    {mentor.name}
-                  </h3>
-                  <p className="text-gray-700 font-medium">{mentor.title}</p>
-
-                  <div className="text-gray-600 space-y-1">
-                    <p>
-                      <span className="font-semibold text-gray-800">Post:</span>{" "}
-                      {mentor.post}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-gray-800">
-                        Experience:
-                      </span>{" "}
-                      {mentor.experience}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-gray-800">
-                        Expertise:
-                      </span>{" "}
-                      {mentor.expertise}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+        <div className="mt-3 text-sm text-gray-600 space-y-1 w-full">
+          <p>
+            <span className="font-semibold text-gray-800">Experience:</span> {formatExperience(person.experience)}
+          </p>
+          {person.expertise && (
+            <p>
+              <span className="font-semibold text-gray-800">Expertise:</span> {person.expertise}
+            </p>
+          )}
         </div>
-      )}
-      <h1 className="text-4xl sm:text-5xl text-center font-bold text-gray-900 mb-6 mt-20">
-        Administrative <span className="text-purple-600">Staff</span>
-      </h1>
-      <div className="w-24 h-1 bg-purple-600 mx-auto mb-12"></div>
-      <div className="space-y-12 max-w-7xl mx-auto">
-          {AdministrativeStaff?.map((mentor: any, index) => (
-              <div
-                key={index}
-                className={`flex flex-col md:flex-row items-center justify-between bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition-all duration-300 ${
-                  index % 2 === 1 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Image */}
-                <div className="flex-shrink-0 mb-6 md:mb-0 md:w-1/3 flex align-items-center justify-center">
-                  <Image
-                    src={mentor.image || "/assets/Noimage.jpg"}
-                    alt={mentor.name}
-                    width={180}
-                    height={180}
-                    className="rounded-lg object-cover shadow-md"
-                  />
-                </div>
 
-                {/* Details */}
-                <div className="md:w-2/3 text-center md:text-left space-y-3">
-                  <h3 className="text-xl font-semibold text-purple-600">
-                    {mentor.name}
-                  </h3>
-                  <p className="text-gray-700 font-medium">{mentor.title}</p>
-
-                  <div className="text-gray-600 space-y-1">
-                    <p>
-                      <span className="font-semibold text-gray-800">Post:</span>{" "}
-                      {mentor.post}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-gray-800">
-                        Experience:
-                      </span>{" "}
-                      {mentor.experience}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-gray-800">
-                        Expertise:
-                      </span>{" "}
-                      {mentor.expertise}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+        <div className="mt-4 flex gap-3">
+          {person.email && (
+            <a
+              href={`mailto:${person.email}`}
+              className="px-3 py-1 text-xs rounded-full bg-purple-50 text-purple-700 border border-purple-100"
+            >
+              Email
+            </a>
+          )}
+          {person.phone && (
+            <a
+              href={`tel:${person.phone}`}
+              className="px-3 py-1 text-xs rounded-full bg-purple-50 text-purple-700 border border-purple-100"
+            >
+              Call
+            </a>
+          )}
         </div>
+      </div>
     </div>
+  );
+
+  return (
+    <section id="Faculty" className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl text-center font-bold text-gray-900 mb-3">
+          Faculty <span className="text-purple-600">Profiles</span>
+        </h1>
+
+        <div className="flex items-center justify-center mb-6">
+          <div className="w-24 h-1 bg-purple-600"></div>
+        </div>
+
+      
+
+  {/* Main heading shown above the faculty grid (matches Administrative Staff style) */}
+  <h1 className="text-2xl sm:text-3xl text-center font-bold text-gray-900 my-10 mb-2">Faculty <span className="text-purple-600">Profile</span></h1>
+  <div className="w-24 h-1 bg-purple-600 mx-auto mb-10"></div>
+
+  {/* Loader / Empty / Data */}
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-10">
+            <svg
+              className="animate-spin h-8 w-8 text-purple-600 mb-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+            </svg>
+          </div>
+        ) : mentors.length === 0 ? (
+          <p className="text-center text-gray-600 py-10">No faculty profiles available.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mentors
+              ?.sort((a: any, b: any) => (a.id || 0) - (b.id || 0))
+              ?.map((mentor: any) => (
+                <Card key={mentor.id || mentor.name} person={mentor} />
+              ))}
+          </div>
+        )}
+
+        {/* Administrative staff */}
+        <h2 className="text-2xl sm:text-3xl text-center font-bold text-gray-900 my-10 mb-2">Administrative <span className="text-purple-600">Staff</span></h2>
+          <div className="w-24 h-1 bg-purple-600 mx-auto mb-10"/>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {AdministrativeStaff.map((p, i) => (
+            <Card key={`admin-${i}`} person={p} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

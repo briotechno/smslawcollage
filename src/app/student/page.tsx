@@ -161,75 +161,26 @@ const StudentPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
-      <section className="relative w-full h-[110vh] sm:h-[120vh] md:h-[130vh] lg:h-[130vh] overflow-hidden">
+      <section className="relative w-full min-h-[110vh] sm:min-h-[120vh] md:min-h-[130vh] lg:min-h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/assets/HeroSection/HeroSection6.jpeg"
             alt="SMS Law College Students"
             fill
-            style={{ objectFit: "cover" }}
-            priority
+            style={{ objectFit: "fill" }}
+            
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+         
         </div>
 
-        <div className="relative z-10 flex items-center h-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-2xl xl:max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="mb-4 sm:mb-6"
-              >
-                <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-purple-600/90 text-white text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
-                  Student Life at SMS Law College
-                </span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
-              >
-                Your Journey to
-                <span className="block text-purple-300">Legal Excellence</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-xl"
-              >
-                Join a vibrant community of aspiring legal professionals.
-                Experience world-class education, practical training, and
-                comprehensive support that shapes tomorrow's legal leaders.
-              </motion.p>
-
-              {/* <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4"
-              >
-                <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base">
-                  <Play className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Watch Student Stories
-                </button>
-                <button className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 text-sm sm:text-base">
-                  Apply Now
-                </button>
-              </motion.div> */}
-            </div>
-          </div>
-        </div>
+      
 
         {/* Stats Section */}
-        <div className="relative w-full bg-white/95 backdrop-blur-sm z-10">
+      
+      </section>
+  <div className="relative w-full bg-white/95 backdrop-blur-sm z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {studentStats.map((stat, index) => (
@@ -252,8 +203,6 @@ const StudentPage = () => {
             </div>
           </div>
         </div>
-      </section>
-
       {/* Academic Programs Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

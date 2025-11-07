@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const CourtExercises = () => {
     return (
-        <div id="Intra-Moot-Court-Exercises" className="bg-gray-50 py-40">
+        <div id="Intra-Moot-Court-Exercises" className="bg-gray-50 py-48">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <motion.div

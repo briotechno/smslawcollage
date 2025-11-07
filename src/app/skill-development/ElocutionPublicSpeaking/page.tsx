@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const ElocutionPublicSpeaking = () => {
     return (
-        <div id="Elocution-Public-Speaking" className="bg-gray-50 py-40">
+        <div id="Elocution-Public-Speaking" className="bg-gray-50 py-48">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <motion.div
