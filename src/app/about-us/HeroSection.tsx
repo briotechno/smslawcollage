@@ -13,8 +13,8 @@ const images = [
   "/assets/HeroSection/HeroSection1.jpeg",
   "/assets/HeroSection/HeroSection3.jpeg",
   "/assets/HeroSection/HeroSection4.jpeg",
-   "/assets/HeroSection/HeroSection6.jpeg",
-  ];
+  "/assets/HeroSection/HeroSection6.jpeg",
+];
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -64,7 +64,7 @@ const HeroSection = () => {
                 alt={`SMS Law College ${index + 1}`}
                 fill
                 priority={index === 0}
-                style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
+                style={{ objectFit: "fill", transform: "scaleY(1.6)" }}
               />
             </div>
           </div>
@@ -72,25 +72,10 @@ const HeroSection = () => {
       </Slider>
       <div className="bg-purple-600 p-2 mt-[-7px]">
         <Marquee speed={100} pauseOnHover={true}>
-         <div className="flex gap-2 items-center"> <a
-            href="https://deemed.ugc.ac.in/?_gl=1*1k4r0fx*_ga*Nzc0MzIwNzQ0LjE3NjI1MDk1OTE.*_ga_FGHYECNLXB*czE3NjI1ODA1MDQkbzMkZzEkdDE3NjI1ODA3NzEkajU1JGwwJGgw*_ga_Q0MS75D115*czE3NjI1ODA1MDQkbzMkZzEkdDE3NjI1ODA3NzEkajU1JGwwJGgw"
-            target="_blank"
-            className="text-lg font-bold text-white"
-          >
-            Invitation of applications from eligible colleges for Deemed to be
-            University status, may apply on the portal at
-            https://deemed.ugc.ac.in/ 
-          </a>
-          <span   className="text-lg font-bold text-white mx-2" >|</span>
-          <a
-            href="https://aucollege.ugc.ac.in/?_gl=1*k8zir3*_ga*Nzc0MzIwNzQ0LjE3NjI1MDk1OTE.*_ga_FGHYECNLXB*czE3NjI1ODA1MDQkbzMkZzEkdDE3NjI1ODA3NzEkajU1JGwwJGgw*_ga_Q0MS75D115*czE3NjI1ODA1MDQkbzMkZzEkdDE3NjI1ODA3NzEkajU1JGwwJGgw"
-            target="_blank"
-             className="text-lg font-bold text-white"
-          >
-             Invitation of applications from eligible colleges for
-            conferment/extension of Autonomous status, colleges may apply on the
-            portal at https://aucollege.ugc.ac.in
-          </a></div>
+          <span className="text-lg font-bold text-white">
+            Shri S.M Shah Law College Avni Seeds Vidhya Sankul Nagalpur Highway
+            Mahesana-384002
+          </span>
         </Marquee>
       </div>
       {/* ======= STATS SECTION ======= */}

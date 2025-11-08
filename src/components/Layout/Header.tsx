@@ -133,7 +133,7 @@ export default function Header() {
                 <Image src="/assets/logo2.png" alt="College logo" fill className="object-contain" />
               </div>
               <div className="flex-1 text-center md:text-left ml-[-15px]">
-                <div className="text-base md:text-lg font-semibold text-gray-800">Shri S.M Shah Law Callege</div>
+                <div className="text-base md:text-lg font-semibold text-gray-800">Shri S.M Shah Law College</div>
                 <div className="text-xs md:text-sm font-medium text-gray-600 mt-0.5">Avni Seeds Vidhya Sankul Nagalpur Highway Mahesana-384002</div>
               </div>
             </div>
