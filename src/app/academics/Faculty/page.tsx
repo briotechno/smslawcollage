@@ -26,7 +26,7 @@ const Faculty = () => {
       name: "Mr. Manish Patel",
       title: "M.Com, B.Ed, PGDCA, Ph.D (Pursuing)",
       post: "Jr. Clerk",
-      image: "/assets/admin_staff/manish_patel.jpeg",
+      image: "/assets/admin_staff/Manish_Patel.jpeg",
     },
     { name: "Mr. Vijay Bhil", post: "Peon", image: "" },
     { name: "Ms. Jyostanaben K Makavana", post: "Sweeper", image: "" },
