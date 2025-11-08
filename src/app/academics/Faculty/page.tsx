@@ -26,7 +26,7 @@ const Faculty = () => {
       name: "Mr. Manish Patel",
       title: "M.Com, B.Ed, PGDCA, Ph.D (Pursuing)",
       post: "Jr. Clerk",
-      image: "",
+      image: "/assets/admin_staff/manish_patel.jpeg",
     },
     { name: "Mr. Vijay Bhil", post: "Peon", image: "" },
     { name: "Ms. Jyostanaben K Makavana", post: "Sweeper", image: "" },
@@ -69,7 +69,7 @@ const Faculty = () => {
 
   const Card: React.FC<{ person: Mentor }> = ({ person }) => (
     <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden">
-        <div className="p-6 flex flex-col items-center text-center">
+      <div className="p-6 flex flex-col items-center text-center">
         <div className="w-28 h-28 mb-4 relative rounded-full overflow-hidden shadow-sm flex items-center justify-center">
           <Image
             src={person.image || "/assets/Noimage.jpg"}
@@ -80,18 +80,23 @@ const Faculty = () => {
           />
         </div>
         <h3 className="text-lg font-semibold text-purple-600">{person.name}</h3>
-        {person.title && <p className="text-sm text-gray-600">{person.title}</p>}
+        {person.title && (
+          <p className="text-sm text-gray-600">{person.title}</p>
+        )}
         <p className="mt-2 text-sm text-gray-700">
-          <span className="font-medium text-gray-800">Post:</span> {person.post || "-"}
+          <span className="font-medium text-gray-800">Post:</span>{" "}
+          {person.post || "-"}
         </p>
 
         <div className="mt-3 text-sm text-gray-600 space-y-1 w-full">
           <p>
-            <span className="font-semibold text-gray-800">Experience:</span> {formatExperience(person.experience)}
+            <span className="font-semibold text-gray-800">Experience:</span>{" "}
+            {formatExperience(person.experience)}
           </p>
           {person.expertise && (
             <p>
-              <span className="font-semibold text-gray-800">Expertise:</span> {person.expertise}
+              <span className="font-semibold text-gray-800">Expertise:</span>{" "}
+              {person.expertise}
             </p>
           )}
         </div>
@@ -129,13 +134,13 @@ const Faculty = () => {
           <div className="w-24 h-1 bg-purple-600"></div>
         </div>
 
-      
+        {/* Main heading shown above the faculty grid (matches Administrative Staff style) */}
+        <h1 className="text-2xl sm:text-3xl text-center font-bold text-gray-900 my-10 mb-2">
+          Faculty <span className="text-purple-600">Profile</span>
+        </h1>
+        <div className="w-24 h-1 bg-purple-600 mx-auto mb-10"></div>
 
-  {/* Main heading shown above the faculty grid (matches Administrative Staff style) */}
-  <h1 className="text-2xl sm:text-3xl text-center font-bold text-gray-900 my-10 mb-2">Faculty <span className="text-purple-600">Profile</span></h1>
-  <div className="w-24 h-1 bg-purple-600 mx-auto mb-10"></div>
-
-  {/* Loader / Empty / Data */}
+        {/* Loader / Empty / Data */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-10">
             <svg
@@ -144,12 +149,25 @@ const Faculty = () => {
               fill="none"
               viewBox="0 0 24 24"
             >
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              />
             </svg>
           </div>
         ) : mentors.length === 0 ? (
-          <p className="text-center text-gray-600 py-10">No faculty profiles available.</p>
+          <p className="text-center text-gray-600 py-10">
+            No faculty profiles available.
+          </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {mentors
@@ -161,8 +179,10 @@ const Faculty = () => {
         )}
 
         {/* Administrative staff */}
-        <h2 className="text-2xl sm:text-3xl text-center font-bold text-gray-900 my-10 mb-2">Administrative <span className="text-purple-600">Staff</span></h2>
-          <div className="w-24 h-1 bg-purple-600 mx-auto mb-10"/>
+        <h2 className="text-2xl sm:text-3xl text-center font-bold text-gray-900 my-10 mb-2">
+          Administrative <span className="text-purple-600">Staff</span>
+        </h2>
+        <div className="w-24 h-1 bg-purple-600 mx-auto mb-10" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {AdministrativeStaff.map((p, i) => (
