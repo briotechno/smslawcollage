@@ -23,10 +23,11 @@ const Faculty = () => {
   // Small sample administrative staff fallback
   const AdministrativeStaff: Mentor[] = [
     {
-      name: "Mr. Manish Patel",
+      name: "Dr. Manish Patel",
       title: "M.Com, B.Ed, PGDCA, Ph.D (Pursuing)",
       post: "Jr. Clerk",
       image: "/assets/admin_staff/Manish_Patel.jpeg",
+      experience:"15 Years"
     },
     { name: "Mr. Vijay Bhil", post: "Peon", image: "" },
     { name: "Ms. Jyostanaben K Makavana", post: "Sweeper", image: "" },
