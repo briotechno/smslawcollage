@@ -89,20 +89,20 @@ const Debate = () => {
   return (
     <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
-      <section className="relative w-full h-[110vh] sm:h-[120vh] md:h-[130vh] lg:h-[60vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/assets/HeroSection/HeroSection4.jpeg"
-            alt="Debate Skills Development"
-            fill
-            style={{ objectFit: "fill",transform:'scaleY(1.9)' }}
-            priority
-          />
-          
-        </div>
-
-       
-      </section>
+     <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
+            <div className="absolute inset-0">
+              <Image
+                src="/assets/HeroSection/HeroSection4.jpeg"
+                alt="Legal Education in India"
+                fill
+                className="object-fill lg:scale-y-[1.9]"
+                priority
+              />
+              
+            </div>
+    
+            
+          </section>
 
       {/* Skills Section */}
       <section className="py-20 bg-white">

@@ -102,15 +102,21 @@ const LegalAidClinicpage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 mt-32">
       {/* HERO SECTION */}
-      <header className="relative w-full h-[110vh] sm:h-[120vh] md:h-[130vh] lg:h-[60vh] overflow-hidden">
-        <Image
-          src="/assets/HeroSection/HeroSection7.jpeg"
-          alt="Environmental Law Clinic"
-          fill
-          style={{ objectFit: "fill", transform: "scaleY(1.5)", marginTop: 50 }}
-          priority
-        />
-      </header>
+       <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
+              <div className="absolute inset-0">
+                <Image
+                  src="/assets/HeroSection/HeroSection7.jpeg"
+                  alt="Legal Education in India"
+                  fill
+                   className="object-fill lg:scale-y-[1.5] lg:mt-[60px]"
+                  priority
+                />
+                
+              </div>
+      
+              
+            </section>
+    
 
       {/* Recent Activities section */}
       <section className="py-20 bg-white">

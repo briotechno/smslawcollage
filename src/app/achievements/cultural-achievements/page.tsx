@@ -159,20 +159,20 @@ const CulturalAchievementsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[120vh] sm:min-h-[120vh] md:min-h-[130vh] lg:min-h-[60vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/assets/HeroSection/HeroSection3.jpeg"
-            alt="Cultural Achievements"
-            fill
-            style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
-            priority
-          />
-          
-        </div>
-
-       
-      </section>
+          <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
+                 <div className="absolute inset-0">
+                   <Image
+                     src="/assets/HeroSection/HeroSection3.jpeg"
+                     alt="Legal Education in India"
+                     fill
+                     className="object-fill lg:scale-y-[1.6]"
+                     priority
+                   />
+                   
+                 </div>
+         
+                 
+               </section>
 
       {/* Stats Section */}
       {/* <section className="py-20 bg-white">

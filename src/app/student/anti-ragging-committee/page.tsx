@@ -88,8 +88,13 @@ const AntiRaggingCommittee = () => {
     {
       icon: Shield,
       title: "Prevention Programs",
-      description: "Comprehensive awareness programs to prevent ragging incidents",
-      measures: ["Orientation sessions", "Anti-ragging workshops", "Student counseling"],
+      description:
+        "Comprehensive awareness programs to prevent ragging incidents",
+      measures: [
+        "Orientation sessions",
+        "Anti-ragging workshops",
+        "Student counseling",
+      ],
     },
     {
       icon: Eye,
@@ -101,13 +106,21 @@ const AntiRaggingCommittee = () => {
       icon: Scale,
       title: "Legal Framework",
       description: "Strict adherence to UGC regulations and legal provisions",
-      measures: ["UGC guidelines compliance", "Legal action against offenders", "Documentation"],
+      measures: [
+        "UGC guidelines compliance",
+        "Legal action against offenders",
+        "Documentation",
+      ],
     },
     {
       icon: Heart,
       title: "Support Services",
       description: "Counseling and support for victims of ragging",
-      measures: ["Psychological support", "Medical assistance", "Academic support"],
+      measures: [
+        "Psychological support",
+        "Medical assistance",
+        "Academic support",
+      ],
     },
   ];
 
@@ -164,21 +177,20 @@ const AntiRaggingCommittee = () => {
   return (
     <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[110vh] sm:min-h-[120vh] md:min-h-[130vh] lg:min-h-[60vh] overflow-hidden">
-
-        <div className="absolute inset-0">
-          <Image
-            src="/assets/HeroSection/HeroSection1.jpeg"
-            alt="Anti-Ragging Committee"
-            fill
-                        style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
-            priority
-          />
-          
-        </div>
-
-      
-      </section>
+     <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
+            <div className="absolute inset-0">
+              <Image
+                src="/assets/HeroSection/HeroSection1.jpeg"
+                alt="Legal Education in India"
+                fill
+                className="object-fill lg:scale-y-[1.6]"
+                priority
+              />
+              
+            </div>
+    
+            
+          </section>
 
       {/* Introduction Section */}
       <section className="py-20 bg-white">
@@ -208,20 +220,25 @@ const AntiRaggingCommittee = () => {
               className="space-y-6"
             >
               <p className="text-lg text-gray-700 leading-relaxed">
-                The <strong className="text-purple-600">Anti-Ragging Committee</strong> is
-                constituted as per UGC Regulations, 2015, to prevent and address ragging
-                incidents in educational institutions.
+                The{" "}
+                <strong className="text-purple-600">
+                  Anti-Ragging Committee
+                </strong>{" "}
+                is constituted as per UGC Regulations, 2015, to prevent and
+                address ragging incidents in educational institutions.
               </p>
 
               <p className="text-lg text-gray-700 leading-relaxed">
-                We maintain a <strong>zero-tolerance policy</strong> towards ragging in any form.
-                Our committee ensures immediate action against perpetrators and provides
-                comprehensive support to victims.
+                We maintain a <strong>zero-tolerance policy</strong> towards
+                ragging in any form. Our committee ensures immediate action
+                against perpetrators and provides comprehensive support to
+                victims.
               </p>
 
               <p className="text-lg text-gray-700 leading-relaxed">
-                The committee comprises experienced faculty members, external experts, and
-                student representatives to ensure fair and impartial handling of all cases.
+                The committee comprises experienced faculty members, external
+                experts, and student representatives to ensure fair and
+                impartial handling of all cases.
               </p>
             </motion.div>
 
@@ -233,7 +250,9 @@ const AntiRaggingCommittee = () => {
               className="relative"
             >
               <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Emergency Contact</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                  Emergency Contact
+                </h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-purple-600" />
@@ -245,11 +264,15 @@ const AntiRaggingCommittee = () => {
                   </div>
                   <div className="flex items-center gap-3">
                     <Clock className="w-5 h-5 text-purple-600" />
-                    <span className="text-gray-700">Mon-Fri: 9:00 AM - 5:00 PM</span>
+                    <span className="text-gray-700">
+                      Mon-Fri: 9:00 AM - 5:00 PM
+                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <AlertTriangle className="w-5 h-5 text-purple-600" />
-                    <span className="text-gray-700">Immediate Response Guaranteed</span>
+                    <span className="text-gray-700">
+                      Immediate Response Guaranteed
+                    </span>
                   </div>
                 </div>
               </div>
@@ -276,8 +299,8 @@ const AntiRaggingCommittee = () => {
             </h2>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Our dedicated committee members are committed to maintaining a safe
-              and respectful campus environment.
+              Our dedicated committee members are committed to maintaining a
+              safe and respectful campus environment.
             </p>
           </motion.div>
 
@@ -302,7 +325,9 @@ const AntiRaggingCommittee = () => {
                   <p className="text-sm text-purple-600 font-medium mb-2">
                     {member.position}
                   </p>
-                  <p className="text-sm text-gray-600 mb-4">{member.designation}</p>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {member.designation}
+                  </p>
                 </div>
                 <div className="space-y-2 flex flex-col items-center">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -338,8 +363,8 @@ const AntiRaggingCommittee = () => {
             </h2>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive measures to prevent ragging and ensure student safety
-              and well-being.
+              Comprehensive measures to prevent ragging and ensure student
+              safety and well-being.
             </p>
           </motion.div>
 
@@ -400,8 +425,9 @@ const AntiRaggingCommittee = () => {
             </h2>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Strict disciplinary action will be taken against anyone found guilty
-              of ragging, with consequences ranging from warnings to expulsion.
+              Strict disciplinary action will be taken against anyone found
+              guilty of ragging, with consequences ranging from warnings to
+              expulsion.
             </p>
           </motion.div>
 
@@ -462,8 +488,8 @@ const AntiRaggingCommittee = () => {
             </h2>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Multiple channels available for reporting ragging incidents.
-              All reports are treated with strict confidentiality.
+              Multiple channels available for reporting ragging incidents. All
+              reports are treated with strict confidentiality.
             </p>
           </motion.div>
 

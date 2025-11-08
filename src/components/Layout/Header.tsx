@@ -209,7 +209,7 @@ export default function Header() {
           </nav>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center">
+          <div className="hidden md:hidden lg:hidden xl:flex items-center">
             <Link
               href="/admission"
               className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-md text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"

@@ -187,20 +187,20 @@ const AdmissionPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[130vh] sm:min-h-[130vh] md:min-h-[140vh] lg:min-h-[60vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/assets/HeroSection/HeroSection7.jpeg"
-            alt="SMS Law College Admissions"
-            fill
-            // style={{ objectFit: "cover" }}
-            priority
-          />
-          
-        </div>
-
-       
-      </section>
+          <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
+                 <div className="absolute inset-0">
+                   <Image
+                     src="/assets/HeroSection/HeroSection7.jpeg"
+                     alt="Legal Education in India"
+                     fill
+                     className="object-fill lg:scale-y-[1.5] lg:mt-[60px]"
+                     priority
+                   />
+                   
+                 </div>
+         
+                 
+               </section>
 
       {/* Programs Section */}
       <section className="py-20 bg-white">

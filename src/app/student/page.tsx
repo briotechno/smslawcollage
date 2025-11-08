@@ -163,23 +163,20 @@ const StudentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[110vh] sm:min-h-[120vh] md:min-h-[130vh] lg:min-h-[60vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/assets/HeroSection/HeroSection6.jpeg"
-            alt="SMS Law College Students"
-            fill
-            style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
-            
-          />
-         
-        </div>
-
-      
-
-        {/* Stats Section */}
-      
-      </section>
+      <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
+             <div className="absolute inset-0">
+               <Image
+                 src="/assets/HeroSection/HeroSection6.jpeg"
+                 alt="Legal Education in India"
+                 fill
+                 className="object-fill lg:scale-y-[1.6]"
+                 priority
+               />
+               
+             </div>
+     
+             
+           </section>
   <div className="relative w-full bg-white/95 backdrop-blur-sm z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

@@ -59,7 +59,7 @@ export default function RequirementsPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Opportunities & Requirements
             </h1>
-            <p className="text-lg text-purple-100 mb-6 w-[500px]">
+            <p className="text-lg text-purple-100 mb-6 lg:w-[500px]">
               Explore current vacancies, eligibility criteria, and application
               procedures at SMS Law College.
             </p>

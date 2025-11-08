@@ -51,20 +51,20 @@ const HeroSection = () => {
 
   return (
     <div
-      className="relative w-full min-h-[90vh] sm:min-h-[100vh] md:min-h-[120vh]
+      className="relative w-full min-h-[70vh] sm:min-h-[80vh] md:min-h-[80vh]
      lg:min-h-[55vh] overflow-hidden mt-32"
     >
       {/* ======= SLIDER ======= */}
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index}>
-            <div className="relative w-full min-h-[110vh] sm:min-h-[130vh] md:min-h-[130vh] lg:min-h-[60vh]">
+            <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
               <Image
                 src={src}
                 alt={`SMS Law College ${index + 1}`}
                 fill
                 priority={index === 0}
-                style={{ objectFit: "fill", transform: "scaleY(1.6)" }}
+                  className="object-fill lg:scale-y-[1.6]"
               />
             </div>
           </div>
