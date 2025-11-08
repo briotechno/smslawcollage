@@ -165,7 +165,7 @@ const InternalComplaintCommittee = () => {
             src="/assets/HeroSection/HeroSection7.jpeg"
             alt="Internal Complaint Committee"
             fill
-            style={{ objectFit: "fill" }}
+             style={{ objectFit: "fill",transform:'scaleY(1.5)',marginTop:50 }}
             priority
           />
                 </div>

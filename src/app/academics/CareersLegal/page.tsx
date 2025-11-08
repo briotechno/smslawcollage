@@ -92,13 +92,13 @@ const CareersLegal = () => {
       <section className="relative w-full h-[110vh] sm:h-[120vh] md:h-[130vh] lg:h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/HeroSection/HeroSection5.jpeg"
+            src="/assets/HeroSection/HeroSection6.jpeg"
             alt="Careers in Legal Field"
             fill
-            style={{ objectFit: "fill" }}
+           style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+       
         </div>
 
        

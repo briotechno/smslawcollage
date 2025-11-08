@@ -74,7 +74,7 @@ const EnvironmentalLawClinicPage = () => {
           src="/assets/HeroSection/HeroSection3.jpeg"
           alt="Environmental Law Clinic"
           fill
-          style={{ objectFit: "fill" }}
+          style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
           priority
         />
         

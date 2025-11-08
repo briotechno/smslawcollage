@@ -122,7 +122,7 @@ const GrievanceRedressCommittee = () => {
             src="/assets/HeroSection/HeroSection6.jpeg"
             alt="Grievance Redress Committee"
             fill
-            style={{ objectFit: "fill" }}
+                        style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
             priority
           />
         </div>
@@ -133,8 +133,7 @@ const GrievanceRedressCommittee = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-center mb-16"

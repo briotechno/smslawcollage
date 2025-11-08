@@ -95,10 +95,10 @@ const Debate = () => {
             src="/assets/HeroSection/HeroSection4.jpeg"
             alt="Debate Skills Development"
             fill
-            style={{ objectFit: "fill" }}
+            style={{ objectFit: "fill",transform:'scaleY(1.9)' }}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+          
         </div>
 
        

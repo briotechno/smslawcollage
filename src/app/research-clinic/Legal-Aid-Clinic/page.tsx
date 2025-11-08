@@ -57,7 +57,7 @@ const recentActivities = [
   "Lex Juris Intra Quiz Competition",
   "Legal Awareness Camp at Jeevansandhya Old Age Home, Mahesana",
   "Legal Clinic - Bakrol",
-  "Legal Awareness Campaign under LAC at Lakhudi and Gulbai Tekra(Mahesana)"
+  "Legal Awareness Campaign under LAC at Lakhudi and Gulbai Tekra(Mahesana)",
 ];
 
 const LegalAidClinicpage = () => {
@@ -107,10 +107,9 @@ const LegalAidClinicpage = () => {
           src="/assets/HeroSection/HeroSection7.jpeg"
           alt="Environmental Law Clinic"
           fill
-          // style={{ objectFit: "cover" }}
+          style={{ objectFit: "fill", transform: "scaleY(1.5)", marginTop: 50 }}
           priority
         />
-       
       </header>
 
       {/* Recent Activities section */}
@@ -154,7 +153,8 @@ const LegalAidClinicpage = () => {
                   {activity}
                 </h4>
                 <p className="text-gray-600 text-sm">
-                  A highlight event under the Environmental Law Clinic initiative.
+                  A highlight event under the Environmental Law Clinic
+                  initiative.
                 </p>
               </motion.div>
             ))}
@@ -251,5 +251,5 @@ const LegalAidClinicpage = () => {
       </main>
     </div>
   );
-}
-export default LegalAidClinicpage
+};
+export default LegalAidClinicpage;

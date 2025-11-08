@@ -165,7 +165,7 @@ const CulturalAchievementsPage = () => {
             src="/assets/HeroSection/HeroSection3.jpeg"
             alt="Cultural Achievements"
             fill
-            style={{ objectFit: "fill" }}
+            style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
             priority
           />
           

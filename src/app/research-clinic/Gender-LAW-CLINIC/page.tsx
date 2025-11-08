@@ -14,7 +14,7 @@ const GenderLAWCLINICpage = () => {
           src="/assets/HeroSection/HeroSection6.jpeg"
           alt="Environmental Law Clinic"
           fill
-          style={{ objectFit: "fill" }}
+          style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
           
         />
         

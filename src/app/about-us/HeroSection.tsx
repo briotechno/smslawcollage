@@ -7,16 +7,14 @@ import { Award, Users, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Marquee from "react-fast-marquee";
 
 const images = [
   "/assets/HeroSection/HeroSection1.jpeg",
-  "/assets/HeroSection/HeroSection2.jpeg",
   "/assets/HeroSection/HeroSection3.jpeg",
   "/assets/HeroSection/HeroSection4.jpeg",
-  "/assets/HeroSection/HeroSection5.jpeg",
-  "/assets/HeroSection/HeroSection6.jpeg",
-  "/assets/HeroSection/HeroSection7.jpeg",
-];
+   "/assets/HeroSection/HeroSection6.jpeg",
+  ];
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -52,8 +50,10 @@ const HeroSection = () => {
   ];
 
   return (
-    <div className="relative w-full min-h-[90vh] sm:min-h-[100vh] md:min-h-[120vh]
-     lg:min-h-[55vh] overflow-hidden mt-32">
+    <div
+      className="relative w-full min-h-[90vh] sm:min-h-[100vh] md:min-h-[120vh]
+     lg:min-h-[55vh] overflow-hidden mt-32"
+    >
       {/* ======= SLIDER ======= */}
       <Slider {...settings}>
         {images.map((src, index) => (
@@ -63,18 +63,38 @@ const HeroSection = () => {
                 src={src}
                 alt={`SMS Law College ${index + 1}`}
                 fill
-                
                 priority={index === 0}
+                style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
               />
-             
-             
             </div>
           </div>
         ))}
       </Slider>
-
+      <div className="bg-purple-600 p-2 mt-[-7px]">
+        <Marquee speed={100} pauseOnHover={true}>
+         <div className="flex gap-2 items-center"> <a
+            href="https://deemed.ugc.ac.in/?_gl=1*1k4r0fx*_ga*Nzc0MzIwNzQ0LjE3NjI1MDk1OTE.*_ga_FGHYECNLXB*czE3NjI1ODA1MDQkbzMkZzEkdDE3NjI1ODA3NzEkajU1JGwwJGgw*_ga_Q0MS75D115*czE3NjI1ODA1MDQkbzMkZzEkdDE3NjI1ODA3NzEkajU1JGwwJGgw"
+            target="_blank"
+            className="text-lg font-bold text-white"
+          >
+            Invitation of applications from eligible colleges for Deemed to be
+            University status, may apply on the portal at
+            https://deemed.ugc.ac.in/ 
+          </a>
+          <span   className="text-lg font-bold text-white mx-2" >|</span>
+          <a
+            href="https://aucollege.ugc.ac.in/?_gl=1*k8zir3*_ga*Nzc0MzIwNzQ0LjE3NjI1MDk1OTE.*_ga_FGHYECNLXB*czE3NjI1ODA1MDQkbzMkZzEkdDE3NjI1ODA3NzEkajU1JGwwJGgw*_ga_Q0MS75D115*czE3NjI1ODA1MDQkbzMkZzEkdDE3NjI1ODA3NzEkajU1JGwwJGgw"
+            target="_blank"
+             className="text-lg font-bold text-white"
+          >
+             Invitation of applications from eligible colleges for
+            conferment/extension of Autonomous status, colleges may apply on the
+            portal at https://aucollege.ugc.ac.in
+          </a></div>
+        </Marquee>
+      </div>
       {/* ======= STATS SECTION ======= */}
-      <div className="relative w-full bg-white/95 backdrop-blur-sm z-10">
+      <div className="relative w-full bg-white/95  z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
             {stats.map((stat, index) => (

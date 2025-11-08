@@ -169,7 +169,7 @@ const AchievementsPage = () => {
             src="/assets/HeroSection/HeroSection1.jpeg"
             alt="Academic Achievements"
             fill
-            style={{ objectFit: "fill" }}
+            style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
             priority
           />
         </div>

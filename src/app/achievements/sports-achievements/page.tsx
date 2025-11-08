@@ -138,10 +138,10 @@ const SportsAchievementsPage = () => {
       <section className="relative w-full min-h-[120vh] sm:min-h-[120vh] md:min-h-[130vh] lg:min-h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/assets/HeroSection/HeroSection2.jpeg"
+            src="/assets/HeroSection/HeroSection1.jpeg"
             alt="Sports Achievements"
             fill
-            style={{ objectFit: "fill" }}
+            style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
             priority
           />
          

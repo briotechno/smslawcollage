@@ -157,7 +157,7 @@ const ParticipationPage = () => {
             src="/assets/HeroSection/HeroSection4.jpeg"
             alt="Student Participation"
             fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
             priority
           />
           

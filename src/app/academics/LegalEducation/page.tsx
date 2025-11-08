@@ -76,10 +76,10 @@ const LegalEducation = () => {
             src="/assets/HeroSection/HeroSection6.jpeg"
             alt="Legal Education in India"
             fill
-            style={{ objectFit: "fill" }}
+            style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+          
         </div>
 
         

@@ -169,7 +169,7 @@ const StudentPage = () => {
             src="/assets/HeroSection/HeroSection6.jpeg"
             alt="SMS Law College Students"
             fill
-            style={{ objectFit: "fill" }}
+            style={{ objectFit: "fill",transform:'scaleY(1.6)' }}
             
           />
          
