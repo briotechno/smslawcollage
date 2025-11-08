@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useFaculty } from "@/context/FacultyContext";
 
 interface Mentor {
   id?: number;
@@ -17,9 +18,8 @@ interface Mentor {
 }
 
 const Faculty = () => {
-  const [mentors, setMentors] = useState<Mentor[]>([]);
-  const [loading, setLoading] = useState(true);
-
+  const { faculty: mentors, loading, error, refreshFaculty } = useFaculty();
+console.log('mentors',mentors)
   // Small sample administrative staff fallback
   const AdministrativeStaff: Mentor[] = [
     {
@@ -34,34 +34,8 @@ const Faculty = () => {
   ];
 
   useEffect(() => {
-    const fetchMentors = async () => {
-      try {
-        const token =
-          typeof window !== "undefined"
-            ? localStorage.getItem("token") || sessionStorage.getItem("token")
-            : null;
-
-        const headers: any = {};
-        if (token) headers["Authorization"] = `Bearer ${token}`;
-
-        const res = await fetch("/api/faculty", { headers });
-        const data = await res.json();
-
-        if (res.ok && data?.success) {
-          setMentors(data.data || []);
-        } else {
-          setMentors([]);
-        }
-      } catch (err) {
-        console.error("Failed to fetch faculty", err);
-        setMentors([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMentors();
-  }, []);
+    refreshFaculty();
+  }, [refreshFaculty]);
 
   const formatExperience = (exp?: string) => {
     if (!exp) return "Not specified";
@@ -165,7 +139,7 @@ const Faculty = () => {
               />
             </svg>
           </div>
-        ) : mentors.length === 0 ? (
+        ) : mentors?.length === 0 ? (
           <p className="text-center text-gray-600 py-10">
             No faculty profiles available.
           </p>

@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
+import { useFaculty } from "@/context/FacultyContext";
+import { useLegalAid } from "@/context/LegalAidContext";
 
 const menuItems = [
   { name: "About Us", href: "/" },
@@ -74,12 +76,24 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const { faculty, loading: facultyLoading, error: facultyError, refreshFaculty } = useFaculty();
+  const { cases, loading: legalLoading, error: legalError, refreshCases } = useLegalAid();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Preload data when hovering over relevant menus
+  useEffect(() => {
+    if (activeDropdown === 'Academics') {
+      refreshFaculty();
+    }
+    if (activeDropdown === 'Research - Clinic') {
+      refreshCases();
+    }
+  }, [activeDropdown, refreshFaculty, refreshCases]);
 
   useEffect(() => {
     const handleClickAnywhere = (event: MouseEvent) => {
