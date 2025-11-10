@@ -30,7 +30,7 @@ const AdmissionPage = () => {
 
   const programs = [
     {
-      title: "L.L.B (3 Years Integrated)",
+      title: "L.L.B (3 Years)",
       description: "Comprehensive three-year integrated program combining Bachelor of Arts with Bachelor of Laws",
       duration: "3 Years",
       type: "Any Graduate",
