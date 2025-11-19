@@ -73,7 +73,7 @@ const AboutClg = () => {
             className="space-y-8"
           >
             <div className="space-y-6">
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 <strong className="text-purple-600">SMS Law College</strong>{" "}
                 stands as a beacon of excellence in legal education, committed
                 to nurturing the next generation of legal professionals. Our
@@ -82,7 +82,7 @@ const AboutClg = () => {
                 environment.
               </p>
 
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 With a rich heritage of academic excellence and a
                 forward-thinking approach to legal education, we provide
                 students with the knowledge, skills, and ethical foundation
@@ -91,7 +91,7 @@ const AboutClg = () => {
                 practical application.
               </p>
 
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 We believe in fostering critical thinking, analytical skills,
                 and a deep understanding of justice and equity. Our students
                 graduate not just as legal professionals, but as advocates for

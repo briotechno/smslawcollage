@@ -219,7 +219,7 @@ const AntiRaggingCommittee = () => {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 The{" "}
                 <strong className="text-purple-600">
                   Anti-Ragging Committee
@@ -228,14 +228,14 @@ const AntiRaggingCommittee = () => {
                 address ragging incidents in educational institutions.
               </p>
 
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 We maintain a <strong>zero-tolerance policy</strong> towards
                 ragging in any form. Our committee ensures immediate action
                 against perpetrators and provides comprehensive support to
                 victims.
               </p>
 
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 The committee comprises experienced faculty members, external
                 experts, and student representatives to ensure fair and
                 impartial handling of all cases.

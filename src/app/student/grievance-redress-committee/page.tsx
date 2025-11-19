@@ -157,20 +157,20 @@ const GrievanceRedressCommittee = () => {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 The <strong className="text-purple-600">Grievance Redress Committee</strong> is
                 constituted as per UGC Regulations, 2015, and the Sexual Harassment of Women at
                 Workplace Act, 2013, to deal with complaints of sexual harassment at the
                 educational institution.
               </p>
 
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 Our committee is committed to providing a safe, fair, and transparent mechanism
                 for addressing student grievances. We ensure that every complaint is handled
                 with utmost confidentiality and resolved in a timely manner.
               </p>
 
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed text-justify">
                 The committee comprises experienced faculty members, external experts, and
                 student representatives to ensure a balanced and comprehensive approach to
                 grievance resolution.

@@ -64,7 +64,7 @@ const HeroSection = () => {
                 alt={`SMS Law College ${index + 1}`}
                 fill
                 priority={index === 0}
-                  className="object-fill lg:scale-y-[1.6]"
+                className="object-fill lg:scale-y-[1.6]"
               />
             </div>
           </div>
@@ -72,10 +72,19 @@ const HeroSection = () => {
       </Slider>
       <div className="bg-purple-600 p-2 mt-[-7px]">
         <Marquee speed={100} pauseOnHover={true}>
-          <span className="text-lg font-bold text-white">
-            Shri S.M Shah Law College Avni Seeds Vidhya Sankul Nagalpur Highway
-            Mahesana-384002
-          </span>
+          <div className="flex gap-4 items-center">
+            <span className="text-lg font-bold text-white">
+              Annual Newsletter Vidhaan
+            </span>
+            <div className="w-2 h-2 bg-white rounded-full"/>
+            <span className="text-lg font-bold text-white">
+              BCI Affiliation: 2025-26
+            </span>
+            <div className="w-2 h-2 bg-white rounded-full"/>
+            <span className="text-lg font-bold text-white">
+              SMS Law College Brochure
+            </span>
+          </div>
         </Marquee>
       </div>
       {/* ======= STATS SECTION ======= */}

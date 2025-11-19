@@ -154,10 +154,10 @@ const ParticipationPage = () => {
            <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
                   <div className="absolute inset-0">
                     <Image
-                      src="/assets/HeroSection/HeroSection4.jpeg"
+                      src="/assets/HeroSection/participateHero.jpeg"
                       alt="Legal Education in India"
                       fill
-                      className="object-fill lg:scale-y-[1.6]"
+                      className="object-fill lg:scale-y-[1.4] lg:translate-x-[10px] lg:translate-y-[70px] lg:translate-z-[10px]"
                       priority
                     />
                     
