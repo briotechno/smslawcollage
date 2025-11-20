@@ -86,17 +86,14 @@ const HeroSection = () => {
               BCI Affiliation: 2025-26
             </span>
             <div className="w-2 h-2 bg-white rounded-full" />
-            <span className="text-lg font-bold text-white cursor-pointer">
+            <a
+              onClick={() =>
+                window.open("/assets/SHRI S.M.SHAH LAW COLLEGE.pdf", "_blank")
+              }
+              className="text-lg font-bold text-white cursor-pointer"
+            >
               SMS Law College Brochure{" "}
-              <a
-              className="underline text-base"
-                  onClick={() =>
-                  window.open("/assets/SHRI S.M.SHAH LAW COLLEGE.pdf", "_blank")
-                }
-              >
-                Click Here
-              </a>
-            </span>
+            </a>
           </div>
         </Marquee>
       </div>
@@ -172,7 +169,6 @@ const HeroSection = () => {
                       {item.text}
                     </a>
                   ))}
-                 
                 </motion.ul>
               </div>
             </motion.div>
