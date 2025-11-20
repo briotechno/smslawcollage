@@ -56,26 +56,29 @@ const GrievanceRedressCommittee = () => {
       position: "Member",
       email: "smslcmeh@gmail.com",
       phone: "+91-98792 85000",
-    }
+    },
   ];
 
   const grievanceTypes = [
     {
       icon: Scale,
       title: "Academic Grievances",
-      description: "Issues related to academic performance, grading, curriculum, or faculty conduct",
+      description:
+        "Issues related to academic performance, grading, curriculum, or faculty conduct",
       examples: ["Grade disputes", "Course content issues", "Faculty behavior"],
     },
     {
       icon: Users,
       title: "Administrative Grievances",
-      description: "Problems with administrative processes, documentation, or services",
+      description:
+        "Problems with administrative processes, documentation, or services",
       examples: ["Admission issues", "Fee structure", "Documentation delays"],
     },
     {
       icon: Shield,
       title: "Infrastructure Grievances",
-      description: "Concerns about campus facilities, resources, or maintenance",
+      description:
+        "Concerns about campus facilities, resources, or maintenance",
       examples: ["Library access", "Classroom facilities", "Hostel issues"],
     },
     {
@@ -117,25 +120,21 @@ const GrievanceRedressCommittee = () => {
     <div className="min-h-screen bg-gray-50 mt-32">
       {/* Hero Section */}
       <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
-             <div className="absolute inset-0">
-               <Image
-                 src="/assets/HeroSection/HeroSection6.jpeg"
-                 alt="Legal Education in India"
-                 fill
-                 className="object-fill lg:scale-y-[1.6]"
-                 priority
-               />
-               
-             </div>
-     
-             
-           </section>
+        <div className="absolute inset-0">
+          <Image
+            src="/assets/HeroSection/HeroSection6.jpeg"
+            alt="Legal Education in India"
+            fill
+            className="object-fill lg:scale-y-[1.6]"
+            priority
+          />
+        </div>
+      </section>
 
       {/* Introduction Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
@@ -158,22 +157,26 @@ const GrievanceRedressCommittee = () => {
               className="space-y-6"
             >
               <p className="text-lg text-gray-700 leading-relaxed text-justify">
-                The <strong className="text-purple-600">Grievance Redress Committee</strong> is
-                constituted as per UGC Regulations, 2015, and the Sexual Harassment of Women at
-                Workplace Act, 2013, to deal with complaints of sexual harassment at the
-                educational institution.
+                The{" "}
+                <strong className="text-purple-600">
+                  Grievance Redress Committee
+                </strong>{" "}
+                is constituted as per UGC Regulations, 2015, and the Sexual
+                Harassment of Women at Workplace Act, 2013, to deal with
+                complaints of sexual harassment at the educational institution.
               </p>
 
               <p className="text-lg text-gray-700 leading-relaxed text-justify">
-                Our committee is committed to providing a safe, fair, and transparent mechanism
-                for addressing student grievances. We ensure that every complaint is handled
-                with utmost confidentiality and resolved in a timely manner.
+                Our committee is committed to providing a safe, fair, and
+                transparent mechanism for addressing student grievances. We
+                ensure that every complaint is handled with utmost
+                confidentiality and resolved in a timely manner.
               </p>
 
               <p className="text-lg text-gray-700 leading-relaxed text-justify">
-                The committee comprises experienced faculty members, external experts, and
-                student representatives to ensure a balanced and comprehensive approach to
-                grievance resolution.
+                The committee comprises experienced faculty members, external
+                experts, and student representatives to ensure a balanced and
+                comprehensive approach to grievance resolution.
               </p>
             </motion.div>
 
@@ -185,7 +188,9 @@ const GrievanceRedressCommittee = () => {
               className="relative"
             >
               <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Quick Contact</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                  Quick Contact
+                </h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-purple-600" />
@@ -197,7 +202,9 @@ const GrievanceRedressCommittee = () => {
                   </div>
                   <div className="flex items-center gap-3">
                     <Clock className="w-5 h-5 text-purple-600" />
-                    <span className="text-gray-700">Mon-Fri: 9:00 AM - 5:00 PM</span>
+                    <span className="text-gray-700">
+                      Mon-Fri: 9:00 AM - 5:00 PM
+                    </span>
                   </div>
                 </div>
               </div>
@@ -224,8 +231,8 @@ const GrievanceRedressCommittee = () => {
             </h2>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Meet our dedicated committee members committed to ensuring fair and
-              transparent grievance resolution.
+              Meet our dedicated committee members committed to ensuring fair
+              and transparent grievance resolution.
             </p>
           </motion.div>
 
@@ -250,7 +257,9 @@ const GrievanceRedressCommittee = () => {
                   <p className="text-sm text-purple-600 font-medium mb-2">
                     {member.position}
                   </p>
-                  <p className="text-sm text-gray-600 mb-4">{member.designation}</p>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {member.designation}
+                  </p>
                 </div>
                 <div className="space-y-2 flex flex-col items-center">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -286,8 +295,8 @@ const GrievanceRedressCommittee = () => {
             </h2>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              We handle various types of grievances to ensure comprehensive support
-              for all student concerns.
+              We handle various types of grievances to ensure comprehensive
+              support for all student concerns.
             </p>
           </motion.div>
 
@@ -348,8 +357,8 @@ const GrievanceRedressCommittee = () => {
             </h2>
             <div className="w-24 h-1 bg-purple-600 mx-auto mb-8"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Our streamlined process ensures your grievances are handled efficiently
-              and resolved in a timely manner.
+              Our streamlined process ensures your grievances are handled
+              efficiently and resolved in a timely manner.
             </p>
           </motion.div>
 
