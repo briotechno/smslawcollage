@@ -46,7 +46,12 @@ const HeroSection = () => {
   const items = [
     { text: "Annual Newsletter Vidhaan", color: "text-red-600" },
     { text: "BCI Affiliation: 2025-26", color: "text-yellow-700" },
-    { text: "SMS Law College Brochure", color: "text-purple-700" },
+    {
+      text: "SMS Law College Brochure ",
+      color: "text-purple-700",
+      onClick: () =>
+        window.open("/assets/SHRI S.M.SHAH LAW COLLEGE.pdf", "_blank"),
+    },
   ];
 
   return (
@@ -76,13 +81,21 @@ const HeroSection = () => {
             <span className="text-lg font-bold text-white">
               Annual Newsletter Vidhaan
             </span>
-            <div className="w-2 h-2 bg-white rounded-full"/>
+            <div className="w-2 h-2 bg-white rounded-full" />
             <span className="text-lg font-bold text-white">
               BCI Affiliation: 2025-26
             </span>
-            <div className="w-2 h-2 bg-white rounded-full"/>
-            <span className="text-lg font-bold text-white">
-              SMS Law College Brochure
+            <div className="w-2 h-2 bg-white rounded-full" />
+            <span className="text-lg font-bold text-white cursor-pointer">
+              SMS Law College Brochure{" "}
+              <a
+              className="underline text-base"
+                  onClick={() =>
+                  window.open("/assets/SHRI S.M.SHAH LAW COLLEGE.pdf", "_blank")
+                }
+              >
+                Click Here
+              </a>
             </span>
           </div>
         </Marquee>
@@ -142,7 +155,7 @@ const HeroSection = () => {
               {/* Vertical Scrolling Text */}
               <div className="overflow-hidden relative h-70 flex">
                 <motion.ul
-                  className="space-y-2"
+                  className="space-y-2 flex flex-col"
                   animate={{ y: ["100%", "-100%"] }}
                   transition={{
                     duration: 20,
@@ -151,13 +164,15 @@ const HeroSection = () => {
                   }}
                 >
                   {items.map((item, index) => (
-                    <li
+                    <a
                       key={index}
-                      className={`text-lg font-medium ${item.color} px-2`}
+                      className={`text-lg font-medium ${item.color} px-2 cursor-pointer`}
+                      onClick={item.onClick}
                     >
                       {item.text}
-                    </li>
+                    </a>
                   ))}
+                 
                 </motion.ul>
               </div>
             </motion.div>
