@@ -80,7 +80,7 @@ export default function RequirementsPage() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
               {isLoading ? (
                 <div className="flex flex-row items-center  p-8  gap-4 justify-center">
                   <svg
@@ -121,10 +121,10 @@ export default function RequirementsPage() {
                 requirements.map((req) => (
                   <div
                     key={req.id}
-                    className="bg-white rounded-lg shadow-xl hover:shadow-2xl p-6 flex flex-col"
+                    className="bg-white rounded-lg shadow-xl hover:shadow-2xl p-6 flex justify-between items-center"
                   >
                     <div className="flex justify-between items-start">
-                      <div>
+                      <div className="flex items-center gap-28">
                         <h3 className="text-xl font-semibold text-gray-900">
                           {req.title}
                         </h3>
@@ -146,7 +146,7 @@ export default function RequirementsPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 flex items-center gap-4 flex-wrap">
+                    <div className=" flex items-center gap-4 flex-wrap">
                       {req.file && (
                         <Link
                           href={req.file}
