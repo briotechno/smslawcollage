@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Marquee from "react-fast-marquee";
+import Link from "next/link";
 
 const images = [
   "/assets/HeroSection/HeroSection1.jpeg",
@@ -44,8 +45,11 @@ const HeroSection = () => {
   ];
 
   const items = [
-    { text: "Annual Newsletter Vidhaan", color: "text-red-600" },
-    { text: "BCI Affiliation: 2025-26", color: "text-yellow-700" },
+    {
+      text: "Provisional Answer key Open for all candidates appears in Head Claerk examination conduct on 18th January 2026. See more instructions in Recruitment tab.", 
+      color: "text-red-600",
+      href: "/requirements"
+    },
     {
       text: "SMS Law College Brochure ",
       color: "text-purple-700",
@@ -160,7 +164,7 @@ const HeroSection = () => {
                     ease: "linear",
                   }}
                 >
-                  {items.map((item, index) => (
+                  {/* {items.map((item, index) => (
                     <a
                       key={index}
                       className={`text-lg font-medium ${item.color} px-2 cursor-pointer`}
@@ -168,6 +172,16 @@ const HeroSection = () => {
                     >
                       {item.text}
                     </a>
+                  ))} */}
+
+                  {items.map((item, index) => (
+                    <Link key={index} href={item.href || "#"}>
+                      <span
+                        className={`${item.color} cursor-pointer hover:underline`}
+                      >
+                        {item.text}
+                      </span>
+                    </Link>
                   ))}
                 </motion.ul>
               </div>
