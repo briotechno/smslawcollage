@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Download, Briefcase, Loader2, Eye, FileText, X, BookOpen } from "lucide-react";
+import { Download, Briefcase, Loader2, Eye, FileText, X, BookOpen, Info } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PDF_PATHS = {
@@ -13,27 +13,23 @@ const PDF_PATHS = {
 const PAPER_PDF_PATHS = [
   {
     id: "set-a",
-    title: "Paper Set A",
-    questionFile: "/assets/paper_pdf/PAPER SET-A.pdf",
-    answerFile: "/assets/paper_pdf/Answer-Key-Paper-A.jpeg",
+    title: "Answer Key - Paper Set A",
+    file: "/assets/paper_pdf/new/AnserKey-A.pdf",
   },
   {
     id: "set-b",
-    title: "Paper Set B",
-    questionFile: "/assets/paper_pdf/PAPER SET-B.pdf",
-    answerFile: "/assets/paper_pdf/Answer-Key-Paper-B.jpeg",
+    title: "Answer Key - Paper Set B",
+    file: "/assets/paper_pdf/new/answerkey-B.pdf",
   },
   {
     id: "set-c",
-    title: "Paper Set C",
-    questionFile: "/assets/paper_pdf/PAPER SET-C.pdf",
-    answerFile: "/assets/paper_pdf/Answer-Key-Paper-C.jpeg",
+    title: "Answer Key - Paper Set C",
+    file: "/assets/paper_pdf/new/AnserKey-C.pdf",
   },
   {
     id: "set-d",
-    title: "Paper Set D",
-    questionFile: "/assets/paper_pdf/PAPER SET-D.pdf",
-    answerFile: "/assets/paper_pdf/Answer-Key-Paper-D.jpeg",
+    title: "Answer Key - Paper Set D",
+    file: "/assets/paper_pdf/new/AnserKey-D.pdf",
   },
 ];
 
@@ -307,12 +303,44 @@ export default function RequirementsPage() {
             </div>
           </section>
 
-{/* Question Paper & Answer Key Section */}
+          {/* Answer Key Information Section */}
+          <section id="info" className="mb-12">
+            <div className="flex items-center gap-4 mb-8">
+              <Info className="w-8 h-8 text-purple-700" />
+              <h2 className="text-2xl font-bold text-purple-700">Answer Key Information</h2>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
+              <div className="p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="flex items-center gap-4 md:gap-6 flex-1">
+                  <div className="bg-purple-50 p-3 md:p-4 rounded-xl group-hover:bg-purple-100 transition-colors shrink-0">
+                    <FileText className="w-5 h-5 md:w-6 md:h-6 text-purple-700" />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-purple-700 transition-colors">
+                    Important Information Regarding Answer Keys
+                  </h3>
+                </div>
+
+                <div className="flex items-center gap-3 shrink-0 w-full md:w-auto">
+                  <button
+                    onClick={() =>
+                      handleView("/assets/paper_pdf/new/answerkey_information.pdf", "Answer Key Information", false)
+                    }
+                    className="w-full md:w-auto px-4 md:px-6 py-2.5 md:py-3 bg-purple-100 text-purple-700 rounded-xl inline-flex items-center justify-center gap-2 hover:bg-purple-200 transition-all duration-200 font-semibold text-sm cursor-pointer"
+                  >
+                    <Eye className="w-4 h-4" /> <span className="whitespace-nowrap">View Information</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Answer Keys Section */}
           <section id="papers" className="mb-12">
             <div className="flex items-center gap-4 mb-8">
               <BookOpen className="w-8 h-8 text-purple-700" />
               <h2 className="text-2xl font-bold text-purple-700">
-                Question Papers & Answer Keys
+                Answer Keys
               </h2>
             </div>
 
@@ -335,15 +363,11 @@ export default function RequirementsPage() {
                     <div className="flex items-center gap-3 shrink-0 w-full md:w-auto">
                       <button
                         onClick={() =>
-                          handleDualView(
-                            item.questionFile,
-                            item.answerFile,
-                            item.title
-                          )
+                          handleView(item.file, item.title, false)
                         }
                         className="w-full md:w-auto px-4 md:px-6 py-2.5 md:py-3 bg-purple-100 text-purple-700 rounded-xl inline-flex items-center justify-center gap-2 hover:bg-purple-200 transition-all duration-200 font-semibold text-sm cursor-pointer"
                       >
-                        <Eye className="w-4 h-4" /> <span className="whitespace-nowrap">View Paper & Key</span>
+                        <Eye className="w-4 h-4" /> <span className="whitespace-nowrap">View Answer Key</span>
                       </button>
                     </div>
                   </div>
@@ -351,7 +375,7 @@ export default function RequirementsPage() {
               ))}
             </div>
           </section>
-          
+
           {/* Important Notes / Contact */}
           <section className="mb-12">
             <h3 className="text-xl font-semibold text-purple-700 mb-4">
