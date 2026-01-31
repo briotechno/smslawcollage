@@ -12,24 +12,9 @@ const PDF_PATHS = {
 
 const PAPER_PDF_PATHS = [
   {
-    id: "set-a",
-    title: "Answer Key - Paper Set A",
-    file: "/assets/paper_pdf/new/AnserKey-A.pdf",
-  },
-  {
-    id: "set-b",
-    title: "Answer Key - Paper Set B",
-    file: "/assets/paper_pdf/new/answerkey-B.pdf",
-  },
-  {
-    id: "set-c",
-    title: "Answer Key - Paper Set C",
-    file: "/assets/paper_pdf/new/AnserKey-C.pdf",
-  },
-  {
-    id: "set-d",
-    title: "Answer Key - Paper Set D",
-    file: "/assets/paper_pdf/new/AnserKey-D.pdf",
+    id: "hedclerk-result",
+    title: "HEDCLERK PART-1 EXAM RESULT",
+    file: "/assets/paper_pdf/new/HEDCLERK PART-1 EXAM RESULT.pdf",
   },
 ];
 
@@ -304,7 +289,7 @@ export default function RequirementsPage() {
           </section>
 
           {/* Answer Key Information Section */}
-          <section id="info" className="mb-12">
+          {/* <section id="info" className="mb-12">
             <div className="flex items-center gap-4 mb-8">
               <Info className="w-8 h-8 text-purple-700" />
               <h2 className="text-2xl font-bold text-purple-700">Answer Key Information</h2>
@@ -333,14 +318,14 @@ export default function RequirementsPage() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* Answer Keys Section */}
           <section id="papers" className="mb-12">
             <div className="flex items-center gap-4 mb-8">
               <BookOpen className="w-8 h-8 text-purple-700" />
               <h2 className="text-2xl font-bold text-purple-700">
-                Answer Keys
+                Exam Result
               </h2>
             </div>
 
