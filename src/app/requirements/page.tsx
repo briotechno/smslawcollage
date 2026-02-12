@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Download, Briefcase, Loader2, Eye, FileText, X, BookOpen, Info } from "lucide-react";
+import { Download, Briefcase, Loader2, Eye, FileText, X, BookOpen, Info, ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PDF_PATHS = {
@@ -17,6 +17,17 @@ const PAPER_PDF_PATHS = [
     file: "/assets/paper_pdf/new/HEDCLERK PART-1 EXAM RESULT.pdf",
   },
 ];
+
+const EXAM_PART2_IMAGES = {
+  INSTRUCTION: "/assets/paper_pdf/examPart2/instrucation.jpeg",
+  SYLLABUS: [
+    "/assets/paper_pdf/examPart2/syllabus-im1.jpeg",
+    "/assets/paper_pdf/examPart2/syllabus-im2.jpeg",
+    "/assets/paper_pdf/examPart2/syllabus-im3.jpeg",
+    "/assets/paper_pdf/examPart2/syllabus-im4.jpeg",
+    "/assets/paper_pdf/examPart2/syllabus-im5.jpeg",
+  ]
+};
 
 interface MoreItem {
   title: string;
@@ -52,10 +63,11 @@ export default function RequirementsPage() {
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activePdf, setActivePdf] = useState<{
-    url: string;
+    url?: string;
+    urls?: string[];
     title: string;
     allowDownload: boolean;
-    type?: "standard" | "dual";
+    type?: "standard" | "dual" | "image" | "gallery";
     pairContent?: {
       leftUrl: string;
       rightUrl: string;
@@ -63,6 +75,7 @@ export default function RequirementsPage() {
       rightTitle: string;
     };
   } | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleView = (
     url: string,
@@ -91,6 +104,31 @@ export default function RequirementsPage() {
       },
     });
     setIsModalOpen(true);
+  };
+
+  const handleImageView = (url: string, title: string) => {
+    setActivePdf({ url, title, allowDownload: true, type: "image" });
+    setIsModalOpen(true);
+  };
+
+  const handleGalleryView = (urls: string[], title: string) => {
+    setActivePdf({ urls, title, allowDownload: true, type: "gallery" });
+    setCurrentImageIndex(0);
+    setIsModalOpen(true);
+  };
+
+  const nextImage = () => {
+    if (activePdf?.urls) {
+      setCurrentImageIndex((prev) => (prev + 1) % activePdf.urls!.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (activePdf?.urls) {
+      setCurrentImageIndex((prev) =>
+        prev === 0 ? activePdf.urls!.length - 1 : prev - 1
+      );
+    }
   };
 
   useEffect(() => {
@@ -320,7 +358,7 @@ export default function RequirementsPage() {
             </div>
           </section> */}
 
-          {/* Answer Keys Section */}
+          {/* Exam Result Section */}
           <section id="papers" className="mb-12">
             <div className="flex items-center gap-4 mb-8">
               <BookOpen className="w-8 h-8 text-purple-700" />
@@ -358,6 +396,62 @@ export default function RequirementsPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </section>
+
+          {/* Head Clerk Exam Part 2 Information Section */}
+          <section id="clerk-part2" className="mb-12">
+            <div className="flex items-center gap-4 mb-8">
+              <Info className="w-8 h-8 text-purple-700" />
+              <h2 className="text-2xl font-bold text-purple-700">
+                Head Clerk Exam Part 2 Information
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              {/* Instruction Card */}
+              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
+                <div className="p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="flex items-center gap-4 md:gap-6 flex-1">
+                    <div className="bg-purple-50 p-3 md:p-4 rounded-xl group-hover:bg-purple-100 transition-colors shrink-0">
+                      <Info className="w-5 h-5 md:w-6 md:h-6 text-purple-700" />
+                    </div>
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-purple-700 transition-colors">
+                      General Instructions
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0 w-full md:w-auto">
+                    <button
+                      onClick={() => handleImageView(EXAM_PART2_IMAGES.INSTRUCTION, "Head Clerk Exam Part 2 Instructions")}
+                      className="w-full md:w-auto px-4 md:px-6 py-2.5 md:py-3 bg-purple-100 text-purple-700 rounded-xl inline-flex items-center justify-center gap-2 hover:bg-purple-200 transition-all duration-200 font-semibold text-sm cursor-pointer"
+                    >
+                      <Eye className="w-4 h-4" /> <span className="whitespace-nowrap">View Instruction</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Syllabus Card */}
+              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
+                <div className="p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="flex items-center gap-4 md:gap-6 flex-1">
+                    <div className="bg-purple-50 p-3 md:p-4 rounded-xl group-hover:bg-purple-100 transition-colors shrink-0">
+                      <ImageIcon className="w-5 h-5 md:w-6 md:h-6 text-purple-700" />
+                    </div>
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-purple-700 transition-colors">
+                      Exams Syllabus
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0 w-full md:w-auto">
+                    <button
+                      onClick={() => handleGalleryView(EXAM_PART2_IMAGES.SYLLABUS, "Head Clerk Exam Part 2 Syllabus")}
+                      className="w-full md:w-auto px-4 md:px-6 py-2.5 md:py-3 bg-purple-100 text-purple-700 rounded-xl inline-flex items-center justify-center gap-2 hover:bg-purple-200 transition-all duration-200 font-semibold text-sm cursor-pointer"
+                    >
+                      <Eye className="w-4 h-4" /> <span className="whitespace-nowrap">View Syllabus</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -419,12 +513,12 @@ export default function RequirementsPage() {
                   </h3>
                 </div>
                 <div className="flex items-center gap-2">
-                  {activePdf.allowDownload && activePdf.type !== "dual" && (
+                  {activePdf.allowDownload && activePdf.type !== "dual" && (activePdf.url || (activePdf.type === "gallery" && activePdf.urls)) && (
                     <Link
-                      href={activePdf.url}
+                      href={activePdf.type === "gallery" ? activePdf.urls![currentImageIndex] : activePdf.url!}
                       target="_blank"
                       download
-                      className="p-2 text-purple-600 hover:bg-purple-100 rounded-full transition-colors hidden md:block"
+                      className="p-2 text-purple-600 hover:bg-purple-100 rounded-full transition-colors hidden md:block cursor-pointer"
                       title="Download"
                     >
                       <Download className="w-5 h-5" />
@@ -432,7 +526,7 @@ export default function RequirementsPage() {
                   )}
                   <button
                     onClick={() => setIsModalOpen(false)}
-                    className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors"
+                    className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
                     title="Close"
                   >
                     <X className="w-6 h-6" />
@@ -440,7 +534,7 @@ export default function RequirementsPage() {
                 </div>
               </div>
 
-              {/* PDF Content */}
+              {/* Content */}
               <div className="flex-1 bg-gray-100 relative overflow-y-auto lg:overflow-hidden">
                 {activePdf.type === "dual" && activePdf.pairContent ? (
                   <div className="flex h-auto lg:h-full gap-4 p-4 flex-col lg:flex-row">
@@ -503,10 +597,63 @@ export default function RequirementsPage() {
                       </div>
                     </div>
                   </div>
+                ) : activePdf.type === "image" && activePdf.url ? (
+                  <div className="w-full h-full flex items-center justify-center p-4">
+                    <img
+                      src={activePdf.url}
+                      alt={activePdf.title}
+                      className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+                    />
+                  </div>
+                ) : activePdf.type === "gallery" && activePdf.urls ? (
+                  <div className="relative w-full h-full flex items-center justify-center p-4 bg-gray-900">
+                    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 bg-black/50 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      {currentImageIndex + 1} / {activePdf.urls.length}
+                    </div>
+
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-4 z-20 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all backdrop-blur-md"
+                    >
+                      <ChevronLeft className="w-8 h-8" />
+                    </button>
+
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={currentImageIndex}
+                        src={activePdf.urls[currentImageIndex]}
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -100 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+                        alt={`${activePdf.title} - Image ${currentImageIndex + 1}`}
+                      />
+                    </AnimatePresence>
+
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-4 z-20 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all backdrop-blur-md"
+                    >
+                      <ChevronRight className="w-8 h-8" />
+                    </button>
+
+                    <div className="absolute bottom-10 flex gap-2 overflow-x-auto p-2 max-w-full no-scrollbar">
+                      {activePdf.urls.map((url, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setCurrentImageIndex(idx)}
+                          className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${currentImageIndex === idx ? "border-purple-500 scale-110 shadow-lg" : "border-transparent opacity-50 hover:opacity-100"
+                            }`}
+                        >
+                          <img src={url} className="w-full h-full object-cover" alt="thumbnail" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 ) : (
                   <iframe
-                    src={`${activePdf.url}#toolbar=${activePdf.allowDownload ? 1 : 0
-                      }`}
+                    src={activePdf.url ? `${activePdf.url}#toolbar=${activePdf.allowDownload ? 1 : 0}` : ""}
                     className="w-full h-full border-none"
                     title={activePdf.title}
                   />
@@ -514,13 +661,13 @@ export default function RequirementsPage() {
               </div>
 
               {/* Modal Footer (Mobile Download Only) */}
-              {activePdf.allowDownload && activePdf.type !== "dual" && (
+              {activePdf.allowDownload && activePdf.type !== "dual" && (activePdf.url || (activePdf.type === "gallery" && activePdf.urls)) && (
                 <div className="p-4 border-t bg-white md:hidden">
                   <Link
-                    href={activePdf.url}
+                    href={activePdf.type === "gallery" ? activePdf.urls![currentImageIndex] : activePdf.url!}
                     target="_blank"
                     download
-                    className="w-full py-3 bg-purple-600 text-white rounded-xl flex items-center justify-center gap-2 font-semibold"
+                    className="w-full py-3 bg-purple-600 text-white rounded-xl flex items-center justify-center gap-2 font-semibold cursor-pointer"
                   >
                     <Download className="w-5 h-5" /> Download Document
                   </Link>
