@@ -12,9 +12,14 @@ const PDF_PATHS = {
 
 const PAPER_PDF_PATHS = [
   {
-    id: "hedclerk-result",
+    id: "hedclerk-result-1",
     title: "HEDCLERK PART-1 EXAM RESULT",
     file: "/assets/paper_pdf/new/HEDCLERK PART-1 EXAM RESULT.pdf",
+  },
+  {
+    id: "hedclerk-result-2",
+    title: "EDCLERK PART-2 EXAM RESULT",
+    file: "/assets/paper_pdf/new/HEDCLERK PART-2 EXAM RESULT.pdf",
   },
 ];
 
