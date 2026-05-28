@@ -11,9 +11,9 @@ export default function LayoutShell({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isAdmin = pathname.startsWith("/admin");
+  const isAuthRoute = pathname.startsWith("/admin") || pathname.startsWith("/student-panel");
 
-  if (isAdmin) {
+  if (isAuthRoute) {
     return <>{children}</>;
   }
 

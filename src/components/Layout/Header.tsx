@@ -223,10 +223,16 @@ export default function Header() {
           </nav>
 
           {/* CTA */}
-          <div className="hidden md:hidden lg:hidden xl:flex items-center">
+          <div className="hidden md:hidden lg:hidden xl:flex items-center gap-3">
+            <Link
+              href="/student-panel/login"
+              className="bg-purple-800 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-purple-700 hover:shadow-lg transition-all duration-200 whitespace-nowrap"
+            >
+              Student Portal
+            </Link>
             <Link
               href="/admission"
-              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-md text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
+              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-md text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200 whitespace-nowrap"
             >
               Apply Now
             </Link>
@@ -298,7 +304,14 @@ export default function Header() {
             </div>
           ))}
 
-          <div className="pt-2">
+          <div className="pt-2 space-y-3">
+            <Link
+              href="/student-panel/login"
+              className="block text-center bg-purple-800 border border-purple-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 hover:shadow-lg transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Student Portal
+            </Link>
             <Link
               href="/admission"
               className="block text-center bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200"
