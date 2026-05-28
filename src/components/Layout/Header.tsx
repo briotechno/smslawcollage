@@ -75,6 +75,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isStudentLoggedIn, setIsStudentLoggedIn] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   const { faculty, loading: facultyLoading, error: facultyError, refreshFaculty } = useFaculty();
   const { cases, loading: legalLoading, error: legalError, refreshCases } = useLegalAid();
@@ -82,6 +83,13 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
+
+    // Check if student is logged in
+    const token = localStorage.getItem("studentToken");
+    if (token) {
+      setIsStudentLoggedIn(true);
+    }
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -167,100 +175,105 @@ export default function Header() {
 
       <div className="bg-gradient-to-r from-purple-900 to-purple-800 p-2 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="h-full flex justify-between items-center">
-          {/* Logo for mobile */}
-          <div className="xl:hidden flex items-center">
-            <Image src="/assets/Logonew.png" alt="College logo" width={40} height={40} className="rounded-full" />
-          </div>
+          <div className="h-full flex justify-between items-center">
+            {/* Logo for mobile */}
+            <div className="xl:hidden flex items-center">
+              <Image src="/assets/Logonew.png" alt="College logo" width={40} height={40} className="rounded-full" />
+            </div>
 
-          {/* Desktop Menu */}
-          <nav className="hidden xl:flex items-center space-x-1">
-            {menuItems.map((item) => (
-              <div
-                key={item.name}
-                className="relative cursor-pointer"
-                onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
-                onMouseLeave={() => item.hasDropdown && setActiveDropdown(null)}
-              >
-                <Link
-                  href={item.href}
-                  className="px-3 py-2 text-sm font-medium text-white hover:text-purple-100 flex items-center gap-1.5 transition-all duration-200 group relative cursor-pointer rounded-md hover:bg-purple-800"
+            {/* Desktop Menu */}
+            <nav className="hidden xl:flex items-center space-x-1">
+              {menuItems.map((item) => (
+                <div
+                  key={item.name}
+                  className="relative cursor-pointer"
+                  onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
+                  onMouseLeave={() => item.hasDropdown && setActiveDropdown(null)}
                 >
-                  <span className="!cursor-pointer">{item.name}</span>
-                  {item.hasDropdown && (
-                    <ChevronDown
-                      className={`w-4 h-4 dropdown-toggle transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
-                        }`}
-                    />
-                  )}
-                </Link>
-                {/* {item.name === 'Requirements' && (
+                  <Link
+                    href={item.href}
+                    className="px-3 py-2 text-sm font-medium text-white hover:text-purple-100 flex items-center gap-1.5 transition-all duration-200 group relative cursor-pointer rounded-md hover:bg-purple-800"
+                  >
+                    <span className="!cursor-pointer">{item.name}</span>
+                    {item.hasDropdown && (
+                      <ChevronDown
+                        className={`w-4 h-4 dropdown-toggle transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
+                          }`}
+                      />
+                    )}
+                  </Link>
+                  {/* {item.name === 'Requirements' && (
                   <span className="absolute -top-0.5 right-2 inline-flex items-center px-1 py-[0.2px] bg-white text-purple-700 text-[10px] font-semibold rounded-full animate-pulse z-50">
                     New
                   </span>
                 )} */}
 
-                {/* Dropdown */}
-                {item.hasDropdown && activeDropdown === item.name && (
-                  <div
-                    className="absolute top-full left-0 mt-[0.8px] w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
-                    onMouseEnter={() => setActiveDropdown(item.name)}
-                    onMouseLeave={() => setActiveDropdown(null)}
-                  >
-                    {item.dropdownItems?.map((dropdownItem) => (
-                      <Link
-                        key={dropdownItem.name}
-                        href={dropdownItem.href}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
-                      >
-                        {dropdownItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
+                  {/* Dropdown */}
+                  {item.hasDropdown && activeDropdown === item.name && (
+                    <div
+                      className="absolute top-full left-0 mt-[0.8px] w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                      onMouseEnter={() => setActiveDropdown(item.name)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      {item.dropdownItems?.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.name}
+                          href={dropdownItem.href}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
+                        >
+                          {dropdownItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
 
-          {/* CTA */}
-          <div className="hidden md:hidden lg:hidden xl:flex items-center">
-            <Link
+            {/* CTA */}
+            <div className="hidden md:hidden lg:hidden xl:flex items-center gap-3">
+              <Link
+                href={isStudentLoggedIn ? "/student-panel/dashboard" : "/student-panel/login"}
+                className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200 whitespace-nowrap"
+              >
+                {isStudentLoggedIn ? "Student Dashboard" : "Student Portal"}
+              </Link>
+              {/* <Link
               href="/admission"
-              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-md text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
+              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-md text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200 whitespace-nowrap"
             >
               Apply Now
-            </Link>
+            </Link> */}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="xl:hidden relative w-8 h-8 flex flex-col justify-center items-center mobile-toggle"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+
+              <span
+                className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "rotate-45" : "-translate-y-1"
+                  }`}
+              />
+              <span
+                className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : "opacity-100"
+                  }`}
+              />
+              <span
+                className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-1" : "translate-y-1"
+                  }`}
+              />
+            </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="xl:hidden relative w-8 h-8 flex flex-col justify-center items-center mobile-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-
-            <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "rotate-45" : "-translate-y-1"
-                }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-1" : "translate-y-1"
-                }`}
-            />
-          </button>
         </div>
-      </div>
       </div>
 
       {/* Mobile Menu */}
       <div
-        className={`xl:hidden bg-purple-900 border-t border-purple-800 shadow-xl ${
-          mobileMenuOpen ? "block" : "hidden"
-        }`}
+        className={`xl:hidden bg-purple-900 border-t border-purple-800 shadow-xl ${mobileMenuOpen ? "block" : "hidden"
+          }`}
       >
         <nav className="px-4 py-2 max-w-7xl mx-auto h-[78vh] overflow-y-auto pb-10">
           {menuItems.map((item) => (
@@ -298,14 +311,21 @@ export default function Header() {
             </div>
           ))}
 
-          <div className="pt-2">
+          <div className="pt-2 space-y-3">
             <Link
+              href={isStudentLoggedIn ? "/student-panel/dashboard" : "/student-panel/login"}
+              className="block text-center bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {isStudentLoggedIn ? "Student Dashboard" : "Student Portal"}
+            </Link>
+            {/* <Link
               href="/admission"
               className="block text-center bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200"
               onClick={() => setMobileMenuOpen(false)}
             >
               Apply Now
-            </Link>
+            </Link> */}
           </div>
         </nav>
       </div>
