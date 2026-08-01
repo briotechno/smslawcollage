@@ -30,6 +30,7 @@ const AdminDashboard = () => {
         faculty: 0,
         legalAid: 0,
         news: 0,
+        students: 0,
     });
 
     // Api Call 
@@ -97,13 +98,13 @@ const AdminDashboard = () => {
         },
         {
             title: "Admission",
-            value: "0",
-            change: "+45",
+            value: counts.students.toString(),
+            change: "Current",
             icon: UserPlus,
             color: "from-pink-400 to-pink-600",
             bgColor: "bg-gradient-to-br from-pink-50 to-rose-50",
-            route: "#",
-            description: "Applications received"
+            route: "/admin/students",
+            description: "Registered students"
         },
         {
             title: "Calendar",

@@ -85,10 +85,10 @@ export default function StudentDashboard() {
             </div>
           </div>
           
-          <h2 className="mt-4 text-xl font-bold text-gray-900">{studentData.firstName} {studentData.lastName}</h2>
+          <h2 className="mt-4 text-xl font-bold text-gray-900">{studentData.firstName} {studentData.middleName ? studentData.middleName + ' ' : ''}{studentData.lastName}</h2>
           <div className="flex items-center gap-2 mt-1 bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm font-medium border border-purple-100">
             <GraduationCap className="w-4 h-4" />
-            Registered Student
+            {studentData.studentType || 'Registered Student'} • {studentData.programType || 'N/A'}
           </div>
           
           <div className="w-full mt-8 space-y-4">
@@ -132,7 +132,7 @@ export default function StudentDashboard() {
                 <User className="w-5 h-5 text-gray-400" />
                 <div>
                   <p className="text-xs text-gray-400 font-medium">Full Name</p>
-                  <p className="font-semibold text-gray-900">{studentData.firstName} {studentData.lastName}</p>
+                  <p className="font-semibold text-gray-900">{studentData.firstName} {studentData.middleName ? studentData.middleName + ' ' : ''}{studentData.lastName}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-xl">
@@ -154,6 +154,27 @@ export default function StudentDashboard() {
                 <div>
                   <p className="text-xs text-gray-400 font-medium">Mobile Number</p>
                   <p className="font-semibold text-gray-900">{studentData.phone}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-xl">
+                <User className="w-5 h-5 text-gray-400" />
+                <div>
+                  <p className="text-xs text-gray-400 font-medium">Gender</p>
+                  <p className="font-semibold text-gray-900">{studentData.gender || 'N/A'}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-xl">
+                <User className="w-5 h-5 text-gray-400" />
+                <div>
+                  <p className="text-xs text-gray-400 font-medium">Category</p>
+                  <p className="font-semibold text-gray-900">{studentData.category || 'N/A'}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-xl sm:col-span-2 md:col-span-1">
+                <User className="w-5 h-5 text-gray-400" />
+                <div>
+                  <p className="text-xs text-gray-400 font-medium">Disability Type</p>
+                  <p className="font-semibold text-gray-900">{studentData.disabilityType || 'None'}</p>
                 </div>
               </div>
             </div>
