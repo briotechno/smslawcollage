@@ -208,7 +208,7 @@ export default function StudentSignup() {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.consent) {
       showToast({
         type: "error",
@@ -236,7 +236,7 @@ export default function StudentSignup() {
       });
       return;
     }
-    
+
     setIsLoading(true);
     try {
       const res = await fetch("/api/student/signup", {
@@ -245,7 +245,7 @@ export default function StudentSignup() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      
+
       if (data.success) {
         showToast({
           type: "success",
@@ -396,10 +396,10 @@ export default function StudentSignup() {
               Join the student portal today
             </p>
             {/* Demo Buttons */}
-            <div className="mt-4 flex flex-wrap gap-2">
+            {/* <div className="mt-4 flex flex-wrap gap-2">
               <button type="button" onClick={fillDummyOldStudent} className="px-3 py-1.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded-lg hover:bg-blue-200 transition-colors">Fill Old Student (Demo)</button>
               <button type="button" onClick={fillDummyNewStudent} className="px-3 py-1.5 bg-green-100 text-green-700 text-xs font-semibold rounded-lg hover:bg-green-200 transition-colors">Fill New Student (Demo)</button>
-            </div>
+            </div> */}
           </div>
 
           <form className="mt-8 space-y-5" onSubmit={handleSignup}>
@@ -408,7 +408,7 @@ export default function StudentSignup() {
               <div className="sm:col-span-2">
                 <h3 className="text-lg font-medium text-gray-900 border-b pb-2 mb-2">Program Information</h3>
               </div>
-              
+
               {/* Student Type */}
               <div>
                 <label htmlFor="studentType" className="block text-sm font-medium text-gray-700 mb-1">Student Type | વિદ્યાર્થીનો પ્રકાર</label>
@@ -417,7 +417,7 @@ export default function StudentSignup() {
                   name="studentType"
                   value={formData.studentType}
                   onChange={handleChange}
-                  options={[ {label: "New Student", value: "New Student"}, {label: "Old Student", value: "Old Student"} ]}
+                  options={[{ label: "New Student", value: "New Student" }, { label: "Old Student", value: "Old Student" }]}
                   placeholder="--Please Select--"
                   icon={UserPlus}
                 />
@@ -431,7 +431,7 @@ export default function StudentSignup() {
                   name="programType"
                   value={formData.programType}
                   onChange={handleChange}
-                  options={[ {label: "LLB", value: "LLB"}, {label: "LLM", value: "LLM"} ]}
+                  options={[{ label: "LLB", value: "LLB" }, { label: "LLM", value: "LLM" }]}
                   placeholder="--Please Select--"
                   icon={BookOpen}
                 />
@@ -476,12 +476,12 @@ export default function StudentSignup() {
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  options={[ 
-                    {label: "General", value: "General"}, 
-                    {label: "SEBC (OBC)", value: "SEBC (OBC)"},
-                    {label: "SC", value: "SC"},
-                    {label: "ST", value: "ST"},
-                    {label: "EWS", value: "EWS"}
+                  options={[
+                    { label: "General", value: "General" },
+                    { label: "SEBC (OBC)", value: "SEBC (OBC)" },
+                    { label: "SC", value: "SC" },
+                    { label: "ST", value: "ST" },
+                    { label: "EWS", value: "EWS" }
                   ]}
                   placeholder="--Please Select--"
                   icon={User}
@@ -496,10 +496,10 @@ export default function StudentSignup() {
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
-                  options={[ 
-                    {label: "Female", value: "Female"}, 
-                    {label: "Male", value: "Male"},
-                    {label: "Transgender", value: "Transgender"}
+                  options={[
+                    { label: "Female", value: "Female" },
+                    { label: "Male", value: "Male" },
+                    { label: "Transgender", value: "Transgender" }
                   ]}
                   placeholder="--Please Select--"
                   icon={User}
@@ -514,12 +514,12 @@ export default function StudentSignup() {
                   name="disabilityType"
                   value={formData.disabilityType}
                   onChange={handleChange}
-                  options={[ 
-                    {label: "None", value: "None"}, 
-                    {label: "Blindness and low vision", value: "Blindness and low vision"},
-                    {label: "Deaf and Hard of Hearing", value: "Deaf and Hard of Hearing"},
-                    {label: "Locomotors disabilities including cerebral palsy...", value: "Locomotors disabilities"},
-                    {label: "Autism, intellectual disability...", value: "Autism and others"}
+                  options={[
+                    { label: "None", value: "None" },
+                    { label: "Blindness and low vision", value: "Blindness and low vision" },
+                    { label: "Deaf and Hard of Hearing", value: "Deaf and Hard of Hearing" },
+                    { label: "Locomotors disabilities including cerebral palsy...", value: "Locomotors disabilities" },
+                    { label: "Autism, intellectual disability...", value: "Autism and others" }
                   ]}
                   placeholder="--Please Select--"
                   icon={User}
@@ -686,12 +686,12 @@ export default function StudentSignup() {
               <div className="sm:col-span-2 mt-4">
                 <label htmlFor="captcha" className="block text-sm font-medium text-gray-700 mb-1">Captcha | કેપ્ચા</label>
                 <div className="flex gap-4">
-                   <div className="flex-1 px-4 py-3 border border-gray-200 rounded-2xl bg-gray-50 flex items-center justify-between text-gray-700 font-medium shadow-inner">
-                     <span>Total of <span className="text-xl font-bold">{captcha.num1} + {captcha.num2}</span> =</span>
-                   </div>
-                   <div className="flex-1">
-                     <input id="captcha" type="number" required value={captchaInput} onChange={(e) => setCaptchaInput(e.target.value)} className="block w-full px-4 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="Answer" />
-                   </div>
+                  <div className="flex-1 px-4 py-3 border border-gray-200 rounded-2xl bg-gray-50 flex items-center justify-between text-gray-700 font-medium shadow-inner">
+                    <span>Total of <span className="text-xl font-bold">{captcha.num1} + {captcha.num2}</span> =</span>
+                  </div>
+                  <div className="flex-1">
+                    <input id="captcha" type="number" required value={captchaInput} onChange={(e) => setCaptchaInput(e.target.value)} className="block w-full px-4 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="Answer" />
+                  </div>
                 </div>
               </div>
 
@@ -709,7 +709,7 @@ export default function StudentSignup() {
                 </div>
                 <div className="ml-3 text-sm">
                   <label htmlFor="consent" className="font-medium text-gray-700 cursor-pointer">
-                    I hereby give my consent to communicate me about new initiatives of Education Department, Government of Gujarat through my Email ID and mobile number. <br/><span className="text-gray-500 text-xs">હું આ સાથે મારા ઈ-મેઈલ આઈડી અને મોબાઈલ નંબર પર શિક્ષણ વિભાગ, ગુજરાત સરકારના વિવિધ પ્રકલ્પોની મને જાણ કરવા માટેની સંમતિ આપું છું.</span>
+                    I hereby give my consent to communicate me about new initiatives of Education Department, Government of Gujarat through my Email ID and mobile number. <br /><span className="text-gray-500 text-xs">હું આ સાથે મારા ઈ-મેઈલ આઈડી અને મોબાઈલ નંબર પર શિક્ષણ વિભાગ, ગુજરાત સરકારના વિવિધ પ્રકલ્પોની મને જાણ કરવા માટેની સંમતિ આપું છું.</span>
                   </label>
                 </div>
               </div>
