@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     db = await connectDB();
 
     const [rows] = await db.execute(
-      "SELECT id, firstName, lastName, enrollmentNumber, abcId, hscRollNumber, email, phone, birthdate, addressLine1, addressLine2, state, district, pincode FROM students WHERE id = ?",
+      "SELECT id, studentType, programType, category, gender, disabilityType, firstName, middleName, lastName, enrollmentNumber, abcId, hscRollNumber, email, phone, birthdate, addressLine1, addressLine2, state, district, pincode FROM students WHERE id = ?",
       [decoded.id]
     );
 

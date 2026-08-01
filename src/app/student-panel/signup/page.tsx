@@ -92,10 +92,32 @@ export default function StudentSignup() {
     pincode: "",
     password: "",
     confirmPassword: "",
+    programType: "",
+    category: "",
+    gender: "",
+    disabilityType: "",
+    consent: false,
+    studentType: "",
+    middleName: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [captcha, setCaptcha] = useState({ num1: 0, num2: 0 });
+  const [captchaInput, setCaptchaInput] = useState("");
+
+  const generateCaptcha = () => {
+    setCaptcha({
+      num1: Math.floor(Math.random() * 90) + 10,
+      num2: Math.floor(Math.random() * 10) + 1,
+    });
+    setCaptchaInput("");
+  };
+
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
 
   const [statesList, setStatesList] = useState<any[]>([]);
   const [districtsList, setDistrictsList] = useState<string[]>([]);
@@ -128,8 +150,84 @@ export default function StudentSignup() {
     }
   };
 
+  const fillDummyOldStudent = () => {
+    setFormData({
+      studentType: "Old Student",
+      programType: "LLB",
+      firstName: "Rahul",
+      middleName: "Kumar",
+      lastName: "Sharma",
+      category: "General",
+      gender: "Male",
+      disabilityType: "None",
+      birthdate: "2000-01-01",
+      phone: "9876543210",
+      email: `oldstudent${Math.floor(Math.random() * 1000)}@test.com`,
+      enrollmentNumber: `ENR${Math.floor(Math.random() * 100000)}`,
+      abcId: "ABC123456",
+      hscRollNumber: "HSC98765",
+      addressLine1: "123 Main Street",
+      addressLine2: "Apt 4B",
+      state: "Gujarat",
+      district: "Ahmedabad",
+      pincode: "380001",
+      password: "password123",
+      confirmPassword: "password123",
+      consent: true,
+    });
+    setCaptchaInput((captcha.num1 + captcha.num2).toString());
+  };
+
+  const fillDummyNewStudent = () => {
+    setFormData({
+      studentType: "New Student",
+      programType: "LLB",
+      firstName: "Priya",
+      middleName: "Ben",
+      lastName: "Patel",
+      category: "SEBC (OBC)",
+      gender: "Female",
+      disabilityType: "None",
+      birthdate: "2002-05-15",
+      phone: "9123456780",
+      email: `newstudent${Math.floor(Math.random() * 1000)}@test.com`,
+      enrollmentNumber: "",
+      abcId: "ABC654321",
+      hscRollNumber: "HSC12345",
+      addressLine1: "456 Test Road",
+      addressLine2: "",
+      state: "Gujarat",
+      district: "Surat",
+      pincode: "395001",
+      password: "password123",
+      confirmPassword: "password123",
+      consent: true,
+    });
+    setCaptchaInput((captcha.num1 + captcha.num2).toString());
+  };
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.consent) {
+      showToast({
+        type: "error",
+        title: "Consent Required",
+        message: "You must give your consent to register."
+      });
+      return;
+    }
+
+    if (parseInt(captchaInput) !== captcha.num1 + captcha.num2) {
+      showToast({
+        type: "error",
+        title: "Invalid Captcha",
+        message: "Please enter the correct answer for the captcha."
+      });
+      generateCaptcha();
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       showToast({
         type: "error",
@@ -297,31 +395,135 @@ export default function StudentSignup() {
             <p className="mt-2 text-sm text-gray-600">
               Join the student portal today
             </p>
+            {/* Demo Buttons */}
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" onClick={fillDummyOldStudent} className="px-3 py-1.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded-lg hover:bg-blue-200 transition-colors">Fill Old Student (Demo)</button>
+              <button type="button" onClick={fillDummyNewStudent} className="px-3 py-1.5 bg-green-100 text-green-700 text-xs font-semibold rounded-lg hover:bg-green-200 transition-colors">Fill New Student (Demo)</button>
+            </div>
           </div>
 
           <form className="mt-8 space-y-5" onSubmit={handleSignup}>
             <div className="grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-5">
 
               <div className="sm:col-span-2">
+                <h3 className="text-lg font-medium text-gray-900 border-b pb-2 mb-2">Program Information</h3>
+              </div>
+              
+              {/* Student Type */}
+              <div>
+                <label htmlFor="studentType" className="block text-sm font-medium text-gray-700 mb-1">Student Type | વિદ્યાર્થીનો પ્રકાર</label>
+                <CustomSelect
+                  id="studentType"
+                  name="studentType"
+                  value={formData.studentType}
+                  onChange={handleChange}
+                  options={[ {label: "New Student", value: "New Student"}, {label: "Old Student", value: "Old Student"} ]}
+                  placeholder="--Please Select--"
+                  icon={UserPlus}
+                />
+              </div>
+
+              {/* Program Type */}
+              <div>
+                <label htmlFor="programType" className="block text-sm font-medium text-gray-700 mb-1">Program Type | કોર્સ/પ્રોગ્રામ પ્રકાર</label>
+                <CustomSelect
+                  id="programType"
+                  name="programType"
+                  value={formData.programType}
+                  onChange={handleChange}
+                  options={[ {label: "LLB", value: "LLB"}, {label: "LLM", value: "LLM"} ]}
+                  placeholder="--Please Select--"
+                  icon={BookOpen}
+                />
+              </div>
+
+              <div className="sm:col-span-2 mt-4">
                 <h3 className="text-lg font-medium text-gray-900 border-b pb-2 mb-2">Personal Details</h3>
               </div>
 
               {/* First Name */}
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name (Surname)</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><User className="h-5 w-5 text-gray-400" /></div>
-                  <input id="firstName" name="firstName" type="text" required value={formData.firstName} onChange={handleChange} className="block w-full pl-11 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="John" />
+                  <input id="firstName" name="firstName" type="text" required value={formData.firstName} onChange={handleChange} className="block w-full pl-11 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="Surname" />
+                </div>
+              </div>
+
+              {/* Middle Name */}
+              <div>
+                <label htmlFor="middleName" className="block text-sm font-medium text-gray-700 mb-1">Middle Name</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><User className="h-5 w-5 text-gray-400" /></div>
+                  <input id="middleName" name="middleName" type="text" value={formData.middleName} onChange={handleChange} className="block w-full pl-11 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="Middle Name" />
                 </div>
               </div>
 
               {/* Last Name */}
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+              <div className="sm:col-span-2">
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name (Father Name)</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><User className="h-5 w-5 text-gray-400" /></div>
-                  <input id="lastName" name="lastName" type="text" required value={formData.lastName} onChange={handleChange} className="block w-full pl-11 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="Doe" />
+                  <input id="lastName" name="lastName" type="text" required value={formData.lastName} onChange={handleChange} className="block w-full pl-11 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="Father Name" />
                 </div>
+              </div>
+
+              {/* Category */}
+              <div>
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Category | કેટેગરી</label>
+                <CustomSelect
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  options={[ 
+                    {label: "General", value: "General"}, 
+                    {label: "SEBC (OBC)", value: "SEBC (OBC)"},
+                    {label: "SC", value: "SC"},
+                    {label: "ST", value: "ST"},
+                    {label: "EWS", value: "EWS"}
+                  ]}
+                  placeholder="--Please Select--"
+                  icon={User}
+                />
+              </div>
+
+              {/* Gender */}
+              <div>
+                <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">Gender | જાતિ</label>
+                <CustomSelect
+                  id="gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  options={[ 
+                    {label: "Female", value: "Female"}, 
+                    {label: "Male", value: "Male"},
+                    {label: "Transgender", value: "Transgender"}
+                  ]}
+                  placeholder="--Please Select--"
+                  icon={User}
+                />
+              </div>
+
+              {/* Types of Disability */}
+              <div className="sm:col-span-2">
+                <label htmlFor="disabilityType" className="block text-sm font-medium text-gray-700 mb-1">Types of Disability | દિવ્યાંગતાનો પ્રકાર</label>
+                <CustomSelect
+                  id="disabilityType"
+                  name="disabilityType"
+                  value={formData.disabilityType}
+                  onChange={handleChange}
+                  options={[ 
+                    {label: "None", value: "None"}, 
+                    {label: "Blindness and low vision", value: "Blindness and low vision"},
+                    {label: "Deaf and Hard of Hearing", value: "Deaf and Hard of Hearing"},
+                    {label: "Locomotors disabilities including cerebral palsy...", value: "Locomotors disabilities"},
+                    {label: "Autism, intellectual disability...", value: "Autism and others"}
+                  ]}
+                  placeholder="--Please Select--"
+                  icon={User}
+                />
               </div>
 
               {/* Birthdate */}
@@ -356,16 +558,18 @@ export default function StudentSignup() {
               </div>
 
               {/* Enrollment Number */}
-              <div>
-                <label htmlFor="enrollmentNumber" className="block text-sm font-medium text-gray-700 mb-1">Enrollment Number</label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Hash className="h-5 w-5 text-gray-400" /></div>
-                  <input id="enrollmentNumber" name="enrollmentNumber" type="text" required value={formData.enrollmentNumber} onChange={handleChange} className="block w-full pl-11 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="e.g. 1234567890" />
+              {formData.studentType === "Old Student" && (
+                <div className="sm:col-span-2">
+                  <label htmlFor="enrollmentNumber" className="block text-sm font-medium text-gray-700 mb-1">Enrollment Number</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Hash className="h-5 w-5 text-gray-400" /></div>
+                    <input id="enrollmentNumber" name="enrollmentNumber" type="text" required value={formData.enrollmentNumber} onChange={handleChange} className="block w-full pl-11 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="e.g. 1234567890" />
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* ABC ID */}
-              <div>
+              <div className="sm:col-span-2">
                 <label htmlFor="abcId" className="block text-sm font-medium text-gray-700 mb-1">ABC (Apar ID)</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><CreditCard className="h-5 w-5 text-gray-400" /></div>
@@ -475,6 +679,38 @@ export default function StudentSignup() {
                   >
                     {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
+                </div>
+              </div>
+
+              {/* Captcha */}
+              <div className="sm:col-span-2 mt-4">
+                <label htmlFor="captcha" className="block text-sm font-medium text-gray-700 mb-1">Captcha | કેપ્ચા</label>
+                <div className="flex gap-4">
+                   <div className="flex-1 px-4 py-3 border border-gray-200 rounded-2xl bg-gray-50 flex items-center justify-between text-gray-700 font-medium shadow-inner">
+                     <span>Total of <span className="text-xl font-bold">{captcha.num1} + {captcha.num2}</span> =</span>
+                   </div>
+                   <div className="flex-1">
+                     <input id="captcha" type="number" required value={captchaInput} onChange={(e) => setCaptchaInput(e.target.value)} className="block w-full px-4 py-3.5 text-base text-gray-900 placeholder-gray-400 border border-gray-200 rounded-2xl bg-white hover:border-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all duration-200 shadow-sm" placeholder="Answer" />
+                   </div>
+                </div>
+              </div>
+
+              {/* Consent */}
+              <div className="sm:col-span-2 mt-6 flex items-start bg-purple-50/50 p-4 rounded-xl border border-purple-100">
+                <div className="flex items-center h-5 mt-1">
+                  <input
+                    id="consent"
+                    name="consent"
+                    type="checkbox"
+                    checked={formData.consent}
+                    onChange={(e) => setFormData(prev => ({ ...prev, consent: e.target.checked }))}
+                    className="focus:ring-purple-500 h-5 w-5 text-purple-600 border-gray-300 rounded cursor-pointer"
+                  />
+                </div>
+                <div className="ml-3 text-sm">
+                  <label htmlFor="consent" className="font-medium text-gray-700 cursor-pointer">
+                    I hereby give my consent to communicate me about new initiatives of Education Department, Government of Gujarat through my Email ID and mobile number. <br/><span className="text-gray-500 text-xs">હું આ સાથે મારા ઈ-મેઈલ આઈડી અને મોબાઈલ નંબર પર શિક્ષણ વિભાગ, ગુજરાત સરકારના વિવિધ પ્રકલ્પોની મને જાણ કરવા માટેની સંમતિ આપું છું.</span>
+                  </label>
                 </div>
               </div>
             </div>

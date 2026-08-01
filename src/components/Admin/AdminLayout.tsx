@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   FaTachometerAlt, // Dashboard
   FaTrophy,         // Achievements
@@ -13,6 +14,7 @@ import {
   FaHandsHelping,   // Legal Aid Clinic
   FaClipboardList,
   FaSignOutAlt,  // Requirements
+  FaUserGraduate,
 } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useToast } from "../Toast/ToastProvider";
@@ -252,6 +254,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
 
   const menuItems = [
     { name: "Dashboard", icon: <FaTachometerAlt />, href: "/admin/dashboard" },
+    { name: "Registered Students", icon: <FaUserGraduate />, href: "/admin/students" },
     { name: "Achievements", icon: <FaTrophy />, href: "/admin/achievements" },
     //{ name: "Admission", icon: <FaUniversity />, href: "#" },
     { name: "Calendar Events", icon: <FaCalendarAlt />, href: "/admin/Calendar" },
@@ -374,11 +377,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
               pathname === item.href ||
               (item.href !== "#" && pathname.startsWith(item.href));
             return (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 title={item.name}
-                className={`group flex items-center ${sidebarCollapsed ? "justify-center px-2" : "gap-3 px-3"
+                className={`group flex items-center !cursor-pointer ${sidebarCollapsed ? "justify-center px-2" : "gap-3 px-3"
                   } py-2 rounded-md transition-all duration-200 
                   ${active
                     ? "bg-white text-purple-700 shadow-sm"
@@ -395,7 +398,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
                 >
                   {item.name}
                 </span>
-              </a>
+              </Link>
             );
           })}
         </nav>
